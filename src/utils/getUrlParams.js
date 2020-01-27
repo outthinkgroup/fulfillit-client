@@ -1,3 +1,5 @@
+import isBrowser from "./isBrowser"
+
 function toQueryString(data) {
   const urlSearhParams = new URLSearchParams(data)
   const queryString = urlSearhParams.toString()
@@ -6,17 +8,20 @@ function toQueryString(data) {
 
 function getUrlVars() {
   var vars = {}
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
-    m,
-    key,
-    value
-  ) {
-    vars[key] = value
-  })
+  if (isBrowser()) {
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
+      m,
+      key,
+      value
+    ) {
+      vars[key] = value
+    })
+  }
   return vars
 }
 
 export default function getUrlParam(parameter, defaultvalue) {
+  if (!isBrowser()) return
   var urlparameter = defaultvalue
   if (window.location.href.indexOf(parameter) > -1) {
     urlparameter = getUrlVars()[parameter]
