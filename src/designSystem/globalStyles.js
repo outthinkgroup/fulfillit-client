@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
 
@@ -29,11 +29,11 @@ h3,
 h4,
 h5,
 h6,
-nav a {
+nav a, nav .link {
   letter-spacing: -0.2px;
 }
 
-a {
+a, .link {
   text-decoration: none;
   color: var(--primary-color);
 }
@@ -97,4 +97,4 @@ a {
   textarea{
     resize:none;
   }
-  `;
+  `

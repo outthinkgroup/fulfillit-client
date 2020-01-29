@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react"
+import styled from "styled-components"
 
 const CampaignDetails = ({ form, updateForm, className }) => {
   return (
@@ -12,20 +12,23 @@ const CampaignDetails = ({ form, updateForm, className }) => {
           <input
             type="text"
             onChange={updateForm}
-            name="name"
+            name="title"
             id="name"
-            value={form.name}
+            value={form.title}
           />
         </label>
         <label htmlFor="email">
           <span>Campaign Email</span>
-          <input
-            type="text"
-            onChange={updateForm}
-            name="email"
-            id="email"
-            value={form.email}
-          />
+          <span className="emailField">
+            <input
+              type="text"
+              onChange={updateForm}
+              name="title"
+              id="email"
+              value={form.title}
+            />
+            @mg.taskcannon.co
+          </span>
         </label>
         <label htmlFor="service">
           <span>Email Marketing Service</span>
@@ -76,8 +79,8 @@ const CampaignDetails = ({ form, updateForm, className }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default styled(CampaignDetails)`
   position: relative;
@@ -91,11 +94,11 @@ export default styled(CampaignDetails)`
     }
   }
   label {
-    margin-bottom: 27px;
+    margin-bottom: 37px;
 
-    justify-content: space-between;
+    /* justify-content: space-between;
     display: flex;
-    align-content: center;
+    align-content: center; */
     height: 100%;
     span {
       display: flex;
@@ -104,5 +107,8 @@ export default styled(CampaignDetails)`
       font-size: 20px;
       font-weight: 300;
     }
+    .emailField {
+      display: flex;
+    }
   }
-`;
+`

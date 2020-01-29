@@ -1,21 +1,26 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 
 import Card from "../elements/Card"
 import Icon from "../elements/Icon"
+import EditCampaign from "./EditCampaign"
+import { LocalContext } from "../utils/LocalContext"
 
 const CampaignCard = ({
   className,
   id,
-  name,
-  emailAddress,
-  dateCreated,
-  transactions,
-  state,
+  title,
+  date,
+  transactions = 0,
+  state = "running",
 }) => {
   const [showActions, setShowActions] = useState(false)
-
+  const dateFormated = `${new Date(date).getMonth() + 1}/${new Date(
+    date
+  ).getDate()}/${new Date(date).getFullYear()}`
+  const emailAddress = `${title}@mg.taskcannon.co`
+  const { localState, setLocalState } = useContext(LocalContext)
   return (
     <Card depth="low" className={className}>
       <div
@@ -25,18 +30,22 @@ const CampaignCard = ({
         <div className="top-section">
           <div className="title">
             <p className="tag">{state}</p>
-            <h3>{name}</h3>
+            <h3>{title}</h3>
+            <p>{emailAddress}</p>
           </div>
           <div className="actions-group">
             {showActions && (
               <div className="actions">
-                <Link
-                  to={`/dashboard?campaign_id="${id}"`}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLocalState({ ...localState, isSideBarOpen: true })
+                  }
                   className="edit"
                   title="Edit"
                 >
                   <Icon name="edit" color="white" />
-                </Link>
+                </button>
                 <span className="analytics" title="Analytics">
                   <Icon name="chart" color="white" />
                 </span>
@@ -50,7 +59,7 @@ const CampaignCard = ({
         <div className="info">
           <div className="info-section">
             <p>Date Created</p>
-            <span className="value">{dateCreated}</span>
+            <span className="value">{dateFormated}</span>
           </div>
           <div className="info-section">
             <p>Total Transactions</p>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 
@@ -6,6 +6,7 @@ import CampaignDetails from "./CampaignDetails"
 import useForm from "../utils/useForm"
 import Icon from "../elements/Icon"
 import { FORM_DEFAULT_STATE } from "./NewCampaignWizard"
+import { LocalContext } from "../utils/LocalContext"
 
 const EditCampaign = ({ className }) => {
   const campaign = {
@@ -33,17 +34,26 @@ const EditCampaign = ({ className }) => {
   }
 
   const [form, updateForm] = useForm({
-    ...Object.assign(formFields, campaign.settings),
+    ...formFields,
   })
+
+  const { localState, setLocalState } = useContext(LocalContext)
+
   return (
     <form className={className}>
       <CampaignDetails form={form} updateForm={updateForm} />
       <div className="bottom-bar">
         <div>
           <input type="submit" value="save" className="save" />
-          <Link to="/dashboard">
-            <a className="btn cancel">cancel</a>
-          </Link>
+          <button
+            type="button"
+            onClick={() =>
+              setLocalState({ ...localState, isSideBarOpen: false })
+            }
+            className="btn cancel"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </form>

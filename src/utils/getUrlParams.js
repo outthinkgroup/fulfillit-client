@@ -21,10 +21,11 @@ function getUrlVars() {
 }
 
 export default function getUrlParam(parameter, defaultvalue) {
-  if (!isBrowser()) return
   var urlparameter = defaultvalue
-  if (window.location.href.indexOf(parameter) > -1) {
-    urlparameter = getUrlVars()[parameter]
+  if (isBrowser()) {
+    if (window.location.href.indexOf(parameter) > -1) {
+      urlparameter = getUrlVars()[parameter]
+    }
   }
   return urlparameter
 }
