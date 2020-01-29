@@ -1,60 +1,60 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useTransition, animated } from "react-spring";
+import React, { useState } from "react"
+import styled from "styled-components"
+import { useTransition, animated } from "react-spring"
 
-import Card from "../elements/Card";
-import NavigationProgress from "./NavigationProgress";
-import { allFieldsHaveData } from "../utils/formValidation";
+import Card from "../elements/Card"
+import NavigationProgress from "./NavigationProgress"
+import { allFieldsHaveData } from "../utils/formValidation"
 
 export const FORM_DEFAULT_STATE = {
   general: {
     name: "",
     email: "",
-    description: ""
+    description: "",
   },
   mailservice: {
-    mailservice: ""
+    mailservice: "",
   },
   mailserviceInfo: {
     api_key: "",
     list_id: "",
-    group_id: ""
+    group_id: "",
   },
   finish: {
-    state: ""
-  }
-};
+    state: "",
+  },
+}
 
 const NewCampaignWizard = ({ className }) => {
-  const cards = ["general", "mailservice", "mailserviceInfo", "finish"];
+  const cards = ["general", "mailservice", "mailserviceInfo", "finish"]
 
-  const [formData, setFormData] = useState(FORM_DEFAULT_STATE);
+  const [formData, setFormData] = useState(FORM_DEFAULT_STATE)
 
   function updateFormData(e) {
-    const { name, value, dataset } = e.target;
+    const { name, value, dataset } = e.target
     setFormData({
       ...formData,
       [dataset.cardname]: {
         ...formData[dataset.cardname],
-        [name]: value
-      }
-    });
+        [name]: value,
+      },
+    })
   }
 
-  const [currentCard, setCurrentCard] = useState(0);
+  const [currentCard, setCurrentCard] = useState(0)
   function nextCard(e) {
-    e.preventDefault();
+    e.preventDefault()
     if (currentCard === cards.length - 1) {
-      return;
+      return
     } else {
-      tryToGoToCard(currentCard + 1);
+      tryToGoToCard(currentCard + 1)
     }
   }
   function tryToGoToCard(cardIndex) {
-    const previousCard = currentCard > cardIndex;
-    const cardIsComplete = allFieldsHaveData(cards[currentCard], formData);
+    const previousCard = currentCard > cardIndex
+    const cardIsComplete = allFieldsHaveData(cards[currentCard], formData)
     if (cardIsComplete || previousCard) {
-      setCurrentCard(cardIndex);
+      setCurrentCard(cardIndex)
     }
   }
 
@@ -62,13 +62,13 @@ const NewCampaignWizard = ({ className }) => {
     from: {
       position: "absolute",
       opacity: 0,
-      transform: "translateX(-400px)"
+      transform: "translateX(-400px)",
     },
     enter: { opacity: 1, transform: "translateX(0px)" },
-    leave: { opacity: 0, transform: "translateX(400px)" }
-  });
+    leave: { opacity: 0, transform: "translateX(400px)" },
+  })
 
-  const { general, mailservice, mailserviceInfo, finish } = formData;
+  const { general, mailservice, mailserviceInfo, finish } = formData
   return (
     <div className={className}>
       <NavigationProgress
@@ -207,20 +207,20 @@ const NewCampaignWizard = ({ className }) => {
                 <label htmlFor="publish">
                   <span className="label-text">Publish campaign</span>
                   <select>
-                    <option value="running">start immediately</option>
-                    <option value="paused">pause</option>
+                    <option value="publish">Publish</option>
+                    <option value="draft">pause</option>
                   </select>
                 </label>
 
-                <input type="submit" value="publish" />
+                <input type="submit" value="Create Campaign" />
               </div>
             </WizardCard>
           )
         )}
       </form>
     </div>
-  );
-};
+  )
+}
 
 export default styled(NewCampaignWizard)`
   max-width: 475px;
@@ -247,7 +247,7 @@ export default styled(NewCampaignWizard)`
     display: flex;
     justify-content: flex-end;
   }
-`;
+`
 const WizardCard = styled(animated.div)`
   width: 100%;
   padding: 20px;
@@ -265,4 +265,4 @@ const WizardCard = styled(animated.div)`
       margin-top: 0px;
     }
   }
-`;
+`

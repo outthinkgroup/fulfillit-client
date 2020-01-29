@@ -1,47 +1,71 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { gql } from "apollo-boost"
 
 import CampaignDetails from "./CampaignDetails"
+import getUrlParam from "../utils/getUrlParams"
 import useForm from "../utils/useForm"
 import Icon from "../elements/Icon"
 import { FORM_DEFAULT_STATE } from "./NewCampaignWizard"
 import { LocalContext } from "../utils/LocalContext"
+import { useQuery } from "@apollo/react-hooks"
+
+export const SINGLE_CAMPAIGN = gql`
+  query SINGLE_CAMPAIGN($id: ID!) {
+    campaign(id: $id, idType: ID) {
+      id
+      status
+      title(format: RAW)
+      date
+      campaignOptions {
+        description
+        emailMarketingService
+        name
+        serviceApiKey
+        serviceGroupId
+        serviceListId
+      }
+    }
+  }
+`
 
 const EditCampaign = ({ className }) => {
-  const campaign = {
-    id: 3,
-    dateCreated: "5/30/2027",
-    settings: {
-      name: "third Campaign",
-      email: "book@mg.taskcannon.co",
-      service: "Mailchimp",
-    },
-  }
-
   const formFields = {
     name: "",
     email: "",
+    description: "",
     service: "",
 
-    mailchimpApiKey: "",
-    mailchimpListId: "",
-    mailchimpGroupId: "",
+    EmailServiceApiKey: "",
+    EmailServiceListId: "",
+    EmailServiceGroupId: "",
 
-    singleEmailSubject: "",
-    singleEmailBody: "",
-    singleEmailAttachment: "",
+    campaignState: "",
   }
-
-  const [form, updateForm] = useForm({
-    ...formFields,
+  console.log(getUrlParam("campaign_id"))
+  const { data, loading, error } = useQuery(SINGLE_CAMPAIGN, {
+    variables: {
+      id: getUrlParam("campaign_id"),
+    },
   })
+  const [form, updateForm, setForm] = useForm({})
 
+  useEffect(() => {
+    if (data) {
+      const { id, title, state, campaignOptions } = data.campaign
+      setForm({ id, title, state, ...campaignOptions })
+    }
+  }, [data])
   const { localState, setLocalState } = useContext(LocalContext)
 
   return (
-    <form className={className}>
-      <CampaignDetails form={form} updateForm={updateForm} />
+    <form className={className} onSubmit={e => e.preventDefault()}>
+      {loading ? (
+        "loading..."
+      ) : (
+        <CampaignDetails form={form} updateForm={updateForm} />
+      )}
       <div className="bottom-bar">
         <div>
           <input type="submit" value="save" className="save" />

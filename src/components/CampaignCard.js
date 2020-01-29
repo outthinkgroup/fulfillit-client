@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 import Card from "../elements/Card"
 import Icon from "../elements/Icon"
@@ -10,16 +10,16 @@ import { LocalContext } from "../utils/LocalContext"
 const CampaignCard = ({
   className,
   id,
-  title,
+  status,
   date,
-  transactions = 0,
-  state = "running",
+  email,
+  campaignOptions,
 }) => {
   const [showActions, setShowActions] = useState(false)
   const dateFormated = `${new Date(date).getMonth() + 1}/${new Date(
     date
   ).getDate()}/${new Date(date).getFullYear()}`
-  const emailAddress = `${title}@mg.taskcannon.co`
+  const emailAddress = `${email}@mg.taskcannon.co`
   const { localState, setLocalState } = useContext(LocalContext)
   return (
     <Card depth="low" className={className}>
@@ -29,8 +29,8 @@ const CampaignCard = ({
       >
         <div className="top-section">
           <div className="title">
-            <p className="tag">{state}</p>
-            <h3>{title}</h3>
+            <p className="tag">{status}</p>
+            <h3>{campaignOptions.name}</h3>
             <p>{emailAddress}</p>
           </div>
           <div className="actions-group">
@@ -38,9 +38,10 @@ const CampaignCard = ({
               <div className="actions">
                 <button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
+                    navigate(`/dashboard?campaign_id=${id}`)
                     setLocalState({ ...localState, isSideBarOpen: true })
-                  }
+                  }}
                   className="edit"
                   title="Edit"
                 >
@@ -63,7 +64,7 @@ const CampaignCard = ({
           </div>
           <div className="info-section">
             <p>Total Transactions</p>
-            <span className="value">{transactions}</span>
+            <span className="value">{0}</span>
           </div>
         </div>
       </div>

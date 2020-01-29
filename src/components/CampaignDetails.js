@@ -14,7 +14,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="title"
             id="name"
-            value={form.title}
+            value={form.name}
           />
         </label>
         <label htmlFor="email">
@@ -36,48 +36,59 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             name="service"
             onChange={updateForm}
             id="service"
-            selected={form.service}
+            selected={form.emailMarketingService}
           >
-            <option value="MailGun">Mail gun</option>
-            <option value="Mailchimp">Mailchimp</option>
+            <option value="">choose a email marketing service</option>
+            <option value="mailchimp">mailchimp</option>
+            <option value="mailgun">mailgun</option>
+            <option value="converkit">converkit</option>
           </select>
         </label>
       </div>
-      {form.service == "Mailchimp" && (
-        <div className="form-section">
-          <h3>Mailchimp Settings</h3>
-          <label htmlFor="mc_api_key">
-            <span>Mailchimp Api Key</span>
-            <input
-              type="text"
-              onChange={updateForm}
-              name="mailchimpApiKey"
-              id="mc_api_key"
-              value={form.mailchimpApiKey}
-            />
-          </label>
-          <label htmlFor="mc_list_id">
-            <span>Mailchimp List Id</span>
-            <input
-              type="text"
-              onChange={updateForm}
-              name="mailchimpListId"
-              id="mc_list_id"
-              value={form.mailchimpListId}
-            />
-          </label>
-          <label htmlFor="mc_group_id">
-            <span>Mailchimp Group Id</span>
-            <input
-              type="text"
-              onChange={updateForm}
-              name="mailchimpGroupId"
-              id="mc_group_id"
-              value={form.mailchimpGroupId}
-            />
-          </label>
-        </div>
-      )}
+
+      <div className="form-section">
+        <h3>Mailchimp Settings</h3>
+        <label htmlFor="mc_api_key">
+          <span>Mailchimp Api Key</span>
+          <input
+            type="text"
+            onChange={updateForm}
+            name="serviceApiKey"
+            id="mc_api_key"
+            value={form.serviceApiKey}
+          />
+        </label>
+        <label htmlFor="mc_list_id">
+          <span>Mailchimp List Id</span>
+          <input
+            type="text"
+            onChange={updateForm}
+            name="serviceListId"
+            id="mc_list_id"
+            value={form.serviceListId}
+          />
+        </label>
+        <label htmlFor="mc_group_id">
+          <span>Mailchimp Group Id</span>
+          <input
+            type="text"
+            onChange={updateForm}
+            name="serviceGroupId"
+            id="mc_group_id"
+            value={form.serviceGroupId}
+          />
+        </label>
+      </div>
+      <div className="form-section">
+        <h3>Publish</h3>
+        <label>
+          <span>Publish or Pause</span>
+          <select>
+            <option value="publish">Publish</option>
+            <option value="draft">Pause</option>
+          </select>
+        </label>
+      </div>
     </div>
   )
 }
