@@ -21,13 +21,28 @@ export const CAMPAIGNS = gql`
           }
         }
       }
+      draftCampaigns: campaigns(where: { status: DRAFT }) {
+        nodes {
+          status
+          id
+          date
+          email: title(format: RENDERED)
+          campaignOptions {
+            name
+            emailMarketingService
+            description
+          }
+        }
+      }
     }
   }
 `
 const CampaignList = ({ className }) => {
   const { data, loading, error } = useQuery(CAMPAIGNS)
 
-  const campaigns = data ? data.viewer.campaigns.nodes : []
+  const campaigns = data
+    ? [...data.viewer.campaigns.nodes, ...data.viewer.draftCampaigns.nodes]
+    : []
   return (
     <div className={className}>
       <ul>

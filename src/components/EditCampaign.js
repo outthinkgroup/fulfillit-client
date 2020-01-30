@@ -9,15 +9,17 @@ import useForm from "../utils/useForm"
 import Icon from "../elements/Icon"
 import { FORM_DEFAULT_STATE } from "./NewCampaignWizard"
 import { LocalContext } from "../utils/LocalContext"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
+import { CAMPAIGNS } from "./CampaignList"
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {
     campaign(id: $id, idType: ID) {
       id
       status
-      title(format: RAW)
+      email: title(format: RAW)
       date
+      databaseId
       campaignOptions {
         description
         emailMarketingService
@@ -29,39 +31,82 @@ export const SINGLE_CAMPAIGN = gql`
     }
   }
 `
+export const UPDATE_CAMPAIGN = gql`
+  mutation UPDATE_CAMPAIGN(
+    $databaseId: String!
+    $email: String
+    $emailMarketingService: String
+    $name: String
+    $serviceApiKey: String
+    $serviceGroupId: String
+    $serviceListId: String
+    $description: String
+    $status: String
+  ) {
+    updateCampaignById(
+      input: {
+        clientMutationId: "asdfasdf"
+        databaseId: $databaseId
+        description: $description
+        email: $email
+        emailMarketingService: $emailMarketingService
+        name: $name
+        serviceApiKey: $serviceApiKey
+        serviceGroupId: $serviceGroupId
+        serviceListId: $serviceListId
+        status: $status
+      }
+    ) {
+      campaign {
+        id
+        databaseId
+        email: title
+        date
+        campaignOptions {
+          description
+          emailMarketingService
+          name
+          serviceApiKey
+          serviceGroupId
+          serviceListId
+        }
+      }
+    }
+  }
+`
 
 const EditCampaign = ({ className }) => {
-  const formFields = {
-    name: "",
-    email: "",
-    description: "",
-    service: "",
-
-    EmailServiceApiKey: "",
-    EmailServiceListId: "",
-    EmailServiceGroupId: "",
-
-    campaignState: "",
-  }
-  console.log(getUrlParam("campaign_id"))
+  const { localState, setLocalState } = useContext(LocalContext)
   const { data, loading, error } = useQuery(SINGLE_CAMPAIGN, {
     variables: {
       id: getUrlParam("campaign_id"),
     },
   })
   const [form, updateForm, setForm] = useForm({})
+  const [updateCampaign, updatedData] = useMutation(UPDATE_CAMPAIGN, {
+    variables: { ...form },
+    refetchQueries: ["CAMPAIGNS"],
+    onCompleted() {
+      setLocalState({ ...localState, isSideBarOpen: false })
+    },
+  })
 
   useEffect(() => {
     if (data) {
-      const { id, title, state, campaignOptions } = data.campaign
-      setForm({ id, title, state, ...campaignOptions })
+      const { id, email, status, campaignOptions, databaseId } = data.campaign
+      setForm({ id, email, databaseId, status, ...campaignOptions })
     }
   }, [data])
-  const { localState, setLocalState } = useContext(LocalContext)
 
   return (
-    <form className={className} onSubmit={e => e.preventDefault()}>
-      {loading ? (
+    <form
+      className={className}
+      onSubmit={e => {
+        e.preventDefault()
+        updateCampaign()
+      }}
+    >
+      {loading || updatedData.loading ? (
         "loading..."
       ) : (
         <CampaignDetails form={form} updateForm={updateForm} />
@@ -70,7 +115,7 @@ const EditCampaign = ({ className }) => {
         <div>
           <input type="submit" value="save" className="save" />
           <button
-            type="button"
+            type="submit"
             onClick={() =>
               setLocalState({ ...localState, isSideBarOpen: false })
             }

@@ -12,9 +12,9 @@ const CampaignDetails = ({ form, updateForm, className }) => {
           <input
             type="text"
             onChange={updateForm}
-            name="title"
+            name="name"
             id="name"
-            value={form.name}
+            value={form.name || ""}
           />
         </label>
         <label htmlFor="email">
@@ -23,9 +23,9 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             <input
               type="text"
               onChange={updateForm}
-              name="title"
+              name="email"
               id="email"
-              value={form.title}
+              value={form.email || ""}
             />
             @mg.taskcannon.co
           </span>
@@ -33,10 +33,10 @@ const CampaignDetails = ({ form, updateForm, className }) => {
         <label htmlFor="service">
           <span>Email Marketing Service</span>
           <select
-            name="service"
+            name="emailMarketingService"
             onChange={updateForm}
             id="service"
-            selected={form.emailMarketingService}
+            value={form.emailMarketingService || ""}
           >
             <option value="">choose a email marketing service</option>
             <option value="mailchimp">mailchimp</option>
@@ -55,7 +55,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceApiKey"
             id="mc_api_key"
-            value={form.serviceApiKey}
+            value={form.serviceApiKey || ""}
           />
         </label>
         <label htmlFor="mc_list_id">
@@ -65,7 +65,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceListId"
             id="mc_list_id"
-            value={form.serviceListId}
+            value={form.serviceListId || ""}
           />
         </label>
         <label htmlFor="mc_group_id">
@@ -75,7 +75,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceGroupId"
             id="mc_group_id"
-            value={form.serviceGroupId}
+            value={form.serviceGroupId || ""}
           />
         </label>
       </div>
@@ -83,7 +83,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
         <h3>Publish</h3>
         <label>
           <span>Publish or Pause</span>
-          <select>
+          <select value={form.status} onChange={updateForm} name="status">
             <option value="publish">Publish</option>
             <option value="draft">Pause</option>
           </select>

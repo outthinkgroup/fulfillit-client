@@ -5,6 +5,8 @@ import { useTransition, animated } from "react-spring"
 import Card from "../elements/Card"
 import NavigationProgress from "./NavigationProgress"
 import { allFieldsHaveData } from "../utils/formValidation"
+import { gql } from "apollo-boost"
+import { useMutation } from "@apollo/react-hooks"
 
 export const FORM_DEFAULT_STATE = {
   general: {
@@ -13,25 +15,83 @@ export const FORM_DEFAULT_STATE = {
     description: "",
   },
   mailservice: {
-    mailservice: "",
+    emailMarketingService: "",
   },
   mailserviceInfo: {
-    api_key: "",
-    list_id: "",
-    group_id: "",
+    serviceApiKey: "",
+    serviceListId: "",
+    serviceGroupId: "",
   },
   finish: {
-    state: "",
+    status: "",
   },
 }
 
+const NEW_CAMPAIGN = gql`
+  mutation NEW_CAMPAIGN(
+    $email: String
+    $emailMarketingService: String
+    $name: String
+    $serviceApiKey: String
+    $serviceGroupId: String
+    $serviceListId: String
+    $description: String
+    $status: String
+  ) {
+    newCampaign(
+      input: {
+        clientMutationId: "qweqweqwe"
+        email: $email
+        emailMarketingService: $emailMarketingService
+        name: $name
+        serviceApiKey: $serviceApiKey
+        serviceGroupId: $serviceGroupId
+        serviceListId: $serviceListId
+        description: $description
+        status: $status
+      }
+    ) {
+      campaign {
+        id
+        databaseId
+        email: title
+        date
+        campaignOptions {
+          description
+          emailMarketingService
+          name
+          serviceApiKey
+          serviceGroupId
+          serviceListId
+        }
+      }
+    }
+  }
+`
+
 const NewCampaignWizard = ({ className }) => {
   const cards = ["general", "mailservice", "mailserviceInfo", "finish"]
-
   const [formData, setFormData] = useState(FORM_DEFAULT_STATE)
+  const { general, mailservice, mailserviceInfo, finish } = formData
+  const [createNewCampaign, { data, loading, error }] = useMutation(
+    NEW_CAMPAIGN,
+    {
+      variables: {
+        email: general.email,
+        name: general.name,
+        description: general.description,
+        emailMarketingService: mailservice.emailMarketingService,
+        serviceApiKey: mailserviceInfo.serviceApiKey,
+        serviceGroupId: mailserviceInfo.serviceGroupId,
+        serviceListId: mailserviceInfo.serviceListId,
+        status: finish.status,
+      },
+    }
+  )
 
   function updateFormData(e) {
     const { name, value, dataset } = e.target
+    console.log({ name, value, formData: { finish } })
     setFormData({
       ...formData,
       [dataset.cardname]: {
@@ -68,7 +128,6 @@ const NewCampaignWizard = ({ className }) => {
     leave: { opacity: 0, transform: "translateX(400px)" },
   })
 
-  const { general, mailservice, mailserviceInfo, finish } = formData
   return (
     <div className={className}>
       <NavigationProgress
@@ -138,8 +197,8 @@ const NewCampaignWizard = ({ className }) => {
                   </span>
                   <select
                     id="mailservice"
-                    name="mailservice"
-                    value={mailservice.mailservice}
+                    name="emailMarketingService"
+                    value={mailservice.emailMarketingService}
                     onChange={updateFormData}
                     data-cardname={cards[item]}
                   >
@@ -164,9 +223,9 @@ const NewCampaignWizard = ({ className }) => {
                   <span className="label-text">Mail Service Api Key</span>
                   <input
                     type="text"
-                    name="api_key"
+                    name="serviceApiKey"
                     id="api-key"
-                    value={mailserviceInfo.api_key}
+                    value={mailserviceInfo.serviceApiKey}
                     onChange={updateFormData}
                     data-cardname={cards[item]}
                   />
@@ -175,9 +234,9 @@ const NewCampaignWizard = ({ className }) => {
                   <span className="label-text">Mail Service List Id</span>
                   <input
                     type="text"
-                    name="list_id"
+                    name="serviceListId"
                     id="list-id"
-                    value={mailserviceInfo.list_id}
+                    value={mailserviceInfo.serviceListId}
                     onChange={updateFormData}
                     data-cardname={cards[item]}
                   />
@@ -186,9 +245,9 @@ const NewCampaignWizard = ({ className }) => {
                   <span className="label-text">Mail Service Group Id</span>
                   <input
                     type="text"
-                    name="group_id"
+                    name="serviceGroupId"
                     id="group-id"
-                    value={mailserviceInfo.group_id}
+                    value={mailserviceInfo.serviceGroupId}
                     onChange={updateFormData}
                     data-cardname={cards[item]}
                   />
@@ -206,13 +265,25 @@ const NewCampaignWizard = ({ className }) => {
                 <h3>Publish</h3>
                 <label htmlFor="publish">
                   <span className="label-text">Publish campaign</span>
-                  <select>
+                  <select
+                    value={finish.status}
+                    onChange={updateFormData}
+                    name="status"
+                    id="publish"
+                    data-cardname={cards[item]}
+                  >
                     <option value="publish">Publish</option>
                     <option value="draft">pause</option>
                   </select>
                 </label>
 
-                <input type="submit" value="Create Campaign" />
+                <input
+                  type="button"
+                  onClick={e => {
+                    createNewCampaign()
+                  }}
+                  value="Create Campaign"
+                />
               </div>
             </WizardCard>
           )
