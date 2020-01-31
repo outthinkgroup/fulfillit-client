@@ -98,6 +98,7 @@ const EditCampaign = ({ className }) => {
     }
   }, [data])
 
+  if (loading) return "loodaing"
   return (
     <form
       className={className}
@@ -106,11 +107,8 @@ const EditCampaign = ({ className }) => {
         updateCampaign()
       }}
     >
-      {loading || updatedData.loading ? (
-        "loading..."
-      ) : (
-        <CampaignDetails form={form} updateForm={updateForm} />
-      )}
+      <CampaignDetails form={form} updateForm={updateForm} />
+
       <div className="bottom-bar">
         <div>
           <input type="submit" value="save" className="save" />

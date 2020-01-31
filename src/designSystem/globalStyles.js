@@ -97,4 +97,7 @@ a, .link {
   textarea{
     resize:none;
   }
+  .emailFieldWithSuffix {
+      display: flex;
+    }
   `

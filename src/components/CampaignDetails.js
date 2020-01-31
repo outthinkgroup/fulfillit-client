@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
 const CampaignDetails = ({ form, updateForm, className }) => {
+  if (Object.keys(form).length === 0) return "loading................."
   return (
     <div className={className}>
       <h2>Campaign Settings</h2>
@@ -14,18 +15,18 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="name"
             id="name"
-            value={form.name || ""}
+            value={form.name}
           />
         </label>
         <label htmlFor="email">
           <span>Campaign Email</span>
-          <span className="emailField">
+          <span className="emailFieldWithSuffix">
             <input
               type="text"
               onChange={updateForm}
               name="email"
               id="email"
-              value={form.email || ""}
+              value={form.email}
             />
             @mg.taskcannon.co
           </span>
@@ -36,7 +37,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             name="emailMarketingService"
             onChange={updateForm}
             id="service"
-            value={form.emailMarketingService || ""}
+            value={form.emailMarketingService}
           >
             <option value="">choose a email marketing service</option>
             <option value="mailchimp">mailchimp</option>
@@ -55,7 +56,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceApiKey"
             id="mc_api_key"
-            value={form.serviceApiKey || ""}
+            value={form.serviceApiKey}
           />
         </label>
         <label htmlFor="mc_list_id">
@@ -65,7 +66,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceListId"
             id="mc_list_id"
-            value={form.serviceListId || ""}
+            value={form.serviceListId}
           />
         </label>
         <label htmlFor="mc_group_id">
@@ -75,7 +76,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             onChange={updateForm}
             name="serviceGroupId"
             id="mc_group_id"
-            value={form.serviceGroupId || ""}
+            value={form.serviceGroupId}
           />
         </label>
       </div>
@@ -117,9 +118,6 @@ export default styled(CampaignDetails)`
       min-width: 170px;
       font-size: 20px;
       font-weight: 300;
-    }
-    .emailField {
-      display: flex;
     }
   }
 `
