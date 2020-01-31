@@ -7,6 +7,8 @@ import NavigationProgress from "./NavigationProgress"
 import { allFieldsHaveData } from "../utils/formValidation"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
+import { navigate } from "gatsby"
+import { CAMPAIGNS } from "./CampaignList"
 
 export const FORM_DEFAULT_STATE = {
   general: {
@@ -73,7 +75,8 @@ const NewCampaignWizard = ({ className }) => {
   const cards = ["general", "mailservice", "mailserviceInfo", "finish"]
   const [formData, setFormData] = useState(FORM_DEFAULT_STATE)
   const { general, mailservice, mailserviceInfo, finish } = formData
-  const [createNewCampaign, { data, loading, error }] = useMutation(
+
+  const [createNewCampaign, { data, loading: updating, error }] = useMutation(
     NEW_CAMPAIGN,
     {
       variables: {
@@ -86,12 +89,25 @@ const NewCampaignWizard = ({ className }) => {
         serviceListId: mailserviceInfo.serviceListId,
         status: finish.status,
       },
+      refetchQueries: ["CAMPAIGNS"],
+      update(cache, payload) {
+        const data = cache.readQuery({ query: CAMPAIGNS })
+        const newCampaign = payload.data.newCampaign.campaign
+        console.log(payload)
+        data.viewer.campaigns.nodes = [
+          newCampaign,
+          ...data.viewer.campaigns.nodes,
+        ]
+        cache.writeQuery({ query: CAMPAIGNS, data })
+      },
+      onCompleted() {
+        navigate("/dashboard")
+      },
     }
   )
 
   function updateFormData(e) {
     const { name, value, dataset } = e.target
-    console.log({ name, value, formData: { finish } })
     setFormData({
       ...formData,
       [dataset.cardname]: {
@@ -272,6 +288,7 @@ const NewCampaignWizard = ({ className }) => {
                     id="publish"
                     data-cardname={cards[item]}
                   >
+                    <option value="">Choose How To Publish</option>
                     <option value="publish">Publish</option>
                     <option value="draft">pause</option>
                   </select>
@@ -282,7 +299,7 @@ const NewCampaignWizard = ({ className }) => {
                   onClick={e => {
                     createNewCampaign()
                   }}
-                  value="Create Campaign"
+                  value={updating ? "creating...." : "Create Campaign"}
                 />
               </div>
             </WizardCard>
