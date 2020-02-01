@@ -44,7 +44,11 @@ a, .link {
 }
 
 
-
+button{
+  &:active, &:focus{
+    outline:none !important;
+  }
+}
   input:not([type="checkbox"]),
   select, 
   textarea {

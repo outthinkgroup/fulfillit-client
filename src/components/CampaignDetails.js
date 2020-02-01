@@ -28,7 +28,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
               id="email"
               value={form.email}
             />
-            @mg.taskcannon.co
+            <span className="suffix">@mg.taskcannon.co</span>
           </span>
         </label>
         <label htmlFor="service">
@@ -101,10 +101,7 @@ export default styled(CampaignDetails)`
     font-weight: 800;
     letter-spacing: -0.5px;
   }
-  .form-section {
-    h3 {
-    }
-  }
+
   label {
     margin-bottom: 37px;
 
@@ -112,12 +109,23 @@ export default styled(CampaignDetails)`
     display: flex;
     align-content: center; */
     height: 100%;
+    input {
+      max-width: 250px;
+    }
     span {
-      display: flex;
-      align-items: center;
+      display: block;
       min-width: 170px;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 300;
+    }
+  }
+  .emailFieldWithSuffix {
+    display: flex;
+    align-items: center;
+
+    .suffix {
+      margin-top: 5px;
+      margin-left: 10px;
     }
   }
 `

@@ -4,7 +4,6 @@ import Header from "../components/Header"
 import GlobalStyle from "../designSystem/globalStyles"
 
 const SingleFormLayout = ({ children, className }) => {
-  const isLoggedIn = true
   return (
     <div className={className}>
       <Header includeLogo />
@@ -17,6 +16,7 @@ const SingleFormLayout = ({ children, className }) => {
 export default styled(SingleFormLayout)`
   min-height: 100vh;
   max-width: 100vw;
+  min-width: 100vw;
   display: grid;
   background: ${({ theme }) => theme.colors.lightGrey};
   grid-template-rows: 65px 1fr 65px;
@@ -33,6 +33,7 @@ const PageContent = styled.div`
 export const Footer = styled.footer`
   display: flex;
   align-items: center;
+  width: 100vw;
   justify-content: center;
   font-weight: 300;
   letter-spacing: -0.2px;

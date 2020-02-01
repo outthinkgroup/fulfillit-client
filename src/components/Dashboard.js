@@ -20,11 +20,11 @@ const Dashboard = ({ query, className }) => {
   return (
     <div className={className}>
       <PageHeading>
-        <h1>{loading ? "" : data.viewer.name}</h1>
+        <h1>{loading ? "" : data && data.viewer.name}</h1>
         <p>A list of your registered emailAddresses and stats</p>
       </PageHeading>
       <CampaignList />
-      {isSideBarOpen && <EditCampaign campaign />}
+      {isSideBarOpen === "EDIT_CAMPAIGN" && <EditCampaign campaign />}
     </div>
   )
 }

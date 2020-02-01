@@ -10,7 +10,7 @@ const DashboardLayout = ({ children, className }) => {
   const isOpen = false
   return (
     <div className={className}>
-      <HeaderComp />
+      <HeaderComp includeLogo="false" includeUserMenu />
       <Sidebar
         css={`
           grid-column: 1/2;
@@ -28,8 +28,16 @@ export default styled(DashboardLayout)`
   overflow-x: hidden;
   overflow-y: hidden;
   display: grid;
+  padding: 0;
+  margin: 0;
   grid-template-rows: 65px 1fr;
-  grid-template-columns: 267px 1fr;
+  grid-template-columns: 100%;
+  ${({ theme }) => theme.above.small`
+    grid-template-columns: 267px 1fr;
+  `}
+  ${HeaderComp} {
+    width: 100%;
+  }
   background: white;
 `
 
@@ -40,6 +48,11 @@ const PageContent = styled.div`
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
+
+  ${({ theme }) => theme.below.small`
+    grid-column: 1/-1;
+    margin-top:30px;
+  `}
   overflow-x: auto;
   overflow-y: scroll;
 `

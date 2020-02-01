@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 import CampaignCard from "./CampaignCard"
 
@@ -37,9 +37,11 @@ export const CAMPAIGNS = gql`
     }
   }
 `
+
 const CampaignList = ({ className }) => {
   const { data, loading, error } = useQuery(CAMPAIGNS)
 
+  if (error) return error.errors[0].debugMessage
   const campaigns = data
     ? [...data.viewer.campaigns.nodes, ...data.viewer.draftCampaigns.nodes]
     : []
@@ -64,8 +66,11 @@ export default styled(CampaignList)`
   ul {
     display: grid;
     grid-template-columns: repeat(2, minmax(250px, 1fr));
+    ${({ theme }) => theme.below.medium`
+    grid-template-columns: 1fr;
+      
+    `}
     grid-gap: 20px;
-
     margin: 0px;
     padding: 0px;
     li {

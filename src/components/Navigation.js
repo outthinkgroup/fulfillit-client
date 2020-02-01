@@ -6,6 +6,8 @@ import { USER_DATA } from "./Header"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 
+import LogOut from "../utils/useLogOut"
+
 const LOGOUT = gql`
   mutation LOGOUT {
     increaseCount(count: 1)
@@ -13,20 +15,10 @@ const LOGOUT = gql`
 `
 
 const Navigation = ({ className, userData = false }) => {
-  const [logout, { data }] = useMutation(LOGOUT, {
-    update(cache, payload) {
-      const data = cache.readQuery({ query: USER_DATA })
-      const empty = {}
-      data.viewer = empty
-      cache.writeQuery({ query: USER_DATA, empty })
-    },
-  })
-
   const isLoggedIn = userData
   function signOut() {
     localStorage.setItem("token", "")
-    logout()
-    navigate("/sign-in")
+    window.location.href = "/sign-in"
   }
   return (
     <nav className={className}>
@@ -51,6 +43,9 @@ export default styled(Navigation)`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
+  ${({ theme }) => theme.below.small`
+    padding-right:20px;
+  `}
   .link {
     background: none;
     box-shadow: none;
@@ -60,6 +55,7 @@ export default styled(Navigation)`
   }
   a,
   .link {
+    white-space: nowrap;
     text-decoration: none;
     text-transform: capitalize;
     color: ${({ theme }) => theme.colors.primary};

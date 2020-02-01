@@ -1,25 +1,37 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-const Logo = ({ className }) => {
+const Logo = ({ className, includeLogo }) => {
+  console.log(includeLogo)
   return (
-    <div className={className}>
+    <div className={className} data-includelogo={includeLogo}>
       <span>fulfillit</span>
       <span className="byline">by Out:think</span>
     </div>
-  );
-};
+  )
+}
 
 export default styled(Logo)`
+  ${({ theme }) => theme.above.small`
   font-size: 34px;
+  .byline{
+    font-size: 16px;
+  }
+  &[data-includelogo="false"] {
+    display: none;
+  }
+`}
   font-weight: 800;
   letter-spacing: -0.5px;
   height: 100%;
-  width: 100%;
+
   .byline {
+    white-space: nowrap;
     display: block;
-    font-size: 16px;
+    ${({ theme }) => theme.below.small`
+      font-size: 12px;
+    `}
     font-weight: 300;
     color: ${({ theme }) => theme.colors.primary};
   }
-`;
+`

@@ -6,7 +6,7 @@ export const LocalConsumer = LocalContext.Consumer
 
 export default ({ children }) => {
   const [localState, setLocalState] = useState({
-    isSideBarOpen: false,
+    isSideBarOpen: "none",
   })
   return (
     <LocalProvider value={{ localState, setLocalState }}>

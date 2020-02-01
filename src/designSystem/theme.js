@@ -1,11 +1,11 @@
-import { css } from "styled-components";
+import { css } from "styled-components"
 
 //media breakpoints
 const size = {
-  small: 400,
+  small: 600,
   medium: 800,
-  large: 1100
-};
+  large: 1100,
+}
 
 const theme = {
   colors: {
@@ -17,14 +17,14 @@ const theme = {
     warning: {
       primary: "hsl(0, 74%, 61%)",
       light: "hsl(0, 74%, 91%)",
-      dark: "hsl(0, 74%, 43%)"
+      dark: "hsl(0, 74%, 43%)",
     },
 
     success: {
       primary: "hsl(140, 60%, 45%)",
       light: "hsl(140, 60%, 85%)",
-      dark: "hsl(140, 60%, 29%)"
-    }
+      dark: "hsl(140, 60%, 29%)",
+    },
   },
   depth: {
     high:
@@ -34,7 +34,7 @@ const theme = {
     low:
       "0 12px 25px rgba(50, 50, 93, 0.025), 0 3px 8px rgba(50, 50, 93, 0.07), 0 1.25px 3.25px rgba(0, 0, 0, 0.06)",
     contrastLow:
-      "0 12px 25px rgba(50, 50, 93, 0.025), 0 3px 8px rgba(50, 50, 93, 0.07), 0 1.25px 3.25px hsla(212, 100%, 20%, 30%)"
+      "0 12px 25px rgba(50, 50, 93, 0.025), 0 3px 8px rgba(50, 50, 93, 0.07), 0 1.25px 3.25px hsla(212, 100%, 20%, 30%)",
   },
 
   above: Object.keys(size).reduce((obj, key) => {
@@ -42,8 +42,16 @@ const theme = {
       @media (min-width: ${size[key]}px) {
         ${css(...args)}
       }
-    `;
-    return obj;
-  }, {})
-};
-export default theme;
+    `
+    return obj
+  }, {}),
+  below: Object.keys(size).reduce((obj, key) => {
+    obj[key] = (...args) => css`
+      @media (max-width: ${size[key]}px) {
+        ${css(...args)}
+      }
+    `
+    return obj
+  }, {}),
+}
+export default theme

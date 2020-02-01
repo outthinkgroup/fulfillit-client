@@ -112,15 +112,14 @@ const EditCampaign = ({ className }) => {
       <div className="bottom-bar">
         <div>
           <input type="submit" value="save" className="save" />
-          <button
-            type="submit"
+          <input
+            type="button"
             onClick={() =>
               setLocalState({ ...localState, isSideBarOpen: false })
             }
+            value="cancel"
             className="btn cancel"
-          >
-            cancel
-          </button>
+          />
         </div>
       </div>
     </form>
@@ -132,7 +131,8 @@ export default styled(EditCampaign)`
   position: fixed;
   top: 0;
   right: 0;
-  width: 400px;
+  max-width: 100vw;
+  min-width: 400px;
   background: #fff;
   overflow-y: scroll;
   z-index: 10;
@@ -165,8 +165,8 @@ export default styled(EditCampaign)`
     }
     .cancel {
       background: ${({ theme }) => theme.colors.warning.light};
-      color: ${({ theme }) => theme.colors.warning.dark};
-      border: 2px solid ${({ theme }) => theme.colors.warning.dark};
+      color: ${({ theme }) => theme.colors.warning.primary};
+      border: 2px solid ${({ theme }) => theme.colors.warning.primary};
     }
   }
   ${CampaignDetails} {

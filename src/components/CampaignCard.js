@@ -1,11 +1,23 @@
 import React, { useState, useContext } from "react"
 import styled from "styled-components"
 import { Link, navigate } from "gatsby"
-
+import { useMutation } from "@apollo/react-hooks"
+import { gql } from "apollo-boost"
 import Card from "../elements/Card"
 import Icon from "../elements/Icon"
 import EditCampaign from "./EditCampaign"
+import { CAMPAIGNS } from "./CampaignList"
 import { LocalContext } from "../utils/LocalContext"
+
+export const DELETE_CAMPAIGN = gql`
+  mutation DELETE_CAMPAIGN($id: ID!) {
+    deleteCampaign(input: { clientMutationId: "sdfsdaa", id: $id }) {
+      campaign {
+        id
+      }
+    }
+  }
+`
 
 const CampaignCard = ({
   className,
@@ -21,12 +33,28 @@ const CampaignCard = ({
   ).getDate()}/${new Date(date).getFullYear()}`
   const emailAddress = `${email}@mg.taskcannon.co`
   const { localState, setLocalState } = useContext(LocalContext)
+  const [
+    deleteCampaign,
+    { data: deletedData, loading: deleting, error: deleteError },
+  ] = useMutation(DELETE_CAMPAIGN, {
+    variables: {
+      id,
+    },
+    update(cache, payload) {
+      const data = cache.readQuery({ query: CAMPAIGNS })
+      const { campaigns } = data.viewer
+      console.log(payload)
+      const { id } = payload.data.deleteCampaign.campaign
+      data.viewer.campaigns = campaigns.nodes.filter(
+        campaign => campaign.id !== id
+      )
+      cache.writeQuery({ query: CAMPAIGNS, data })
+    },
+    refetchQueries: ["CAMPAIGNS"],
+  })
   return (
     <Card depth="low" className={className}>
-      <div
-        onMouseEnter={() => setShowActions(true)}
-        onMouseLeave={() => setShowActions(false)}
-      >
+      <div onMouseLeave={() => setShowActions(false)}>
         <div className="top-section">
           <div className="title">
             <p className="tag">{status}</p>
@@ -40,21 +68,45 @@ const CampaignCard = ({
                   type="button"
                   onClick={() => {
                     navigate(`/dashboard?campaign_id=${id}`)
-                    setLocalState({ ...localState, isSideBarOpen: true })
+                    setLocalState({
+                      ...localState,
+                      isSideBarOpen: "EDIT_CAMPAIGN",
+                    })
                   }}
                   className="edit"
                   title="Edit"
                 >
                   <Icon name="edit" color="white" />
                 </button>
-                <span className="analytics" title="Analytics">
+                <button
+                  type="button"
+                  onClick={deleteCampaign}
+                  className="analytics"
+                  title="Analytics"
+                >
                   <Icon name="chart" color="white" />
-                </span>
-                <span className="delete" title="Delete Campaign">
+                </button>
+                <button
+                  type="button"
+                  onClick={deleteCampaign}
+                  className="delete"
+                  title="Delete Campaign"
+                >
                   <Icon name="delete" color="white" />
-                </span>
+                </button>
               </div>
             )}
+            <button
+              type="button"
+              onClick={e => {
+                e.preventDefault()
+                setShowActions(!showActions)
+              }}
+              className="options"
+              title="Delete Campaign"
+            >
+              <Icon name="options" />
+            </button>
           </div>
         </div>
         <div className="info">
@@ -135,24 +187,33 @@ export default styled(CampaignCard)`
 
   .actions-group {
     position: absolute;
-    top: 0;
-    right: 0;
-
+    top: 3px;
+    right: 3px;
+    display: flex;
+    justify-content: flex-end;
     svg {
       width: 20px;
     }
     .actions {
-      box-shadow: inset 0 0px 25px rgba(50, 50, 93, 0.025),
-        inset 0 0px 8px rgba(50, 50, 93, 0.07);
       font-size: 14px;
       display: flex;
 
       & > * {
+        height: 100%;
+        border-radius: 50%;
         padding: 5px 8px;
         display: block;
-        width: 100%;
+        width: 35px;
+        margin-left: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        box-shadow: ${({ theme }) => theme.depth.contrastLow};
         &:hover {
           font-weight: 700;
+          transform: scale(1.1);
+          box-shadow: ${({ theme }) => theme.depth.high};
         }
       }
     }
@@ -165,6 +226,26 @@ export default styled(CampaignCard)`
   }
   .delete {
     background: ${({ theme }) => theme.colors.warning.primary};
+  }
+  .options {
+    ${({ theme }) => theme.above.medium`
+    
+    `}
+    background: transparent;
+    box-shadow: none;
+    &:hover,
+    &:active,
+    &:focus {
+      background: #efefef;
+    }
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    margin-left: 5px;
   }
   .action-icon {
     padding: 0;
