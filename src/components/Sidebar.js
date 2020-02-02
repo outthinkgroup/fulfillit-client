@@ -10,6 +10,11 @@ import { Hamburger } from "../designSystem/styles"
 
 const Sidebar = ({ className, isOpen }) => {
   const { localState, setLocalState } = useContext(LocalContext)
+  const closeSideBar = () => {
+    if (localState.isSideBarOpen === "MOBILE_MENU") {
+      setLocalState({ ...localState, isSideBarOpen: "NONE" })
+    }
+  }
   return (
     <aside
       className={className}
@@ -40,10 +45,14 @@ const Sidebar = ({ className, isOpen }) => {
           <nav>
             <ul>
               <li>
-                <Link to="/dashboard">Campaigns</Link>
+                <Link onClick={closeSideBar} to="/dashboard">
+                  Campaigns
+                </Link>
               </li>
               <li>
-                <Link to="/new-campaign">Create New Campaign</Link>
+                <Link onClick={closeSideBar} to="/new-campaign">
+                  Create New Campaign
+                </Link>
               </li>
             </ul>
           </nav>
@@ -53,19 +62,25 @@ const Sidebar = ({ className, isOpen }) => {
           <nav>
             <ul>
               <li>
-                <Link to="/">User Settings</Link>
+                <Link onClick={closeSideBar} to="/">
+                  User Settings
+                </Link>
               </li>
               <li>
-                <Link to="/">Billing</Link>
+                <Link onClick={closeSideBar} to="/">
+                  Billing
+                </Link>
               </li>
               <li>
-                <Link to="/">Account</Link>
+                <Link onClick={closeSideBar} to="/">
+                  Account
+                </Link>
               </li>
             </ul>
           </nav>
         </NavGroup>
         <UpgradeButton>
-          <Link to="/" className="btn">
+          <Link onClick={closeSideBar} to="/" className="btn">
             Upgrade Plan
           </Link>
         </UpgradeButton>

@@ -131,8 +131,9 @@ export default styled(EditCampaign)`
   position: fixed;
   top: 0;
   right: 0;
-  max-width: 100vw;
-  min-width: 400px;
+  max-width: 400px;
+  width: 100%;
+  /* min-width: 300px; */
   background: #fff;
   overflow-y: scroll;
   z-index: 10;
