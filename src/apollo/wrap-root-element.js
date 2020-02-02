@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
+import { StripeProvider } from "react-stripe-elements"
 import { client } from "./client"
 import { ThemeProvider } from "styled-components"
 import theme from "../designSystem/theme"

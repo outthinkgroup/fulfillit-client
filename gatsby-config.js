@@ -18,6 +18,7 @@ module.exports = {
         display: `swap`,
       },
     },
+    `gatsby-plugin-stripe`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

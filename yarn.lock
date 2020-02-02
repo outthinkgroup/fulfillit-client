@@ -5504,6 +5504,11 @@ gatsby-plugin-sharp@^2.2.25:
     svgo "1.3.2"
     uuid "^3.3.3"
 
+gatsby-plugin-stripe@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-stripe/-/gatsby-plugin-stripe-1.2.3.tgz#bac761bb6ecc6ac4ddd6274537418a5cffa560e8"
+  integrity sha512-iE+6HiiHFG6XdQQh4qBRCuR/PfdN1vZ1XhhCueeUAbZ5mCY0KH0hgoOFJEFNAtCGFAFmeUWBRhMSYnBE3pjFFw==
+
 gatsby-plugin-styled-components@^3.1.6:
   version "3.1.18"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-styled-components/-/gatsby-plugin-styled-components-3.1.18.tgz#f9ae0c100aff9fb769aa224bbceea6edd36104f9"
@@ -9629,7 +9634,7 @@ prompts@^2.3.0:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9927,6 +9932,20 @@ react-spring@^8.0.27:
   dependencies:
     "@babel/runtime" "^7.3.1"
     prop-types "^15.5.8"
+
+react-stripe-elements-universal@^1.2.0-3:
+  version "1.2.0-3"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements-universal/-/react-stripe-elements-universal-1.2.0-3.tgz#d11c146c09b584acf62f35eeb3babb90500c910e"
+  integrity sha512-Boljj+S/9lJ0FgNApxtasoLeDOubwcIFGA4n6oizuba2dbkXGDnuOREZNu0nKPerpB0qQpToLzhC0M8E8LnxRA==
+  dependencies:
+    prop-types "^15.5.10"
+
+react-stripe-elements@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-6.0.1.tgz#f2b1e4c132cb18f140668556a5218e3b8e082794"
+  integrity sha512-WVKTunSgsrkm8Tv1+BEehfYrA2CHdlk01ocmbcECliPb1EDybaoUCx2MR212ptRHyitMrHF+ahUTewjaX98kcQ==
+  dependencies:
+    prop-types "15.7.2"
 
 react@^16.12.0, react@^16.9.0:
   version "16.12.0"

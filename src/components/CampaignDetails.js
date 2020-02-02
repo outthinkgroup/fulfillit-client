@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 const CampaignDetails = ({ form, updateForm, className }) => {
   if (Object.keys(form).length === 0) return "loading................."
+  console.log(form.email)
   return (
     <div className={className}>
       <h2>Campaign Settings</h2>
@@ -26,7 +27,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
               onChange={updateForm}
               name="email"
               id="email"
-              value={form.email}
+              value={form.email || ""}
             />
             <span className="suffix">@mg.taskcannon.co</span>
           </span>
