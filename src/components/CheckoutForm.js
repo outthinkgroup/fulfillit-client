@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/react-hooks"
 import UseForm from "../utils/useForm"
 import { LOGIN_MUTATION } from "./SignIn"
 import { navigate } from "gatsby"
+import { Error } from "./Error"
 
 const style = {
   base: {
@@ -49,6 +50,7 @@ const ADD_CUSTOMER = gql`
 
 const CheckoutForm = props => {
   const [form, updateForm] = UseForm({ email: "", username: "", password: "" })
+  const [errorM, setErrorM] = useState([])
   const [paymentMethod, setPaymentMethod] = useState("")
   const [login, loginData] = useMutation(LOGIN_MUTATION, {
     variables: {
@@ -60,7 +62,10 @@ const CheckoutForm = props => {
       navigate("/dashboard")
     },
   })
-  const [addCustomerAndSubscription, stripeData] = useMutation(ADD_CUSTOMER, {
+  const [
+    addCustomerAndSubscription,
+    { data, error: mutationError, loading },
+  ] = useMutation(ADD_CUSTOMER, {
     variables: {
       email: form.email,
       paymentMethod,
@@ -72,6 +77,7 @@ const CheckoutForm = props => {
       const subscriptionData = JSON.parse(subscription)
       const { latest_invoice } = subscriptionData
       const { payment_intent } = latest_invoice
+
       if (payment_intent) {
         const { client_secret, status } = payment_intent
 
@@ -95,6 +101,7 @@ const CheckoutForm = props => {
       }
     },
   })
+
   async function handleSubmit(e) {
     e.preventDefault()
     const cardElement = props.elements.getElement("card")
@@ -126,6 +133,10 @@ const CheckoutForm = props => {
         <div className="left-column" />
         <div className="singleform-form-wrapper">
           <h2>Checkout</h2>
+          {mutationError &&
+            mutationError.graphQLErrors.map((error, i) => {
+              return <Error message={error.message} />
+            })}
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">
               <span>name</span>
@@ -161,7 +172,7 @@ const CheckoutForm = props => {
               <span>Card Details</span>
               <CardElement className="MyCardElement" style={style} />
             </label>
-            <button type="submit">checkout</button>
+            <button type="submit">{loading ? "Loading" : "checkout"}</button>
           </form>
         </div>
       </div>

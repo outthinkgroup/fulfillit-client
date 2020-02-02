@@ -78,7 +78,7 @@ const SignIn = ({ className }) => {
                 onChange={updateForm}
               />
             </label>
-            <input type="submit" value={loading ? "loading..." : "Sign In"} />
+            <button type="submit">{loading ? "loading..." : "Sign In"} </button>
           </form>
           <p>
             <Link to="/sign-up">Don't have an account?</Link>
