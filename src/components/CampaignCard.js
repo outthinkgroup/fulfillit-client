@@ -128,6 +128,8 @@ export default styled(CampaignCard)`
   padding: 0;
   color: black;
   background: #fff;
+  max-width: 100%;
+  overflow-x: hidden;
   box-shadow: ${({ theme }) => theme.depth.contrastLow};
   border-left: 4px solid ${({ theme }) => theme.colors.darkBlue};
   &:hover {
@@ -143,6 +145,8 @@ export default styled(CampaignCard)`
     justify-content: space-between;
   }
   .title {
+    width: 100%;
+    overflow-x: scroll;
     h3 {
       font-size: 28px;
       font-weight: 200;
