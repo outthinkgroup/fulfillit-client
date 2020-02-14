@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
 const Card = ({ className, children }) => {
-  return <div className={className}>{children}</div>;
-};
+  return <div className={className}>{children}</div>
+}
 
 export default styled(Card)`
-  padding: 20px;
+  padding: 20px 20px;
   border-radius: 4px;
   box-shadow: ${props => props.depth && props.theme.depth[props.depth]};
   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "100%")};
@@ -20,4 +20,4 @@ export default styled(Card)`
       margin-top: 0px;
     }
   }
-`;
+`

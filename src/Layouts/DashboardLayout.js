@@ -6,17 +6,29 @@ import Sidebar from "../components/Sidebar"
 import HeaderComp from "../components/Header"
 import GlobalStyle from "../designSystem/globalStyles"
 
+import MobileSidebar from "../components/MobileSidebar"
+
 const DashboardLayout = ({ children, className }) => {
   const isOpen = false
   return (
     <div className={className}>
-      <HeaderComp includeLogo="false" includeUserMenu />
-      <Sidebar
+      <HeaderComp
+        includeLogo="false"
+        includeUserMenu
+        css={`
+          grid-row: 1/2;
+          grid-column: 1/-1;
+        `}
+      />
+      <div
         css={`
           grid-column: 1/2;
           grid-row: 1/4;
         `}
-      />
+      >
+        <Sidebar />
+        <MobileSidebar />
+      </div>
       <PageContent>{children}</PageContent>
       <GlobalStyle />
     </div>

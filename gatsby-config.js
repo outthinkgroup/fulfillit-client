@@ -1,7 +1,3 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
-console.log(`${process.env.WP_URL}`)
 module.exports = {
   siteMetadata: {
     title: `FulFillit`,
@@ -11,24 +7,9 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [`Source+Sans+Pro:300,400,400i,600,700`],
-        display: `swap`,
-      },
-    },
-    `gatsby-plugin-stripe`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
 
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    `gatsby-plugin-stripe`,
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

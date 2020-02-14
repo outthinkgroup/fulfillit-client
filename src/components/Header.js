@@ -5,9 +5,6 @@ import { gql } from "apollo-boost"
 import { useQuery } from "@apollo/react-hooks"
 import Logo from "../elements/Logo"
 import Navigation from "../components/Navigation"
-import Icon from "../elements/Icon"
-import { LocalContext } from "../utils/LocalContext"
-import { Hamburger } from "../designSystem/styles"
 
 export const USER_DATA = gql`
   query USER_DATA {
@@ -21,7 +18,7 @@ export const USER_DATA = gql`
 
 const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
   const { data, loading, error } = useQuery(USER_DATA)
-  const { localState, setLocalState } = useContext(LocalContext)
+
   return (
     <header className={className}>
       <span
@@ -30,22 +27,6 @@ const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
           align-items: center;
         `}
       >
-        {includeUserMenu && (
-          <Hamburger
-            className="hamburger"
-            onClick={() => {
-              if (localState.isSideBarOpen === "MOBILE_MENU") {
-                setLocalState({ ...localState, isSideBarOpen: "NONE" })
-              } else {
-                setLocalState({ ...localState, isSideBarOpen: "MOBILE_MENU" })
-              }
-            }}
-          >
-            <span>
-              <Icon name="menu" />
-            </span>
-          </Hamburger>
-        )}
         <Logo includeLogo={includeLogo} />
       </span>
       <Navigation userData={data && data} />
@@ -64,6 +45,5 @@ export default styled(HeaderComp)`
     includeLogo ? "space-between" : "flex-end"};
   ${({ theme }) => theme.below.small`
     justify-content:space-between;
-
   `}
 `

@@ -12,15 +12,14 @@ const Logo = ({ className, includeLogo }) => {
 }
 
 export default styled(Logo)`
-  ${({ theme }) => theme.above.small`
   font-size: 34px;
-  .byline{
+  .byline {
     font-size: 16px;
   }
   &[data-includelogo="false"] {
     display: none;
   }
-`}
+
   font-weight: 800;
   letter-spacing: -0.5px;
   height: 100%;
@@ -28,9 +27,6 @@ export default styled(Logo)`
   .byline {
     white-space: nowrap;
     display: block;
-    ${({ theme }) => theme.below.small`
-      font-size: 12px;
-    `}
     font-weight: 300;
     color: ${({ theme }) => theme.colors.primary};
   }

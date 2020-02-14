@@ -42,6 +42,7 @@ export default styled(Navigation)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   width: 100%;
   ${({ theme }) => theme.below.small`
     padding-right:20px;
