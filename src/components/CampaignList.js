@@ -40,7 +40,7 @@ export const CAMPAIGNS = gql`
 
 const CampaignList = ({ className }) => {
   const { data, loading, error } = useQuery(CAMPAIGNS)
-
+  console.log(error)
   if (error) return error.errors[0].debugMessage
   const campaigns = data
     ? [...data.viewer.campaigns.nodes, ...data.viewer.draftCampaigns.nodes]

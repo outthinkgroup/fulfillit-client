@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `FulFillit`,
-    description: `An Easy Way to Give Your Users a Thankyou`,
+    description: `An Easy Way to Give Your Users a Thank you`,
     author: `Josh Kennedy`,
   },
   plugins: [
