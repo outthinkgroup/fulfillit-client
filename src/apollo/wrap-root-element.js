@@ -7,12 +7,10 @@ import theme from "../designSystem/theme"
 import LocalState from "../utils/LocalContext"
 export const wrapRootElement = ({ element }) => {
   return (
-    <StripeProvider apiKey="pk_test_gLXHhM133Hr3wT95bfbTbjY300a67NU0FP">
-      <ApolloProvider client={client}>
-        <LocalState>
-          <ThemeProvider theme={theme}>{element}</ThemeProvider>
-        </LocalState>
-      </ApolloProvider>
-    </StripeProvider>
+    <ApolloProvider client={client}>
+      <LocalState>
+        <ThemeProvider theme={theme}>{element}</ThemeProvider>
+      </LocalState>
+    </ApolloProvider>
   )
 }

@@ -7,7 +7,7 @@ import UseForm from "../utils/useForm"
 import { LOGIN_MUTATION } from "./SignIn"
 import { navigate } from "gatsby"
 import { Error } from "./Error"
-
+import { USER_DATA } from "./Header"
 const style = {
   base: {
     color: "#32325d",
@@ -57,9 +57,11 @@ const CheckoutForm = props => {
       username: form.username,
       password: form.password,
     },
+
     onCompleted({ userLogin }) {
       localStorage.setItem("token", userLogin.authToken)
-      navigate("/dashboard")
+      localStorage.setItem("userID", userLogin.user.id)
+      window.location.href = `${window.location.origin}/dashboard`
     },
   })
   const [
@@ -105,6 +107,7 @@ const CheckoutForm = props => {
   async function handleSubmit(e) {
     e.preventDefault()
     const cardElement = props.elements.getElement("card")
+    //TODO set loading state.
     const result = await props.stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
@@ -126,7 +129,6 @@ const CheckoutForm = props => {
     }
   }
 
-  console.log(props)
   return (
     <SingleForm>
       <div className="singleform-wrapper">
@@ -172,7 +174,13 @@ const CheckoutForm = props => {
               <span>Card Details</span>
               <CardElement className="MyCardElement" style={style} />
             </label>
-            <button type="submit">{loading ? "Loading" : "checkout"}</button>
+            <button type="submit">
+              {loading
+                ? "creating user"
+                : loginData.loading
+                ? "Loading"
+                : "checkout"}
+            </button>
           </form>
         </div>
       </div>
