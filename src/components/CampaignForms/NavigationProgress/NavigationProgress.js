@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react"
 import styled from "styled-components"
 
-import { allFieldsHaveData } from "../../utils/formValidation"
+import { allFieldsHaveData } from "../../../utils/formValidation"
 
 const NavigationProgress = ({
   className,

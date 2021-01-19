@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 import { PageHeading } from "../../designSystem/styles"
-import NewCampaignWizard from "../NewCampaignWizard/NewCampaignWizard"
+import NewCampaignWizard from "../CampaignForms/NewCampaignWizard/NewCampaignWizard"
 
 const NewCampaign = ({ className }) => {
   return (

@@ -4,7 +4,7 @@ import { PageHeading } from "../../designSystem/styles"
 import { navigate } from "gatsby"
 import { USER_DATA } from "../Header/Header"
 import CampaignList from "../CampaignList/CampaignList"
-import EditCampaign from "../EditCampaign/EditCampaign.js"
+import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign.js"
 import { useQuery } from "@apollo/react-hooks"
 import { LocalContext } from "../../utils/LocalContext"
 

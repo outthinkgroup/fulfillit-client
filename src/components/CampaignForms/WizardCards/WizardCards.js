@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { animated } from "react-spring"
-import { allFieldsHaveData } from "../../utils/formValidation"
+import { allFieldsHaveData } from "../../../utils/formValidation"
 
 const FormCards = [
   ({ style, cards, item, updateFormData, nextCard, formData }) => (

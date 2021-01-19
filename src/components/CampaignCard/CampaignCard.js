@@ -5,7 +5,6 @@ import { useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 import Card from "../../elements/Card"
 import Icon from "../../elements/Icon"
-import EditCampaign from "../EditCampaign/EditCampaign"
 import { CAMPAIGNS } from "../CampaignList/CampaignList"
 import { LocalContext } from "../../utils/LocalContext"
 
@@ -28,7 +27,7 @@ const CampaignCard = ({
   campaignOptions,
 }) => {
   const [showActions, setShowActions] = useState(false)
-  const dateFormated = `${new Date(date).getMonth() + 1}/${new Date(
+  const dateFormatted = `${new Date(date).getMonth() + 1}/${new Date(
     date
   ).getDate()}/${new Date(date).getFullYear()}`
   const emailAddress = `${email}@sendmagnet.com`
@@ -112,7 +111,7 @@ const CampaignCard = ({
         <div className="info">
           <div className="info-section">
             <p>Date Created</p>
-            <span className="value">{dateFormated}</span>
+            <span className="value">{dateFormatted}</span>
           </div>
           <div className="info-section">
             <p>Total Transactions</p>
