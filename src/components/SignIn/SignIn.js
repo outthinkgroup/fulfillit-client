@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react"
 import styled from "styled-components"
-import { Link, graphql, navigate } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 import useForm from "../../utils/useForm"
 import { SingleForm } from "../../designSystem/styles"
-
+import { hardNavigate } from "../../utils"
 export const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($username: String!, $password: String!) {
     userLogin: login(
@@ -41,7 +41,7 @@ const SignIn = ({ className }) => {
       typeof window !== "undefined" &&
         localStorage.setItem("token", userLogin.authToken)
       localStorage.setItem("userID", userLogin.user.id)
-      navigate("/dashboard")
+      hardNavigate("/dashboard")
     },
   })
 
