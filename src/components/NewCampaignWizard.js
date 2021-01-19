@@ -9,7 +9,7 @@ import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 import { navigate } from "gatsby"
 import { CAMPAIGNS } from "./CampaignList"
-import FormCards, { WizardCard, WizardFormButton } from "./WizardCards"
+import FormCards from "./WizardCards"
 
 export const FORM_DEFAULT_STATE = {
   general: {

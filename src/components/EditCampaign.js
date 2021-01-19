@@ -33,7 +33,7 @@ export const SINGLE_CAMPAIGN = gql`
 `
 export const UPDATE_CAMPAIGN = gql`
   mutation UPDATE_CAMPAIGN(
-    $databaseId: String!
+    $databaseId: ID!
     $email: String
     $emailMarketingService: String
     $name: String
@@ -98,7 +98,7 @@ const EditCampaign = ({ className }) => {
     }
   }, [data])
 
-  if (loading) return "loodaing"
+  if (loading) return "loading...." //todo get real loader
   return (
     <form
       className={className}

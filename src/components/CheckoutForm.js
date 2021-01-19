@@ -5,9 +5,7 @@ import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 import UseForm from "../utils/useForm"
 import { LOGIN_MUTATION } from "./SignIn"
-import { navigate } from "gatsby"
 import { Error } from "./Error"
-import { USER_DATA } from "./Header"
 const style = {
   base: {
     color: "#32325d",
