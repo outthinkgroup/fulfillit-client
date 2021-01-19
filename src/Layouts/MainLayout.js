@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import HeaderComp from "../components/Header"
+import HeaderComp from "../components/Header/Header"
 import GlobalStyle from "../designSystem/globalStyles"
 
 const MainLayout = ({ children, className }) => {

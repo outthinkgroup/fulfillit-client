@@ -1,7 +1,7 @@
 import React from "react"
 
 import SingleFormLayout from "../Layouts/SingleFormLayout"
-import SignUp from "../components/SignUp"
+import SignUp from "../components/SignUp/SignUp"
 
 const SignUpPage = ({ query }) => {
   return (

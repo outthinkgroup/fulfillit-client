@@ -1,21 +1,21 @@
-import React, { useRef, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useRef, useEffect, useState } from "react"
+import styled from "styled-components"
 
-import { allFieldsHaveData } from "../utils/formValidation";
+import { allFieldsHaveData } from "../../utils/formValidation"
 
 const NavigationProgress = ({
   className,
   cards,
   changeCardTo,
   currentCard,
-  formData
+  formData,
 }) => {
-  const [parentWidth, setParentWidth] = useState();
-  const progNav = useRef(null);
+  const [parentWidth, setParentWidth] = useState()
+  const progNav = useRef(null)
   useEffect(() => {
-    const { width } = progNav.current.getBoundingClientRect();
-    setParentWidth(width);
-  });
+    const { width } = progNav.current.getBoundingClientRect()
+    setParentWidth(width)
+  })
 
   return (
     <div className={className} ref={progNav}>
@@ -32,15 +32,15 @@ const NavigationProgress = ({
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
 export default styled(NavigationProgress)`
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 30px;
-`;
+`
 const NavItem = styled.div`
   display: inline-block;
   width: ${({ currentCard }) => (currentCard ? "40px" : "35px")};
@@ -69,4 +69,4 @@ const NavItem = styled.div`
     z-index: 0;
     top: 50%;
   }
-`;
+`

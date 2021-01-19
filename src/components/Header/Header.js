@@ -3,8 +3,8 @@ import styled, { css } from "styled-components"
 import { Link, navigate } from "gatsby"
 import { gql } from "apollo-boost"
 import { useQuery } from "@apollo/react-hooks"
-import Logo from "../elements/Logo"
-import Navigation from "../components/Navigation"
+import Logo from "../../elements/Logo"
+import Navigation from "../Navigation/Navigation"
 
 export const USER_DATA = gql`
   query USER_DATA {

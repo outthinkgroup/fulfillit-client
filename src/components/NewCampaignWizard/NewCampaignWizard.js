@@ -2,14 +2,14 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { useTransition, animated } from "react-spring"
 
-import Card from "../elements/Card"
-import NavigationProgress from "./NavigationProgress"
-import { allFieldsHaveData } from "../utils/formValidation"
+import Card from "../../elements/Card"
+import NavigationProgress from "../NavigationProgress/NavigationProgress"
+import { allFieldsHaveData } from "../../utils/formValidation"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 import { navigate } from "gatsby"
-import { CAMPAIGNS } from "./CampaignList"
-import FormCards from "./WizardCards"
+import { CAMPAIGNS } from "../CampaignList/CampaignList"
+import FormCards from "../WizardCards/WizardCards"
 
 export const FORM_DEFAULT_STATE = {
   general: {

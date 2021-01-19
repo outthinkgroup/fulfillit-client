@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { Link, graphql, navigate } from "gatsby"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
-import useForm from "../utils/useForm"
-import { SingleForm } from "../designSystem/styles"
+import useForm from "../../utils/useForm"
+import { SingleForm } from "../../designSystem/styles"
 
 export const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($username: String!, $password: String!) {

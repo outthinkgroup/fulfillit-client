@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-import { PageHeading } from "../designSystem/styles";
-import NewCampaignWizard from "./NewCampaignWizard";
+import { PageHeading } from "../../designSystem/styles"
+import NewCampaignWizard from "../NewCampaignWizard/NewCampaignWizard"
 
 const NewCampaign = ({ className }) => {
   return (
@@ -13,9 +13,9 @@ const NewCampaign = ({ className }) => {
       </PageHeading>
       {<NewCampaignWizard />}
     </div>
-  );
-};
+  )
+}
 
 export default styled(NewCampaign)`
   max-width: 650px;
-`;
+`

@@ -1,7 +1,7 @@
 import React from "react"
 
 import DashboardLayout from "../Layouts/DashboardLayout"
-import NewCampaign from "../components/NewCampaign"
+import NewCampaign from "../components/NewCampaign/NewCampaign"
 
 const NewCampaignPage = ({ query }) => {
   return (

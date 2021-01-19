@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 import Logo from "../../elements/Logo"
-import SideBarMenu from "../SideBarMenu"
+import SideBarMenu from "../SideBarMenu/SideBarMenu"
 
 const Sidebar = ({ className, isOpen }) => {
   return (

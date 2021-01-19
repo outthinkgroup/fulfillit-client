@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 
-import { SingleForm } from "../designSystem/styles"
-import UseForm from "../utils/useForm"
+import { SingleForm } from "../../designSystem/styles"
+import UseForm from "../../utils/useForm"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 

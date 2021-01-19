@@ -3,11 +3,11 @@ import styled from "styled-components"
 import { Link, navigate } from "gatsby"
 import { useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
-import Card from "../elements/Card"
-import Icon from "../elements/Icon"
-import EditCampaign from "./EditCampaign"
-import { CAMPAIGNS } from "./CampaignList"
-import { LocalContext } from "../utils/LocalContext"
+import Card from "../../elements/Card"
+import Icon from "../../elements/Icon"
+import EditCampaign from "../EditCampaign/EditCampaign"
+import { CAMPAIGNS } from "../CampaignList/CampaignList"
+import { LocalContext } from "../../utils/LocalContext"
 
 export const DELETE_CAMPAIGN = gql`
   mutation DELETE_CAMPAIGN($id: ID!) {

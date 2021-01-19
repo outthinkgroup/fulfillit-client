@@ -1,12 +1,12 @@
 import React, { useContext, useRef } from "react"
 import styled from "styled-components"
 
-import { LocalContext } from "../utils/LocalContext"
-import Hamburger from "./Hamburger"
-import Logo from "../elements/Logo"
-import Icon from "../elements/Icon"
-import SideBarMenu from "./SideBarMenu"
-import useOnClickOutside from "../utils/useOnClickOutside"
+import { LocalContext } from "../../utils/LocalContext"
+import Hamburger from "../Hamburger/Hamburger"
+import Logo from "../../elements/Logo"
+import Icon from "../../elements/Icon"
+import SideBarMenu from "../SideBarMenu/SideBarMenu"
+import useOnClickOutside from "../../utils/useOnClickOutside"
 
 const MobileSidebar = ({ className }) => {
   const { localState, setLocalState } = useContext(LocalContext)

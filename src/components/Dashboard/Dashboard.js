@@ -1,12 +1,12 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { PageHeading } from "../designSystem/styles"
+import { PageHeading } from "../../designSystem/styles"
 import { navigate } from "gatsby"
-import { USER_DATA } from "./Header"
-import CampaignList from "./CampaignList"
-import EditCampaign from "./EditCampaign.js"
+import { USER_DATA } from "../Header/Header"
+import CampaignList from "../CampaignList/CampaignList"
+import EditCampaign from "../EditCampaign/EditCampaign.js"
 import { useQuery } from "@apollo/react-hooks"
-import { LocalContext } from "../utils/LocalContext"
+import { LocalContext } from "../../utils/LocalContext"
 
 const Dashboard = ({ query, className }) => {
   const { data, loading, error } = useQuery(USER_DATA)

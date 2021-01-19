@@ -1,8 +1,7 @@
 import React from "react"
-import styled from 'styled-components'
-import {  animated } from "react-spring"
-import { allFieldsHaveData } from "../utils/formValidation"
-
+import styled from "styled-components"
+import { animated } from "react-spring"
+import { allFieldsHaveData } from "../../utils/formValidation"
 
 const FormCards = [
   ({ style, cards, item, updateFormData, nextCard, formData }) => (
@@ -88,7 +87,15 @@ const FormCards = [
       </div>
     </WizardCard>
   ),
-  ({ style, cards, item, updateFormData, nextCard, formData, mailserviceInfo }) => (
+  ({
+    style,
+    cards,
+    item,
+    updateFormData,
+    nextCard,
+    formData,
+    mailserviceInfo,
+  }) => (
     <WizardCard depth="medium" style={{ ...style }}>
       <div className="mailservice-info">
         <h3>Email Service Info</h3>
@@ -135,7 +142,16 @@ const FormCards = [
       </div>
     </WizardCard>
   ),
-  ({ style, cards, item, updateFormData, updating, createNewCampaign, finish, formData }) => (
+  ({
+    style,
+    cards,
+    item,
+    updateFormData,
+    updating,
+    createNewCampaign,
+    finish,
+    formData,
+  }) => (
     <WizardCard depth="medium" style={{ ...style }}>
       <div className="finish">
         <h3>Publish</h3>
@@ -162,7 +178,7 @@ const FormCards = [
         />
       </div>
     </WizardCard>
-  ), 
+  ),
 ]
 
 const WizardCard = styled(animated.div)`
@@ -192,7 +208,6 @@ const WizardFormButton = ({ card, formData, fn, txt = "next" }) => {
     ""
   )
 }
-
 
 export default FormCards
 export { WizardCard, WizardFormButton }

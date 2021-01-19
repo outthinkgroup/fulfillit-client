@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { CardElement, injectStripe } from "react-stripe-elements"
-import { SingleForm } from "../designSystem/styles"
+import { SingleForm } from "../../designSystem/styles"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
-import UseForm from "../utils/useForm"
-import { LOGIN_MUTATION } from "./SignIn"
-import { Error } from "./Error"
+import UseForm from "../../utils/useForm"
+import { LOGIN_MUTATION } from "../SignIn/SignIn"
+import { Error } from "../Error/Error"
 const style = {
   base: {
     color: "#32325d",

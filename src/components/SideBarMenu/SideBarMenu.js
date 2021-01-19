@@ -2,8 +2,8 @@ import React, { useContext } from "react"
 import { Link } from "gatsby"
 import styled, { css } from "styled-components"
 
-import Logo from "../elements/Logo"
-import theme from "../designSystem/theme"
+import Logo from "../../elements/Logo"
+import theme from "../../designSystem/theme"
 
 const SideBarMenu = ({ closeSideBar = null }) => {
   return (

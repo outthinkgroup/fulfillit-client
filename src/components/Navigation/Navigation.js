@@ -2,11 +2,11 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import { Link, navigate } from "gatsby"
 
-import { USER_DATA } from "./Header"
+import { USER_DATA } from "../Header/Header"
 import { gql } from "apollo-boost"
 import { useMutation } from "@apollo/react-hooks"
 
-import LogOut from "../utils/useLogOut"
+import LogOut from "../../utils/useLogOut"
 
 const LOGOUT = gql`
   mutation LOGOUT {

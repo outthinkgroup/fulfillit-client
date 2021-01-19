@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
-import CampaignCard from "./CampaignCard"
+import CampaignCard from "../CampaignCard/CampaignCard"
 
 export const CAMPAIGNS = gql`
   query CAMPAIGNS {

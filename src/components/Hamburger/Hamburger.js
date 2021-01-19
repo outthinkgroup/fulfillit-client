@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { LocalContext } from "../utils/LocalContext"
-import Icon from "../elements/Icon"
+import { LocalContext } from "../../utils/LocalContext"
+import Icon from "../../elements/Icon"
 
 const Hamburger = ({ className }) => {
   const { localState, setLocalState } = useContext(LocalContext)
