@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar renders correctly 1`] = `
+<aside
+  className="sc-bxivhb eAAlBc"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="sc-ifAKCX dfqbbM"
+    >
+      <div
+        className="sc-bdVaJa cVKkKw"
+      >
+        <span>
+          fulfillit
+        </span>
+        <span
+          className="byline"
+        >
+          by Out:think
+        </span>
+      </div>
+    </div>
+    <div>
+      <div
+        className="sc-bwzfXH ehMfMd"
+      >
+        <h3>
+          Campaigns
+        </h3>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="/dashboard"
+                onClick={null}
+              >
+                Campaigns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/new-campaign"
+                onClick={null}
+              >
+                Create New Campaign
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div
+        className="sc-bwzfXH ehMfMd"
+      >
+        <h3>
+          Account
+        </h3>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="/"
+                onClick={null}
+              >
+                User Settings
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+                onClick={null}
+              >
+                Billing
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+                onClick={null}
+              >
+                Account
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <span
+        className="sc-htpNat eMraqZ"
+      >
+        <a
+          className="btn"
+          href="/"
+          onClick={null}
+        >
+          Upgrade Plan
+        </a>
+      </span>
+    </div>
+  </div>
+</aside>
+`;

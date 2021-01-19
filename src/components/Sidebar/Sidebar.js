@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 
-import Logo from "../elements/Logo"
-import SideBarMenu from "./SideBarMenu"
+import Logo from "../../elements/Logo"
+import SideBarMenu from "../SideBarMenu"
 
 const Sidebar = ({ className, isOpen }) => {
   return (

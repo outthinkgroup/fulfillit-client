@@ -2,14 +2,13 @@ import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../components/Sidebar/Sidebar.js"
 import HeaderComp from "../components/Header"
 import GlobalStyle from "../designSystem/globalStyles"
 
 import MobileSidebar from "../components/MobileSidebar"
 
 const DashboardLayout = ({ children, className }) => {
-  const isOpen = false
   return (
     <div className={className}>
       <HeaderComp
