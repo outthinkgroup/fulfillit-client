@@ -29,7 +29,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
               id="email"
               value={form.email || ""}
             />
-            <span className="suffix">@mg.taskcannon.co</span>
+            <span className="suffix">@sendmagnet.com</span>
           </span>
         </label>
         <label htmlFor="service">

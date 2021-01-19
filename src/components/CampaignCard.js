@@ -31,7 +31,7 @@ const CampaignCard = ({
   const dateFormated = `${new Date(date).getMonth() + 1}/${new Date(
     date
   ).getDate()}/${new Date(date).getFullYear()}`
-  const emailAddress = `${email}@mg.taskcannon.co`
+  const emailAddress = `${email}@sendmagnet.com`
   const { localState, setLocalState } = useContext(LocalContext)
   const [
     deleteCampaign,
