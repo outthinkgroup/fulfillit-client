@@ -5,7 +5,8 @@ const Logo = ({ className, includeLogo }) => {
   console.log(includeLogo)
   return (
     <div className={className} data-includelogo={includeLogo}>
-      <span>fulfillit</span>
+      <span>Sendmagnet</span>
+
       <span className="byline">by Out:think</span>
     </div>
   )

@@ -6,11 +6,8 @@ import { gql } from "apollo-boost"
 import CampaignDetails from "../CampaignDetails/CampaignDetails"
 import getUrlParam from "../../../utils/getUrlParams"
 import useForm from "../../../utils/useForm"
-import Icon from "../../../elements/Icon"
-import { FORM_DEFAULT_STATE } from "../NewCampaignWizard/NewCampaignWizard"
 import { LocalContext } from "../../../utils/LocalContext"
 import { useQuery, useMutation } from "@apollo/react-hooks"
-import { CAMPAIGNS } from "../../CampaignList/CampaignList"
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {

@@ -1,3 +1,11 @@
+const requiredFields = [
+  "serviceApiKey",
+  "emailMarketingService",
+  "name",
+  "email",
+  "status",
+]
+
 function allFieldsHaveData(currentCardName, formData) {
   const currentCardData = getFormValues(currentCardName, formData)
 
@@ -5,7 +13,8 @@ function allFieldsHaveData(currentCardName, formData) {
 }
 
 function getFormValues(card, formData) {
-  return Object.keys(formData[card]).map(dataKey => formData[card][dataKey])
+  return Object.keys(formData[card])
+    .filter(field => requiredFields.includes(field))
+    .map(dataKey => formData[card][dataKey])
 }
-
-export { allFieldsHaveData }
+export { allFieldsHaveData, getFormValues, requiredFields }

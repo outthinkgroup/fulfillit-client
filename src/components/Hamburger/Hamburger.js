@@ -10,6 +10,7 @@ const Hamburger = ({ className }) => {
       setLocalState({ ...localState, isSideBarOpen: "NONE" })
     }
   }
+
   return (
     <button
       type="button"

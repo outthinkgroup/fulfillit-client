@@ -51,6 +51,9 @@ const CampaignCard = ({
     },
     refetchQueries: ["CAMPAIGNS"],
   })
+
+  const viewDetails = () => navigate(`/campaign/?campaign_id=${id}`)
+
   return (
     <Card depth="low" className={className}>
       <div onMouseLeave={() => setShowActions(false)}>
@@ -79,9 +82,9 @@ const CampaignCard = ({
                 </button>
                 <button
                   type="button"
-                  onClick={deleteCampaign}
+                  onClick={viewDetails}
                   className="analytics"
-                  title="Analytics"
+                  title="View Details"
                 >
                   <Icon name="chart" color="white" />
                 </button>
@@ -97,6 +100,7 @@ const CampaignCard = ({
             )}
             <button
               type="button"
+              data-testid="option-btn"
               onClick={e => {
                 e.preventDefault()
                 setShowActions(!showActions)

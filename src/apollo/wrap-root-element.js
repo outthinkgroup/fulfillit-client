@@ -14,3 +14,10 @@ export const wrapRootElement = ({ element }) => {
     </ApolloProvider>
   )
 }
+export const TestWrapper = ({ children }) => (
+  <ApolloProvider client={client}>
+    <LocalState>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </LocalState>
+  </ApolloProvider>
+)

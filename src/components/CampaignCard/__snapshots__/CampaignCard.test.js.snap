@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CampaignCard renders correctly 1`] = `
+<div
+  className="sc-bdVaJa dlXhdy sc-htpNat bFWwNG"
+>
+  <div
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="top-section"
+    >
+      <div
+        className="title"
+      >
+        <p
+          className="tag"
+        >
+          Publish
+        </p>
+        <h3>
+          College Pre-order receipts
+        </h3>
+        <p>
+          ronlieber@sendmagnet.com
+        </p>
+      </div>
+      <div
+        className="actions-group"
+      >
+        <button
+          className="options"
+          onClick={[Function]}
+          title="Delete Campaign"
+          type="button"
+        >
+          <svg
+            fill="black"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      className="info"
+    >
+      <div
+        className="info-section"
+      >
+        <p>
+          Date Created
+        </p>
+        <span
+          className="value"
+        >
+          12/15/2020
+        </span>
+      </div>
+      <div
+        className="info-section"
+      >
+        <p>
+          Total Transactions
+        </p>
+        <span
+          className="value"
+        >
+          0
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
