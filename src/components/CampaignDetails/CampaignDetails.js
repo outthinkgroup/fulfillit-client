@@ -49,8 +49,15 @@ const CampaignDetails = ({ query, className }) => {
           />
         )}
       </PageHeading>
-      <CampaignAnalytics />
-      <CampaignGeneralInfo />
+      {!campaignDataLoading && (
+        <>
+          <CampaignAnalytics
+            id={campaignData.campaign.campaignId}
+            campaignName={campaignData.campaign.campaignOptions.name}
+          />
+          <CampaignGeneralInfo />
+        </>
+      )}
       {isSideBarOpen === "EDIT_CAMPAIGN" && <EditCampaign />}
     </div>
   )
@@ -69,6 +76,7 @@ export const SINGLE_CAMPAIGN_TITLE = gql`
   query SINGLE_CAMPAIGN_TITLE($id: ID!) {
     campaign(id: $id, idType: ID) {
       id
+      campaignId
       status
       email: title(format: RAW)
       campaignOptions {
