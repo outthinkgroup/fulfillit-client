@@ -102,10 +102,11 @@ const CheckoutForm = props => {
     },
   })
 
+  const [isLoadingStripe, setIsLoadingStripe] = useState(false)
   async function handleSubmit(e) {
     e.preventDefault()
     const cardElement = props.elements.getElement("card")
-    //TODO set loading state.
+    setIsLoadingStripe(true)
     const result = await props.stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
@@ -113,7 +114,7 @@ const CheckoutForm = props => {
         email: form.email,
       },
     })
-
+    setIsLoadingStripe(false)
     stripePaymentMethodHandler(result)
   }
   const stripePaymentMethodHandler = result => {
@@ -173,10 +174,12 @@ const CheckoutForm = props => {
               <CardElement className="MyCardElement" style={style} />
             </label>
             <button type="submit">
-              {loading
-                ? "creating user"
+              {isLoadingStripe
+                ? "Verifying..."
+                : loading
+                ? "Creating User..."
                 : loginData.loading
-                ? "Loading"
+                ? "Loading..."
                 : "checkout"}
             </button>
           </form>

@@ -81,7 +81,7 @@ const SignIn = ({ className }) => {
             <button type="submit">{loading ? "loading..." : "Sign In"} </button>
           </form>
           <p>
-            <Link to="/sign-up">Don't have an account?</Link>
+            <Link to="/checkout">Don't have an account?</Link>
           </p>
         </div>
       </div>

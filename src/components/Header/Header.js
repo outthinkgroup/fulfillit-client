@@ -29,7 +29,7 @@ const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
       >
         <Logo includeLogo={includeLogo} />
       </span>
-      <Navigation userData={data && data} />
+      <Navigation userData={data && data.viewer} />
     </header>
   )
 }
