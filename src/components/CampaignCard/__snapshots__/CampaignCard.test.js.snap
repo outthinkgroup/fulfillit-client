@@ -30,6 +30,7 @@ exports[`CampaignCard renders correctly 1`] = `
       >
         <button
           className="options"
+          data-testid="option-btn"
           onClick={[Function]}
           title="Delete Campaign"
           type="button"
