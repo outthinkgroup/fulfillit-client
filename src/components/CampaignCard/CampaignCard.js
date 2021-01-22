@@ -65,7 +65,7 @@ const CampaignCard = ({
           </div>
           <div className="actions-group">
             {showActions && (
-              <div className="actions">
+              <div className="actions" data-testid="actions-wrapper">
                 <button
                   type="button"
                   onClick={() => {
@@ -106,7 +106,7 @@ const CampaignCard = ({
                 setShowActions(!showActions)
               }}
               className="options"
-              title="Delete Campaign"
+              title="Show Options"
             >
               <Icon name="options" />
             </button>

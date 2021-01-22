@@ -38,7 +38,7 @@ describe("CampaignCard", () => {
 
     render(<Comp />)
     fireEvent.click(screen.getByTestId("option-btn"))
-    waitFor(() => screen.findByTitle("Delete Campaign"))
-    fireEvent.click(screen.findByTitle("Delete Campaign"))
+
+    expect(screen.getByTestId("actions-wrapper").childElementCount).toBe(3)
   })
 })
