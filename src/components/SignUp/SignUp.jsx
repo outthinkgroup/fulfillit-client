@@ -1,11 +1,9 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { Link } from "gatsby"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { SingleForm } from "../../designSystem/styles"
-import UseForm from "../../utils/useForm"
-import { gql } from "apollo-boost"
-import { useMutation } from "@apollo/react-hooks"
+import { SingleForm } from "../../designSystem/styles";
+import UseForm from "../../utils/useForm";
+import { useMutation, gql } from "@apollo/client";
 
 const SIGN_UP = gql`
   mutation SIGN_UP($password: String!, $username: String!, $email: String!) {
@@ -23,22 +21,22 @@ const SIGN_UP = gql`
       }
     }
   }
-`
+`;
 
 const SignUp = () => {
   const [form, updateForm] = UseForm({
     username: "",
     password: "",
     email: "",
-  })
-  const { username, password, email } = form
+  });
+  const { username, password, email } = form;
   const [signUp, signUpData] = useMutation(SIGN_UP, {
     variables: {
       username,
       email,
       password,
     },
-  })
+  });
 
   return (
     <SingleForm>
@@ -47,9 +45,9 @@ const SignUp = () => {
         <div className="singleform-form-wrapper">
           <h2>Sign Up</h2>
           <form
-            onSubmit={e => {
-              e.preventDefault()
-              signUp()
+            onSubmit={(e) => {
+              e.preventDefault();
+              signUp();
             }}
           >
             <label htmlFor="username">
@@ -90,7 +88,7 @@ const SignUp = () => {
         </div>
       </div>
     </SingleForm>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

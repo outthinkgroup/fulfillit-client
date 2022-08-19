@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react"
-import styled from "styled-components"
-import { Link, graphql } from "gatsby"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import { gql } from "apollo-boost"
-import useForm from "../../utils/useForm"
-import { SingleForm } from "../../designSystem/styles"
-import { hardNavigate } from "../../utils"
+import React, { useState, useContext } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import useForm from "../../utils/useForm";
+import { SingleForm } from "../../designSystem/styles";
+import { hardNavigate } from "../../utils";
 export const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($username: String!, $password: String!) {
     userLogin: login(
@@ -25,13 +24,13 @@ export const LOGIN_MUTATION = gql`
       }
     }
   }
-`
+`;
 
 const SignIn = ({ className }) => {
   const [form, updateForm] = useForm({
     username: "",
     password: "",
-  })
+  });
   const [userLogin, { loading, error, data }] = useMutation(LOGIN_MUTATION, {
     variables: {
       username: form.username,
@@ -39,11 +38,11 @@ const SignIn = ({ className }) => {
     },
     onCompleted({ userLogin }) {
       typeof window !== "undefined" &&
-        localStorage.setItem("token", userLogin.authToken)
-      localStorage.setItem("userID", userLogin.user.id)
-      hardNavigate("/dashboard")
+        localStorage.setItem("token", userLogin.authToken);
+      localStorage.setItem("userID", userLogin.user.id);
+      hardNavigate("/dashboard");
     },
-  })
+  });
 
   return (
     <SingleForm>
@@ -52,10 +51,11 @@ const SignIn = ({ className }) => {
         <div className="singleform-form-wrapper">
           <h2>Sign In</h2>
           <form
-            onSubmit={e => {
-              e.preventDefault()
-              typeof window !== "undefined" && localStorage.setItem("token", "")
-              userLogin()
+            onSubmit={(e) => {
+              e.preventDefault();
+              typeof window !== "undefined" &&
+                localStorage.setItem("token", "");
+              userLogin();
             }}
           >
             <label htmlFor="username">
@@ -86,7 +86,7 @@ const SignIn = ({ className }) => {
         </div>
       </div>
     </SingleForm>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

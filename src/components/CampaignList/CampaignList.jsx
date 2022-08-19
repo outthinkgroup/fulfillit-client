@@ -1,8 +1,7 @@
-import React from "react"
-import styled from "styled-components"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import { gql } from "apollo-boost"
-import CampaignCard from "../CampaignCard/CampaignCard"
+import React from "react";
+import styled from "styled-components";
+import { useQuery, gql } from "@apollo/client";
+import CampaignCard from "../CampaignCard/CampaignCard";
 
 export const CAMPAIGNS = gql`
   query CAMPAIGNS {
@@ -36,31 +35,31 @@ export const CAMPAIGNS = gql`
       }
     }
   }
-`
+`;
 
 const CampaignList = ({ className }) => {
-  const { data, loading, error } = useQuery(CAMPAIGNS)
-  console.log(error)
-  if (error) return error.errors[0].debugMessage
+  const { data, loading, error } = useQuery(CAMPAIGNS);
+  console.log(error);
+  if (error) return error.errors[0].debugMessage;
   const campaigns = data
     ? [...data.viewer.campaigns.nodes, ...data.viewer.draftCampaigns.nodes]
-    : []
+    : [];
   return (
     <div className={className}>
       <ul>
         {loading
           ? "loading"
-          : campaigns.map(campaign => {
+          : campaigns.map((campaign) => {
               return (
                 <li key={campaign.id}>
                   <CampaignCard {...campaign} />
                 </li>
-              )
+              );
             })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 export default styled(CampaignList)`
   ul {
@@ -78,4 +77,4 @@ export default styled(CampaignList)`
       list-style: none;
     }
   }
-`
+`;

@@ -4,55 +4,20 @@
   "description": "Sendmagnet's gatsby site",
   "version": "0.1.0",
   "author": "josh kennedy",
-  "dependencies": {
-    "@apollo/react-hooks": "^3.1.1",
-    "apollo-boost": "^0.4.4",
-    "apollo-cache-persist": "^0.1.1",
-    "babel-plugin-styled-components": "^1.10.6",
-    "babel-preset-gatsby": "^0.10.0",
-    "dotenv": "^8.1.0",
-    "gatsby": "^2.15.21",
-    "gatsby-plugin-manifest": "^2.2.18",
-    "gatsby-plugin-offline": "^3.0.8",
-    "gatsby-plugin-react-helmet": "^3.1.8",
-    "gatsby-plugin-stripe": "^1.2.3",
-    "gatsby-plugin-styled-components": "^3.1.6",
-    "isomorphic-fetch": "^2.2.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-helmet": "^5.2.1",
-    "react-spring": "^8.0.27",
-    "react-stripe-elements": "^6.0.1",
-    "react-stripe-elements-universal": "^1.2.0-3",
-    "react-test-renderer": "^17.0.1",
-    "styled-components": "^4.4.0"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
-    "babel-jest": "^26.6.3",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.6.3",
-    "prettier": "^1.18.2"
-  },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "dev": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "jest"
+    "build": "vite build",
+    "dev": "vite"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@vitejs/plugin-react": "^2.0.1",
+    "graphql": "^16.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "react-spring": "^9.5.2",
+    "styled-components": "^5.3.5",
+    "vite": "^3.0.9"
   }
 }

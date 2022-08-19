@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from "react"
-import styled from "styled-components"
-import { Link } from "gatsby"
-import { gql } from "apollo-boost"
+import React, { useContext, useEffect } from "react";
+import styled from "styled-components";
 
-import CampaignDetails from "../CampaignDetails/CampaignDetails"
-import getUrlParam from "../../../utils/getUrlParams"
-import useForm from "../../../utils/useForm"
-import { LocalContext } from "../../../utils/LocalContext"
-import { useQuery, useMutation } from "@apollo/react-hooks"
+import CampaignDetails from "../CampaignDetails/CampaignDetails";
+import getUrlParam from "../../../utils/getUrlParams";
+import useForm from "../../../utils/useForm";
+import { LocalContext } from "../../../utils/LocalContext";
+import { useQuery, useMutation, gql } from "@apollo/client";
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {
@@ -27,7 +25,7 @@ export const SINGLE_CAMPAIGN = gql`
       }
     }
   }
-`
+`;
 export const UPDATE_CAMPAIGN = gql`
   mutation UPDATE_CAMPAIGN(
     $databaseId: ID!
@@ -70,38 +68,38 @@ export const UPDATE_CAMPAIGN = gql`
       }
     }
   }
-`
+`;
 
 const EditCampaign = ({ className }) => {
-  const { localState, setLocalState } = useContext(LocalContext)
+  const { localState, setLocalState } = useContext(LocalContext);
   const { data, loading, error } = useQuery(SINGLE_CAMPAIGN, {
     variables: {
       id: getUrlParam("campaign_id"),
     },
-  })
-  const [form, updateForm, setForm] = useForm({})
+  });
+  const [form, updateForm, setForm] = useForm({});
   const [updateCampaign, updatedData] = useMutation(UPDATE_CAMPAIGN, {
     variables: { ...form },
     refetchQueries: ["CAMPAIGNS"],
     onCompleted() {
-      setLocalState({ ...localState, isSideBarOpen: false })
+      setLocalState({ ...localState, isSideBarOpen: false });
     },
-  })
+  });
 
   useEffect(() => {
     if (data) {
-      const { id, email, status, campaignOptions, databaseId } = data.campaign
-      setForm({ id, email, databaseId, status, ...campaignOptions })
+      const { id, email, status, campaignOptions, databaseId } = data.campaign;
+      setForm({ id, email, databaseId, status, ...campaignOptions });
     }
-  }, [data])
+  }, [data]);
 
-  if (loading) return "loading...." //todo get real loader
+  if (loading) return "loading...."; //todo get real loader
   return (
     <form
       className={className}
-      onSubmit={e => {
-        e.preventDefault()
-        updateCampaign()
+      onSubmit={(e) => {
+        e.preventDefault();
+        updateCampaign();
       }}
     >
       <CampaignDetails form={form} updateForm={updateForm} />
@@ -120,8 +118,8 @@ const EditCampaign = ({ className }) => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export default styled(EditCampaign)`
   height: 100vh;
@@ -171,4 +169,4 @@ export default styled(EditCampaign)`
     padding: 20px;
     padding-bottom: 80px;
   }
-`
+`;

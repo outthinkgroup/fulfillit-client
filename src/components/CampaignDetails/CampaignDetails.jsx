@@ -1,18 +1,17 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
-import { navigate } from "gatsby"
-import { gql } from "apollo-boost"
-import { useQuery } from "@apollo/react-hooks"
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useQuery, gql } from "@apollo/client";
 
-import { PageHeading } from "../../designSystem/styles"
-import { USER_DATA } from "../Header/Header"
-import { LocalContext } from "../../utils/LocalContext"
-import getUrlParam from "../../utils/getUrlParams"
-import CampaignGeneralInfo from "./CampaignGeneralInfo/CampaignGeneralInfo.js"
-import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics.js"
-import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign.js"
+import { PageHeading } from "../../designSystem/styles";
+import { USER_DATA } from "../Header/Header";
+import { LocalContext } from "../../utils/LocalContext";
+import getUrlParam from "../../utils/getUrlParams";
+import CampaignGeneralInfo from "./CampaignGeneralInfo/CampaignGeneralInfo.jsx";
+import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics.jsx";
+import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign.jsx";
 const CampaignDetails = ({ query, className }) => {
-  const { data, loading, error } = useQuery(USER_DATA)
+  const { data, loading, error } = useQuery(USER_DATA);
   const {
     data: campaignData,
     loading: campaignDataLoading,
@@ -21,21 +20,22 @@ const CampaignDetails = ({ query, className }) => {
     variables: {
       id: getUrlParam("campaign_id"),
     },
-  })
-  const { localState, setLocalState } = useContext(LocalContext)
+  });
+  const navigate = useNavigate();
+  const { localState, setLocalState } = useContext(LocalContext);
 
   function openEditingSideBar() {
-    setLocalState(state => ({
+    setLocalState((state) => ({
       ...state,
       isSideBarOpen: "EDIT_CAMPAIGN",
-    }))
+    }));
   }
 
   if (error) {
-    navigate("/sign-in")
-    return null
+    navigate("/sign-in");
+    return null;
   }
-  const { isSideBarOpen } = localState
+  const { isSideBarOpen } = localState;
 
   return (
     <div className={className}>
@@ -60,17 +60,17 @@ const CampaignDetails = ({ query, className }) => {
       )}
       {isSideBarOpen === "EDIT_CAMPAIGN" && <EditCampaign />}
     </div>
-  )
-}
+  );
+};
 
 const CampaignDetailsHeading = ({ campaign, handleEdit }) => (
   <div>
     <h2>{campaign.campaignOptions.name}</h2>
     <button onClick={handleEdit}>Edit</button>
   </div>
-)
+);
 
-export default styled(CampaignDetails)``
+export default styled(CampaignDetails)``;
 
 export const SINGLE_CAMPAIGN_TITLE = gql`
   query SINGLE_CAMPAIGN_TITLE($id: ID!) {
@@ -84,4 +84,4 @@ export const SINGLE_CAMPAIGN_TITLE = gql`
       }
     }
   }
-`
+`;

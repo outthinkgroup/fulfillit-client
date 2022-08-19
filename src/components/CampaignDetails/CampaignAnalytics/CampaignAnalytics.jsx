@@ -1,13 +1,11 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
-import { navigate } from "gatsby"
-import { gql } from "apollo-boost"
-import { useQuery } from "@apollo/react-hooks"
+import React from "react";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/client";
 
-import { PageHeading } from "../../../designSystem/styles"
-import { USER_DATA } from "../../Header/Header"
-import { LocalContext } from "../../../utils/LocalContext"
-import getUrlParam from "../../../utils/getUrlParams"
+import { PageHeading } from "../../../designSystem/styles";
+import { USER_DATA } from "../../Header/Header";
+import { LocalContext } from "../../../utils/LocalContext";
+import getUrlParam from "../../../utils/getUrlParams";
 
 export default function CampaignAnalytics({ id, campaignName }) {
   const {
@@ -19,10 +17,10 @@ export default function CampaignAnalytics({ id, campaignName }) {
       id,
       campaign: campaignName,
     },
-  })
+  });
 
   if (loadingAnalytics) {
-    return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>
+    return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
   }
 
   return (
@@ -36,12 +34,12 @@ export default function CampaignAnalytics({ id, campaignName }) {
         <ul>
           {dataAnalytics.logs.nodes.length &&
             dataAnalytics.logs.nodes.length.map(({ title, id }) => {
-              return <li key={id}>{title}</li>
+              return <li key={id}>{title}</li>;
             })}
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
 export const CAMPAIGN_ANALYTICS = gql`
@@ -69,4 +67,4 @@ export const CAMPAIGN_ANALYTICS = gql`
       }
     }
   }
-`
+`;

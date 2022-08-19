@@ -1,12 +1,11 @@
-import React, { useState, useContext } from "react"
-import styled from "styled-components"
-import { Link, navigate } from "gatsby"
-import { useMutation } from "@apollo/react-hooks"
-import { gql } from "apollo-boost"
-import Card from "../../elements/Card"
-import Icon from "../../elements/Icon"
-import { CAMPAIGNS } from "../CampaignList/CampaignList"
-import { LocalContext } from "../../utils/LocalContext"
+import React, { useState, useContext } from "react";
+import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation, gql } from "@apollo/client";
+import Card from "../../elements/Card";
+import Icon from "../../elements/Icon";
+import { CAMPAIGNS } from "../CampaignList/CampaignList";
+import { LocalContext } from "../../utils/LocalContext";
 
 export const DELETE_CAMPAIGN = gql`
   mutation DELETE_CAMPAIGN($id: ID!) {
@@ -16,7 +15,7 @@ export const DELETE_CAMPAIGN = gql`
       }
     }
   }
-`
+`;
 
 const CampaignCard = ({
   className,
@@ -26,12 +25,12 @@ const CampaignCard = ({
   email,
   campaignOptions,
 }) => {
-  const [showActions, setShowActions] = useState(false)
+  const [showActions, setShowActions] = useState(false);
   const dateFormatted = `${new Date(date).getMonth() + 1}/${new Date(
     date
-  ).getDate()}/${new Date(date).getFullYear()}`
-  const emailAddress = `${email}@sendmagnet.com`
-  const { localState, setLocalState } = useContext(LocalContext)
+  ).getDate()}/${new Date(date).getFullYear()}`;
+  const emailAddress = `${email}@sendmagnet.com`;
+  const { localState, setLocalState } = useContext(LocalContext);
   const [
     deleteCampaign,
     { data: deletedData, loading: deleting, error: deleteError },
@@ -40,19 +39,19 @@ const CampaignCard = ({
       id,
     },
     update(cache, payload) {
-      const data = cache.readQuery({ query: CAMPAIGNS })
-      const { campaigns } = data.viewer
-      console.log(payload)
-      const { id } = payload.data.deleteCampaign.campaign
+      const data = cache.readQuery({ query: CAMPAIGNS });
+      const { campaigns } = data.viewer;
+      console.log(payload);
+      const { id } = payload.data.deleteCampaign.campaign;
       data.viewer.campaigns = campaigns.nodes.filter(
-        campaign => campaign.id !== id
-      )
-      cache.writeQuery({ query: CAMPAIGNS, data })
+        (campaign) => campaign.id !== id
+      );
+      cache.writeQuery({ query: CAMPAIGNS, data });
     },
     refetchQueries: ["CAMPAIGNS"],
-  })
+  });
 
-  const viewDetails = () => navigate(`/campaign/?campaign_id=${id}`)
+  const viewDetails = () => navigate(`/campaign/?campaign_id=${id}`);
 
   return (
     <Card depth="low" className={className}>
@@ -69,11 +68,11 @@ const CampaignCard = ({
                 <button
                   type="button"
                   onClick={() => {
-                    navigate(`/dashboard?campaign_id=${id}`)
+                    navigate(`/dashboard?campaign_id=${id}`);
                     setLocalState({
                       ...localState,
                       isSideBarOpen: "EDIT_CAMPAIGN",
-                    })
+                    });
                   }}
                   className="edit"
                   title="Edit"
@@ -101,9 +100,9 @@ const CampaignCard = ({
             <button
               type="button"
               data-testid="option-btn"
-              onClick={e => {
-                e.preventDefault()
-                setShowActions(!showActions)
+              onClick={(e) => {
+                e.preventDefault();
+                setShowActions(!showActions);
               }}
               className="options"
               title="Show Options"
@@ -124,8 +123,8 @@ const CampaignCard = ({
         </div>
       </div>
     </Card>
-  )
-}
+  );
+};
 
 export default styled(CampaignCard)`
   padding: 0;
@@ -266,4 +265,4 @@ export default styled(CampaignCard)`
     align-items: center;
     box-shadow: none;
   }
-`
+`;

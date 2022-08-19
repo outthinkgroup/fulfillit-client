@@ -1,15 +1,14 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { useTransition, animated } from "react-spring"
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useTransition, animated } from "react-spring";
 
-import Card from "../../../elements/Card"
-import NavigationProgress from "./../NavigationProgress/NavigationProgress"
-import { allFieldsHaveData } from "../../../utils/formValidation"
-import { gql } from "apollo-boost"
-import { useMutation } from "@apollo/react-hooks"
-import { navigate } from "gatsby"
-import { CAMPAIGNS } from "../../CampaignList/CampaignList"
-import FormCards from "./../WizardCards/WizardCards"
+import Card from "../../../elements/Card";
+import NavigationProgress from "./../NavigationProgress/NavigationProgress";
+import { allFieldsHaveData } from "../../../utils/formValidation";
+import { useMutation, gql } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { CAMPAIGNS } from "../../CampaignList/CampaignList";
+import FormCards from "./../WizardCards/WizardCards";
 
 export const FORM_DEFAULT_STATE = {
   general: {
@@ -28,7 +27,7 @@ export const FORM_DEFAULT_STATE = {
   finish: {
     status: "",
   },
-}
+};
 
 const NEW_CAMPAIGN = gql`
   mutation NEW_CAMPAIGN(
@@ -70,26 +69,27 @@ const NEW_CAMPAIGN = gql`
       }
     }
   }
-`
+`;
 
 const NewCampaignWizard = ({ className }) => {
   //Form state
-  const [formData, setFormData] = useState(FORM_DEFAULT_STATE)
+  const [formData, setFormData] = useState(FORM_DEFAULT_STATE);
 
-  const { general, mailservice, mailserviceInfo, finish } = formData
+  const { general, mailservice, mailserviceInfo, finish } = formData;
   function updateFormData(e) {
-    const { name, value, dataset } = e.target
+    const { name, value, dataset } = e.target;
     setFormData({
       ...formData,
       [dataset.cardname]: {
         ...formData[dataset.cardname],
         [name]: value,
       },
-    })
+    });
   }
 
-  const cards = Object.keys(formData)
+  const cards = Object.keys(formData);
 
+  const navigate = useNavigate();
   const [createNewCampaign, { loading: updating, error }] = useMutation(
     NEW_CAMPAIGN,
     {
@@ -105,42 +105,42 @@ const NewCampaignWizard = ({ className }) => {
       },
       refetchQueries: ["CAMPAIGNS"],
       update(cache, payload) {
-        const data = cache.readQuery({ query: CAMPAIGNS })
-        const newCampaign = payload.data.newCampaign.campaign
-        console.log(payload)
+        const data = cache.readQuery({ query: CAMPAIGNS });
+        const newCampaign = payload.data.newCampaign.campaign;
+        console.log(payload);
         data.viewer.campaigns.nodes = [
           newCampaign,
           ...data.viewer.campaigns.nodes,
-        ]
-        cache.writeQuery({ query: CAMPAIGNS, data })
+        ];
+        cache.writeQuery({ query: CAMPAIGNS, data });
       },
       onCompleted() {
-        navigate("/dashboard")
+        navigate("/dashboard");
       },
     }
-  )
+  );
 
   //card navigation
-  const [currentCard, setCurrentCard] = useState(0)
+  const [currentCard, setCurrentCard] = useState(0);
   function nextCard(e) {
-    e.preventDefault()
-    const lastCard = cards.length - 1
+    e.preventDefault();
+    const lastCard = cards.length - 1;
     if (currentCard === lastCard) {
-      return
+      return;
     } else {
-      tryToGoToCard(currentCard + 1)
+      tryToGoToCard(currentCard + 1);
     }
   }
   function tryToGoToCard(cardIndex) {
-    const previousCard = currentCard > cardIndex
-    const cardIsComplete = allFieldsHaveData(cards[currentCard], formData)
+    const previousCard = currentCard > cardIndex;
+    const cardIsComplete = allFieldsHaveData(cards[currentCard], formData);
     if (cardIsComplete || previousCard) {
-      setCurrentCard(cardIndex)
+      setCurrentCard(cardIndex);
     }
   }
 
   //react spring stuff
-  const transitions = useTransition(currentCard, card => card, {
+  const transitions = useTransition(currentCard, (card) => card, {
     from: {
       position: "absolute",
       opacity: 0,
@@ -148,7 +148,7 @@ const NewCampaignWizard = ({ className }) => {
     },
     enter: { opacity: 1, transform: "translateX(0px)" },
     leave: { opacity: 0, transform: "translateX(400px)" },
-  })
+  });
 
   return (
     <div className={className}>
@@ -160,7 +160,7 @@ const NewCampaignWizard = ({ className }) => {
       />
       <form>
         {transitions.map(({ item, key, props }) => {
-          const ActiveCard = FormCards[item]
+          const ActiveCard = FormCards[item];
           return (
             <ActiveCard
               key={key}
@@ -173,12 +173,12 @@ const NewCampaignWizard = ({ className }) => {
               updateFormData={updateFormData}
               createNewCampaign={createNewCampaign}
             />
-          )
+          );
         })}
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default styled(NewCampaignWizard)`
   max-width: 475px;
@@ -210,4 +210,4 @@ export default styled(NewCampaignWizard)`
     font-size: 16px;
     display: block;
   }
-`
+`;

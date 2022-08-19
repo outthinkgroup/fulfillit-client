@@ -1,11 +1,10 @@
-import React, { useState } from "react"
-import { CardElement, injectStripe } from "react-stripe-elements"
-import { SingleForm } from "../../designSystem/styles"
-import { gql } from "apollo-boost"
-import { useMutation } from "@apollo/react-hooks"
-import UseForm from "../../utils/useForm"
-import { LOGIN_MUTATION } from "../SignIn/SignIn"
-import { Error } from "../Error/Error"
+import React, { useState } from "react";
+import { CardElement, injectStripe } from "react-stripe-elements";
+import { SingleForm } from "../../designSystem/styles";
+import { useMutation, gql } from "@apollo/client";
+import UseForm from "../../utils/useForm";
+import { LOGIN_MUTATION } from "../SignIn/SignIn";
+import { Error } from "../Error/Error";
 const style = {
   base: {
     color: "#32325d",
@@ -20,7 +19,7 @@ const style = {
     color: "#fa755a",
     iconColor: "#fa755a",
   },
-}
+};
 const ADD_CUSTOMER = gql`
   mutation ADD_CUSTOMER(
     $email: String!
@@ -44,12 +43,12 @@ const ADD_CUSTOMER = gql`
       }
     }
   }
-`
+`;
 
-const CheckoutForm = props => {
-  const [form, updateForm] = UseForm({ email: "", username: "", password: "" })
-  const [errorM, setErrorM] = useState([])
-  const [paymentMethod, setPaymentMethod] = useState("")
+const CheckoutForm = (props) => {
+  const [form, updateForm] = UseForm({ email: "", username: "", password: "" });
+  const [errorM, setErrorM] = useState([]);
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [login, loginData] = useMutation(LOGIN_MUTATION, {
     variables: {
       username: form.username,
@@ -57,76 +56,76 @@ const CheckoutForm = props => {
     },
 
     onCompleted({ userLogin }) {
-      localStorage.setItem("token", userLogin.authToken)
-      localStorage.setItem("userID", userLogin.user.id)
-      window.location.href = `${window.location.origin}/dashboard`
+      localStorage.setItem("token", userLogin.authToken);
+      localStorage.setItem("userID", userLogin.user.id);
+      window.location.href = `${window.location.origin}/dashboard`;
     },
-  })
-  const [
-    addCustomerAndSubscription,
-    { data, error: mutationError, loading },
-  ] = useMutation(ADD_CUSTOMER, {
-    variables: {
-      email: form.email,
-      paymentMethod,
-      username: form.username,
-      password: form.password,
-    },
-    onCompleted({ newCustomer }) {
-      const { subscription } = newCustomer
-      const subscriptionData = JSON.parse(subscription)
-      const { latest_invoice } = subscriptionData
-      const { payment_intent } = latest_invoice
+  });
+  const [addCustomerAndSubscription, { data, error: mutationError, loading }] =
+    useMutation(ADD_CUSTOMER, {
+      variables: {
+        email: form.email,
+        paymentMethod,
+        username: form.username,
+        password: form.password,
+      },
+      onCompleted({ newCustomer }) {
+        const { subscription } = newCustomer;
+        const subscriptionData = JSON.parse(subscription);
+        const { latest_invoice } = subscriptionData;
+        const { payment_intent } = latest_invoice;
 
-      if (payment_intent) {
-        const { client_secret, status } = payment_intent
+        if (payment_intent) {
+          const { client_secret, status } = payment_intent;
 
-        if (status === "requires_action") {
-          props.stripe.confirmCardPayment(client_secret).then(function(result) {
-            if (result.error) {
-              console.log("card declined")
-            } else {
-              login()
-            }
-          })
+          if (status === "requires_action") {
+            props.stripe
+              .confirmCardPayment(client_secret)
+              .then(function (result) {
+                if (result.error) {
+                  console.log("card declined");
+                } else {
+                  login();
+                }
+              });
+          } else {
+            // No additional information was needed
+            login();
+            // Show a success message to your customer
+          }
         } else {
           // No additional information was needed
-          login()
+          login();
           // Show a success message to your customer
         }
-      } else {
-        // No additional information was needed
-        login()
-        // Show a success message to your customer
-      }
-    },
-  })
+      },
+    });
 
-  const [isLoadingStripe, setIsLoadingStripe] = useState(false)
+  const [isLoadingStripe, setIsLoadingStripe] = useState(false);
   async function handleSubmit(e) {
-    e.preventDefault()
-    const cardElement = props.elements.getElement("card")
-    setIsLoadingStripe(true)
+    e.preventDefault();
+    const cardElement = props.elements.getElement("card");
+    setIsLoadingStripe(true);
     const result = await props.stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
       billing_details: {
         email: form.email,
       },
-    })
-    setIsLoadingStripe(false)
-    stripePaymentMethodHandler(result)
+    });
+    setIsLoadingStripe(false);
+    stripePaymentMethodHandler(result);
   }
-  const stripePaymentMethodHandler = result => {
+  const stripePaymentMethodHandler = (result) => {
     if (result.error) {
       // Show error in payment form
     } else {
-      setPaymentMethod(result.paymentMethod.id)
-      addCustomerAndSubscription()
+      setPaymentMethod(result.paymentMethod.id);
+      addCustomerAndSubscription();
       // The customer has been created
       //const customer = await res.json()
     }
-  }
+  };
 
   return (
     <SingleForm>
@@ -136,7 +135,7 @@ const CheckoutForm = props => {
           <h2>Checkout</h2>
           {mutationError &&
             mutationError.graphQLErrors.map((error, i) => {
-              return <Error message={error.message} />
+              return <Error message={error.message} />;
             })}
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">
@@ -186,6 +185,6 @@ const CheckoutForm = props => {
         </div>
       </div>
     </SingleForm>
-  )
-}
-export default injectStripe(CheckoutForm)
+  );
+};
+export default injectStripe(CheckoutForm);

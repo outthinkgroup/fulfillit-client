@@ -1,9 +1,6 @@
-import React, { useContext } from "react"
-import { Link } from "gatsby"
-import styled, { css } from "styled-components"
-
-import Logo from "../../elements/Logo"
-import theme from "../../designSystem/theme"
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const SideBarMenu = ({ closeSideBar = null }) => {
   return (
@@ -53,9 +50,9 @@ const SideBarMenu = ({ closeSideBar = null }) => {
         </Link>
       </UpgradeButton>
     </div>
-  )
-}
-export default SideBarMenu
+  );
+};
+export default SideBarMenu;
 
 const NavGroup = styled.div`
   margin-bottom: 30px;
@@ -81,7 +78,7 @@ const NavGroup = styled.div`
       }
     }
   }
-`
+`;
 
 const UpgradeButton = styled.span`
   height: 100%;
@@ -98,4 +95,4 @@ const UpgradeButton = styled.span`
     color: ${({ theme }) => theme.colors.primary};
     border-radius: 25px;
   }
-`
+`;

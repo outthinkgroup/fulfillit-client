@@ -6,7 +6,7 @@ import SignIn from "./pages/sign-in";
 //DOCS https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 export default function App() {
   return (
-    <Router basename="/map">
+    <Router basename="/">
       <Routes>
         <Route path="/" index element={<Dashboard />} />
 

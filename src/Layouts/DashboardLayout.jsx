@@ -1,12 +1,11 @@
-import React from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
-import Sidebar from "../components/Sidebar/Sidebar.js"
-import HeaderComp from "../components/Header/Header"
-import GlobalStyle from "../designSystem/globalStyles"
+import Sidebar from "../components/Sidebar/Sidebar";
+import HeaderComp from "../components/Header/Header";
+import GlobalStyle from "../designSystem/globalStyles";
 
-import MobileSidebar from "../components/MobileSidebar/MobileSidebar"
+import MobileSidebar from "../components/MobileSidebar/MobileSidebar";
 
 const DashboardLayout = ({ children, className }) => {
   return (
@@ -31,8 +30,8 @@ const DashboardLayout = ({ children, className }) => {
       <PageContent>{children}</PageContent>
       <GlobalStyle />
     </div>
-  )
-}
+  );
+};
 export default styled(DashboardLayout)`
   min-height: 100vh;
   max-width: 100vw;
@@ -50,7 +49,7 @@ export default styled(DashboardLayout)`
     width: 100%;
   }
   background: white;
-`
+`;
 
 const PageContent = styled.div`
   height: 100%;
@@ -66,4 +65,4 @@ const PageContent = styled.div`
   `}
   overflow-x: auto;
   overflow-y: scroll;
-`
+`;

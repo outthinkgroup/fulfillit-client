@@ -1,10 +1,8 @@
-import React, { useContext, useEffect } from "react"
-import styled, { css } from "styled-components"
-import { Link, navigate } from "gatsby"
-import { gql } from "apollo-boost"
-import { useQuery } from "@apollo/react-hooks"
-import Logo from "../../elements/Logo"
-import Navigation from "../Navigation/Navigation"
+import React from "react";
+import styled from "styled-components";
+import { useQuery, gql } from "@apollo/client";
+import Logo from "../../elements/Logo";
+import Navigation from "../Navigation/Navigation";
 
 export const USER_DATA = gql`
   query USER_DATA {
@@ -14,10 +12,10 @@ export const USER_DATA = gql`
       email
     }
   }
-`
+`;
 
 const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
-  const { data, loading, error } = useQuery(USER_DATA)
+  const { data, loading, error } = useQuery(USER_DATA);
 
   return (
     <header className={className}>
@@ -31,8 +29,8 @@ const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
       </span>
       <Navigation userData={data && data.viewer} />
     </header>
-  )
-}
+  );
+};
 
 export default styled(HeaderComp)`
   display: flex;
@@ -46,4 +44,4 @@ export default styled(HeaderComp)`
   ${({ theme }) => theme.below.small`
     justify-content:space-between;
   `}
-`
+`;

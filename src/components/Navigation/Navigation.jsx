@@ -1,24 +1,12 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
-import { Link, navigate } from "gatsby"
-
-import { USER_DATA } from "../Header/Header"
-import { gql } from "apollo-boost"
-import { useMutation } from "@apollo/react-hooks"
-
-import LogOut from "../../utils/useLogOut"
-
-const LOGOUT = gql`
-  mutation LOGOUT {
-    increaseCount(count: 1)
-  }
-`
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Navigation = ({ className, userData = false }) => {
-  const isLoggedIn = userData
+  const isLoggedIn = userData;
   function signOut() {
-    localStorage.setItem("token", "")
-    window.location.href = "/sign-in"
+    localStorage.setItem("token", "");
+    window.location.href = "/sign-in";
   }
   return (
     <nav className={className}>
@@ -35,8 +23,8 @@ const Navigation = ({ className, userData = false }) => {
         </>
       )}
     </nav>
-  )
-}
+  );
+};
 
 export default styled(Navigation)`
   display: flex;
@@ -62,4 +50,4 @@ export default styled(Navigation)`
     color: ${({ theme }) => theme.colors.primary};
     padding-left: 20px;
   }
-`
+`;
