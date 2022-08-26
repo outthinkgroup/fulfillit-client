@@ -29,13 +29,13 @@ export default function CampaignAnalytics({ id, campaignName }) {
     <div>
       <div>
         <h3>Total Transactions</h3>
-        <p>{dataAnalytics.campaign?.campaignOptions.campaignTransactions}</p>
+        <p>{dataAnalytics.campaign?.transactionCount}</p>
       </div>
       <div>
         <h3>Logs</h3>
         <ul>
           {dataAnalytics?.logs?.nodes.length &&
-            dataAnalytics.logs.nodes.length.map(({ title, id }) => {
+            dataAnalytics.logs.nodes.map(({ title, id }) => {
               return <li key={id}>{title}</li>;
             })}
         </ul>
@@ -47,9 +47,7 @@ export default function CampaignAnalytics({ id, campaignName }) {
 export const CAMPAIGN_ANALYTICS = gql`
   query CAMPAIGN_ANALYTICS($id: ID!, $campaign: String!) {
     campaign(id: $id, idType: DATABASE_ID) {
-      campaignOptions {
-        campaignTransactions
-      }
+      transactionCount
     }
     logs(
       where: {
@@ -70,3 +68,8 @@ export const CAMPAIGN_ANALYTICS = gql`
     }
   }
 `;
+/*    
+   campaign(id: $id, idType: DATABASE_ID) {
+     campaignTransactions
+  }
+  */

@@ -70,14 +70,14 @@ const CampaignCard = ({
                 >
                   <Icon name="edit" color="white" />
                 </button>
-                <button
+                {/*<button
                   type="button"
                   onClick={viewDetails}
                   className="analytics"
                   title="View Details"
                 >
                   <Icon name="chart" color="white" />
-                </button>
+                </button>*/}
                 <button
                   type="button"
                   onClick={deleteCampaign}
