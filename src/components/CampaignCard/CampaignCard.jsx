@@ -23,6 +23,7 @@ const CampaignCard = ({
   status,
   date,
   email,
+  transactionCount,
   campaignOptions,
 }) => {
   const [showActions, setShowActions] = useState(false);
@@ -109,7 +110,7 @@ const CampaignCard = ({
           </div>
           <div className="info-section">
             <p>Total Transactions</p>
-            <span className="value">{0}</span>
+            <span className="value">{transactionCount}</span>
           </div>
         </div>
       </div>
