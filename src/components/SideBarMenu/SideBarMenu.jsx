@@ -10,7 +10,7 @@ const SideBarMenu = ({ closeSideBar = null }) => {
         <nav>
           <ul>
             <li>
-              <Link onClick={closeSideBar} to="/dashboard">
+              <Link onClick={closeSideBar} to="/">
                 Campaigns
               </Link>
             </li>
@@ -26,18 +26,13 @@ const SideBarMenu = ({ closeSideBar = null }) => {
         <h3>Account</h3>
         <nav>
           <ul>
+            {/*// <li>
+            //   <Link onClick={closeSideBar} to="/settings">
+            //     User Settings
+            //   </Link>
+            // </li>*/}
             <li>
-              <Link onClick={closeSideBar} to="/">
-                User Settings
-              </Link>
-            </li>
-            <li>
-              <Link onClick={closeSideBar} to="/">
-                Billing
-              </Link>
-            </li>
-            <li>
-              <Link onClick={closeSideBar} to="/">
+              <Link onClick={closeSideBar} to="/account">
                 Account
               </Link>
             </li>
