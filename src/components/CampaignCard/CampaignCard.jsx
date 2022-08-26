@@ -31,6 +31,7 @@ const CampaignCard = ({
   ).getDate()}/${new Date(date).getFullYear()}`;
   const emailAddress = `${email}@sendmagnet.com`;
   const { localState, setLocalState } = useContext(LocalContext);
+  const navigate = useNavigate();
   const [
     deleteCampaign,
     { data: deletedData, loading: deleting, error: deleteError },
@@ -68,7 +69,7 @@ const CampaignCard = ({
                 <button
                   type="button"
                   onClick={() => {
-                    navigate(`/dashboard?campaign_id=${id}`);
+                    navigate(`/?campaign_id=${id}`);
                     setLocalState({
                       ...localState,
                       isSideBarOpen: "EDIT_CAMPAIGN",

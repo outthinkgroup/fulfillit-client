@@ -14,10 +14,10 @@ const Dashboard = ({ query, className }) => {
   const navigate = useNavigate();
   console.log(localState);
   React.useEffect(() => {
-    if (error || !data?.viewer) {
-      navigate("/sign-in");
+    if (error) {
+      navigate("/sign-in?here");
     }
-  }, [error, data]);
+  }, [error]);
 
   const { isSideBarOpen } = localState;
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderComp from "../components/Header/Header";
@@ -19,10 +19,10 @@ const DashboardLayout = ({ children, className }) => {
         `}
       />
       <div
-        css={`
-          grid-column: 1/2;
-          grid-row: 1/4;
-        `}
+        style={{
+          gridColumn: ` 1/2`,
+          gridRow: `1/4`,
+        }}
       >
         <Sidebar />
         <MobileSidebar />

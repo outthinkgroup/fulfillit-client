@@ -40,7 +40,7 @@ const SignIn = ({ className }) => {
       typeof window !== "undefined" &&
         localStorage.setItem("token", userLogin.authToken);
       localStorage.setItem("userID", userLogin.user.id);
-      hardNavigate("/dashboard");
+      hardNavigate("/");
     },
   });
 

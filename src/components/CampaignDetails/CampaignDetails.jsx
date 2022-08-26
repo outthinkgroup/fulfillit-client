@@ -10,6 +10,7 @@ import getUrlParam from "../../utils/getUrlParams";
 import CampaignGeneralInfo from "./CampaignGeneralInfo/CampaignGeneralInfo.jsx";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics.jsx";
 import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign.jsx";
+
 const CampaignDetails = ({ query, className }) => {
   const { data, loading, error } = useQuery(USER_DATA);
   const {

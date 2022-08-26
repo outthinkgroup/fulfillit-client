@@ -1,8 +1,8 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
-import { PageHeading } from "../../designSystem/styles"
-import NewCampaignWizard from "../CampaignForms/NewCampaignWizard/NewCampaignWizard"
+import { PageHeading } from "../../designSystem/styles";
+import NewCampaignWizard from "../CampaignForms/NewCampaignWizard/NewCampaignWizard";
 
 const NewCampaign = ({ className }) => {
   return (
@@ -11,11 +11,11 @@ const NewCampaign = ({ className }) => {
         <h1>New Campaign</h1>
         <p>Follow the prompts to create a new Campaign</p>
       </PageHeading>
-      {<NewCampaignWizard />}
+      <NewCampaignWizard />
     </div>
-  )
-}
+  );
+};
 
 export default styled(NewCampaign)`
   max-width: 650px;
-`
+`;

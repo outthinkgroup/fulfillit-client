@@ -104,18 +104,8 @@ const NewCampaignWizard = ({ className }) => {
         status: finish.status,
       },
       refetchQueries: ["CAMPAIGNS"],
-      update(cache, payload) {
-        const data = cache.readQuery({ query: CAMPAIGNS });
-        const newCampaign = payload.data.newCampaign.campaign;
-        console.log(payload);
-        data.viewer.campaigns.nodes = [
-          newCampaign,
-          ...data.viewer.campaigns.nodes,
-        ];
-        cache.writeQuery({ query: CAMPAIGNS, data });
-      },
       onCompleted() {
-        navigate("/dashboard");
+        navigate("/");
       },
     }
   );
@@ -140,7 +130,7 @@ const NewCampaignWizard = ({ className }) => {
   }
 
   //react spring stuff
-  const transitions = useTransition(currentCard, (card) => card, {
+  const transitions = useTransition(currentCard, {
     from: {
       position: "absolute",
       opacity: 0,
@@ -159,11 +149,11 @@ const NewCampaignWizard = ({ className }) => {
         formData={formData}
       />
       <form>
-        {transitions.map(({ item, key, props }) => {
+        {transitions((props, item) => {
           const ActiveCard = FormCards[item];
           return (
             <ActiveCard
-              key={key}
+              key={item}
               item={item}
               style={props}
               formData={formData}
