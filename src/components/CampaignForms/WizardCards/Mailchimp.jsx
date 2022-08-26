@@ -1,4 +1,4 @@
-import { useLazyQuery, gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { WizardFormButton } from "./WizardCards";
 import React from "react";
 
@@ -11,15 +11,21 @@ export default function MailchimpSetupForm({
   formData,
   mailserviceInfo,
 }) {
-  const [getLists, { mcListData, listsLoading, listsError }] = useLazyMCLists(
+  const { mcListData, listsLoading, listsError } = useLazyMCLists(
     formData.mailserviceInfo.serviceApiKey
   );
+  const { mcInterestGroupsData, interstGroupsLoading, interestGroupsError } =
+    useLazyMCInterestGroups({
+      apiKey: formData?.mailserviceInfo?.serviceApiKey,
+      listId: formData?.mailserviceInfo?.serviceListId,
+    });
 
-  async function interceptThenUpdate(e) {
-    updateFormData(e);
-    const { value, name } = e.target;
-    getLists();
-  }
+  const { mcGroupsData, groupsLoading, groupsError } = useLazyMCGroups({
+    groupId: formData?.mailserviceInfo?.serviceInterestGroupId,
+    apiKey: formData?.mailserviceInfo?.serviceApiKey,
+    listId: formData?.mailserviceInfo?.serviceListId,
+  });
+  console.log(mcGroupsData.getMailServiceGroups.groups);
   return (
     <>
       <div className="mailservice-info">
@@ -31,7 +37,9 @@ export default function MailchimpSetupForm({
             name="serviceApiKey"
             id="api-key"
             value={formData.mailserviceInfo.serviceApiKey}
-            onChange={interceptThenUpdate}
+            onChange={(e) => {
+              updateFormData(e);
+            }}
             data-cardname={cards[item]}
           />
           {formData.mailserviceInfo.serviceApiKey && listsError?.message}
@@ -43,7 +51,7 @@ export default function MailchimpSetupForm({
               name="serviceListId"
               id="list-id"
               value={formData.mailserviceInfo.serviceListId}
-              onChange={interceptThenUpdate}
+              onChange={updateFormData}
               data-cardname={cards[item]}
             >
               {mcListData?.getMailServiceLists?.lists.map((list) => (
@@ -54,20 +62,45 @@ export default function MailchimpSetupForm({
             </select>
           </label>
         )}
-        {/*<label htmlFor="group-id">
-          <span className="label-text">Mail Service Group Id</span>
-          <input
-            type="text"
-            name="serviceGroupId"
-            id="group-id"
-            value={formData.mailserviceInfo.serviceGroupId}
-            onChange={updateFormData}
-            data-cardname={cards[item]}
-          />
-          {formData.mailserviceInfo.serviceApiKey &&
-            !validFields.serviceApiKey.isValid &&
-            validFields.serviceApiKey.error}
-    </label>*/}
+        {mcInterestGroupsData?.getMailServiceInterestGroups?.interestGroups
+          ?.length > 0 && (
+          <label htmlFor="interest-group-id">
+            <span className="label-text">Mail Service Interest Group</span>
+            <select
+              name="serviceInterestGroupId"
+              id="interest-group-id"
+              value={formData.mailserviceInfo.serviceInterestGroupId}
+              onChange={updateFormData}
+              data-cardname={cards[item]}
+            >
+              {mcInterestGroupsData?.getMailServiceInterestGroups?.interestGroups.map(
+                (list) => (
+                  <option key={list.id} value={list.id}>
+                    {list.name}
+                  </option>
+                )
+              )}
+            </select>
+          </label>
+        )}
+        {mcGroupsData?.getMailServiceGroups?.groups?.length > 0 && (
+          <label htmlFor="group-id">
+            <span className="label-text">Mail Service Interest Group</span>
+            <select
+              name="serviceGroupId"
+              id="group-id"
+              value={formData.mailserviceInfo.serviceGroupId}
+              onChange={updateFormData}
+              data-cardname={cards[item]}
+            >
+              {mcGroupsData?.getMailServiceGroups?.groups.map((list) => (
+                <option key={list.id} value={list.id}>
+                  {list.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
       <div className="card-nav">
         <WizardFormButton
@@ -81,16 +114,74 @@ export default function MailchimpSetupForm({
 }
 
 function useLazyMCLists(apiKey) {
-  const [
-    getLists,
-    { data: mcListData, loading: listLoading, error: listError },
-  ] = useLazyQuery(MC_LIST_QUERY, { variables: { apiKey } });
-  return [getLists, { mcListData, listLoading, listError }];
+  const {
+    data: mcListData,
+    loading: listLoading,
+    error: listError,
+  } = useQuery(MC_LIST_QUERY, { variables: { apiKey } });
+  return { mcListData, listLoading, listError };
 }
 const MC_LIST_QUERY = gql`
   query MC_LIST_QUERY($apiKey: String) {
     getMailServiceLists(apiKey: $apiKey, mailservice: "mailchimp") {
       lists {
+        name
+        id
+      }
+    }
+  }
+`;
+
+function useLazyMCInterestGroups({ apiKey, listId }) {
+  const {
+    data: mcInterestGroupsData,
+    loading: interestGroupsLoading,
+    error: interestGroupsError,
+  } = useQuery(MC_INTEREST_GROUP_QUERY, { variables: { apiKey, listId } });
+  return {
+    mcInterestGroupsData,
+    interestGroupsLoading,
+    interestGroupsError,
+  };
+}
+const MC_INTEREST_GROUP_QUERY = gql`
+  query MC_INTEREST_GROUP_QUERY($apiKey: String, $listId: String) {
+    getMailServiceInterestGroups(
+      mailservice: "mailchimp"
+      apiKey: $apiKey
+      listId: $listId
+    ) {
+      interestGroups {
+        name
+        id
+      }
+    }
+  }
+`;
+
+function useLazyMCGroups({ apiKey, listId, groupId }) {
+  const {
+    data: mcGroupsData,
+    loading: groupsLoading,
+    error: groupsError,
+  } = useQuery(MC_GROUPS_QUERY, {
+    variables: { apiKey, listId, groupCategoryId: groupId },
+  });
+  return { mcGroupsData, groupsLoading, groupsError };
+}
+const MC_GROUPS_QUERY = gql`
+  query MC_GROUPS_QUERY(
+    $apiKey: String
+    $listId: String
+    $groupCategoryId: String
+  ) {
+    getMailServiceGroups(
+      mailservice: "mailchimp"
+      apiKey: $apiKey
+      listId: $listId
+      groupCategoryId: $groupCategoryId
+    ) {
+      groups {
         name
         id
       }
