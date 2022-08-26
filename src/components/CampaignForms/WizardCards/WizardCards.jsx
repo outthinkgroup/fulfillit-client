@@ -1,7 +1,8 @@
-import React from "react"
-import styled from "styled-components"
-import { animated } from "react-spring"
-import { allFieldsHaveData } from "../../../utils/formValidation"
+import React from "react";
+import styled from "styled-components";
+import { animated } from "react-spring";
+import { allFieldsHaveData } from "../../../utils/formValidation";
+import MailchimpSetupForm from "./Mailchimp";
 
 const FormCards = [
   ({ style, cards, item, updateFormData, nextCard, formData }) => (
@@ -87,59 +88,9 @@ const FormCards = [
       </div>
     </WizardCard>
   ),
-  ({
-    style,
-    cards,
-    item,
-    updateFormData,
-    nextCard,
-    formData,
-    mailserviceInfo,
-  }) => (
-    <WizardCard depth="medium" style={{ ...style }}>
-      <div className="mailservice-info">
-        <h3>Email Service Info</h3>
-        <label htmlFor="api-key">
-          <span className="label-text">Mail Service Api Key</span>
-          <input
-            type="text"
-            name="serviceApiKey"
-            id="api-key"
-            value={formData.mailserviceInfo.serviceApiKey}
-            onChange={updateFormData}
-            data-cardname={cards[item]}
-          />
-        </label>
-        <label htmlFor="list-id">
-          <span className="label-text">Mail Service List Id</span>
-          <input
-            type="text"
-            name="serviceListId"
-            id="list-id"
-            value={formData.mailserviceInfo.serviceListId}
-            onChange={updateFormData}
-            data-cardname={cards[item]}
-          />
-        </label>
-        <label htmlFor="group-id">
-          <span className="label-text">Mail Service Group Id</span>
-          <input
-            type="text"
-            name="serviceGroupId"
-            id="group-id"
-            value={formData.mailserviceInfo.serviceGroupId}
-            onChange={updateFormData}
-            data-cardname={cards[item]}
-          />
-        </label>
-      </div>
-      <div className="card-nav">
-        <WizardFormButton
-          card={cards[item]}
-          formData={formData}
-          fn={nextCard}
-        />
-      </div>
+  (props) => (
+    <WizardCard depth="medium" style={{ ...props.style }}>
+      <MailchimpSetupForm {...props} />
     </WizardCard>
   ),
   ({
@@ -179,14 +130,14 @@ const FormCards = [
       </div>
     </WizardCard>
   ),
-]
+];
 
 const WizardCard = styled(animated.div)`
   width: 100%;
   padding: 20px;
 
   border-radius: 4px;
-  box-shadow: ${props => props.depth && props.theme.depth[props.depth]};
+  box-shadow: ${(props) => props.depth && props.theme.depth[props.depth]};
   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "100%")};
   overflow: hidden;
   & > {
@@ -198,7 +149,7 @@ const WizardCard = styled(animated.div)`
       margin-top: 0px;
     }
   }
-`
+`;
 const WizardFormButton = ({ card, formData, fn, txt = "next" }) => {
   return allFieldsHaveData(card, formData) ? (
     <button type="button" onClick={fn}>
@@ -206,8 +157,8 @@ const WizardFormButton = ({ card, formData, fn, txt = "next" }) => {
     </button>
   ) : (
     ""
-  )
-}
+  );
+};
 
-export default FormCards
-export { WizardCard, WizardFormButton }
+export default FormCards;
+export { WizardCard, WizardFormButton };
