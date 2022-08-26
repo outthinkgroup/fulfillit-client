@@ -5,7 +5,7 @@ import CampaignDetails from "../components/CampaignDetails/CampaignDetails";
 import ShouldRender from "../utils/isBrowser";
 import getUrlParams from "../utils/getUrlParams";
 
-const DashboardPage = () => {
+const CampaignSingle = () => {
   return (
     <DashboardLayout>
       <CampaignDetails
@@ -14,4 +14,4 @@ const DashboardPage = () => {
     </DashboardLayout>
   );
 };
-export default DashboardPage;
+export default CampaignSingle;

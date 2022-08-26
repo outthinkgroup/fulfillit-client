@@ -1,6 +1,5 @@
 import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 
 import { PageHeading } from "../../../designSystem/styles";
 import { USER_DATA } from "../../Header/Header";
@@ -22,17 +21,20 @@ export default function CampaignAnalytics({ id, campaignName }) {
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
   }
+  if (errorAnalytics) {
+    return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
+  }
 
   return (
     <div>
       <div>
         <h3>Total Transactions</h3>
-        <p>{dataAnalytics.campaign.campaignOptions.campaignTransactions}</p>
+        <p>{dataAnalytics.campaign?.campaignOptions.campaignTransactions}</p>
       </div>
       <div>
         <h3>Logs</h3>
         <ul>
-          {dataAnalytics.logs.nodes.length &&
+          {dataAnalytics?.logs?.nodes.length &&
             dataAnalytics.logs.nodes.length.map(({ title, id }) => {
               return <li key={id}>{title}</li>;
             })}
