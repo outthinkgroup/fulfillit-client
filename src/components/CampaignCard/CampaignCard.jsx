@@ -39,16 +39,6 @@ const CampaignCard = ({
     variables: {
       id,
     },
-    update(cache, payload) {
-      const data = cache.readQuery({ query: CAMPAIGNS });
-      const { campaigns } = data.viewer;
-      console.log(payload);
-      const { id } = payload.data.deleteCampaign.campaign;
-      data.viewer.campaigns = campaigns.nodes.filter(
-        (campaign) => campaign.id !== id
-      );
-      cache.writeQuery({ query: CAMPAIGNS, data });
-    },
     refetchQueries: ["CAMPAIGNS"],
   });
 
