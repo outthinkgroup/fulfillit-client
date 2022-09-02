@@ -25,7 +25,6 @@ export default function MailchimpSetupForm({
     apiKey: formData?.mailserviceInfo?.serviceApiKey,
     listId: formData?.mailserviceInfo?.serviceListId,
   });
-  console.log(mcGroupsData.getMailServiceGroups.groups);
   return (
     <>
       <div className="mailservice-info">
