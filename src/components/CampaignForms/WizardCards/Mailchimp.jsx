@@ -14,17 +14,15 @@ export default function MailchimpSetupForm({
   const { mcListData, listsLoading, listsError } = useLazyMCLists(
     formData.mailserviceInfo.serviceApiKey
   );
-  const { mcInterestGroupsData, interstGroupsLoading, interestGroupsError } =
-    useLazyMCInterestGroups({
-      apiKey: formData?.mailserviceInfo?.serviceApiKey,
-      listId: formData?.mailserviceInfo?.serviceListId,
-    });
 
-  const { mcGroupsData, groupsLoading, groupsError } = useLazyMCGroups({
-    groupId: formData?.mailserviceInfo?.serviceInterestGroupId,
-    apiKey: formData?.mailserviceInfo?.serviceApiKey,
-    listId: formData?.mailserviceInfo?.serviceListId,
-  });
+  const groups = mcListData?.getMailServiceLists?.lists.find(
+    (list) => list.id === formData.mailserviceInfo.serviceListId
+  )?.groupCategories;
+
+  const nestedGroups = groups?.find(
+    (ng) => ng.id === formData.mailserviceInfo.serviceInterestGroupId
+  )?.groups;
+
   return (
     <>
       <div className="mailservice-info">
@@ -53,6 +51,9 @@ export default function MailchimpSetupForm({
               onChange={updateFormData}
               data-cardname={cards[item]}
             >
+              <option key="--" value={null}>
+                Select a List
+              </option>
               {mcListData?.getMailServiceLists?.lists.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.name}
@@ -61,8 +62,7 @@ export default function MailchimpSetupForm({
             </select>
           </label>
         )}
-        {mcInterestGroupsData?.getMailServiceInterestGroups?.interestGroups
-          ?.length > 0 && (
+        {groups?.length > 0 && (
           <label htmlFor="interest-group-id">
             <span className="label-text">Mail Service Interest Group</span>
             <select
@@ -72,17 +72,18 @@ export default function MailchimpSetupForm({
               onChange={updateFormData}
               data-cardname={cards[item]}
             >
-              {mcInterestGroupsData?.getMailServiceInterestGroups?.interestGroups.map(
-                (list) => (
-                  <option key={list.id} value={list.id}>
-                    {list.name}
-                  </option>
-                )
-              )}
+              <option key="--" value={null}>
+                Select a Group Category
+              </option>
+              {groups.map((group) => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
             </select>
           </label>
         )}
-        {mcGroupsData?.getMailServiceGroups?.groups?.length > 0 && (
+        {nestedGroups?.length > 0 && (
           <label htmlFor="group-id">
             <span className="label-text">Mail Service Interest Group</span>
             <select
@@ -92,7 +93,10 @@ export default function MailchimpSetupForm({
               onChange={updateFormData}
               data-cardname={cards[item]}
             >
-              {mcGroupsData?.getMailServiceGroups?.groups.map((list) => (
+              <option key="--" value={null}>
+                Select a Group
+              </option>
+              {nestedGroups?.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.name}
                 </option>
@@ -126,6 +130,14 @@ const MC_LIST_QUERY = gql`
       lists {
         name
         id
+        groupCategories {
+          name
+          id
+          groups {
+            name
+            id
+          }
+        }
       }
     }
   }
