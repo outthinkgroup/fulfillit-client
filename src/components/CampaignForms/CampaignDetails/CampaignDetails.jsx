@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Loader } from "../../../designSystem/styles";
 import { useMailChimpLists } from "../WizardCards/Mailchimp";
 
 const CampaignDetails = ({ form, updateForm, className }) => {
-  const { mcListData, listsLoading, listsError } = useMailChimpLists(
+  const { mcListData, listLoading, listsError } = useMailChimpLists(
     form?.serviceApiKey
   );
 
+  console.log(listLoading);
   const list = React.useMemo(
     () =>
       mcListData?.getMailServiceLists?.lists?.find(
@@ -69,6 +71,12 @@ const CampaignDetails = ({ form, updateForm, className }) => {
 
       <div className="form-section">
         <h3>Mailchimp Settings</h3>
+        {listLoading && (
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Loader />
+            <span>Loading Mailchimp Data</span>
+          </div>
+        )}
         {mcListData?.getMailServiceLists?.lists?.length > 0 && (
           <label htmlFor="list-id">
             <span className="label-text">Mail Service List Id</span>
@@ -89,6 +97,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             </select>
           </label>
         )}
+
         {list?.groups?.length > 0 && (
           <label htmlFor="group-id">
             <span className="label-text">Mail Service Interest Group</span>

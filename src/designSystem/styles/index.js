@@ -1,3 +1,2 @@
-import { SingleForm } from "./SingleForm"
-import { PageHeading } from "./PageHeading"
-export { SingleForm, PageHeading }
+export * from "./SingleForm";
+export * from "./PageHeading";

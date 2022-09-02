@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { WizardFormButton } from "./WizardCards";
+import { Loader } from "../../../designSystem/styles";
 
 export default function MailchimpSetupForm({
   style,
@@ -11,7 +12,7 @@ export default function MailchimpSetupForm({
   formData,
   mailserviceInfo,
 }) {
-  const { mcListData, listsLoading, listsError } = useMailChimpLists(
+  const { mcListData, listLoading, listsError } = useMailChimpLists(
     formData.mailserviceInfo.serviceApiKey
   );
 
@@ -48,6 +49,12 @@ export default function MailchimpSetupForm({
           />
           {formData.mailserviceInfo.serviceApiKey && listsError?.message}
         </label>
+        {listLoading && (
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Loader />
+            <span>Loading Mailchimp Data</span>
+          </div>
+        )}
         {mcListData?.getMailServiceLists?.lists?.length > 0 && (
           <label htmlFor="list-id">
             <span className="label-text">Mail Service List Id</span>
