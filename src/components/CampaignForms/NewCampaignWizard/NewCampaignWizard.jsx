@@ -22,7 +22,6 @@ export const FORM_DEFAULT_STATE = {
   mailserviceInfo: {
     serviceApiKey: "",
     serviceListId: "",
-    serviceInterestGroupId: "",
     serviceGroupId: "",
   },
   finish: {

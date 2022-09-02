@@ -1,9 +1,28 @@
-import React, { useEffect, useState } from "react"
-import styled from "styled-components"
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useMailChimpLists } from "../WizardCards/Mailchimp";
 
 const CampaignDetails = ({ form, updateForm, className }) => {
-  if (Object.keys(form).length === 0) return "loading................."
-  console.log(form.email)
+  const { mcListData, listsLoading, listsError } = useMailChimpLists(
+    form?.serviceApiKey
+  );
+
+  const list = React.useMemo(
+    () =>
+      mcListData?.getMailServiceLists?.lists?.find(
+        (list) => list.id === form.serviceListId
+      ),
+    [mcListData, form]
+  );
+  const groupsByParent = list?.groups.reduce((acc, group) => {
+    if (!(group.parentGroupName in acc)) {
+      acc[group.parentGroupName] = [];
+    }
+    acc[group.parentGroupName].push(group);
+    return acc;
+  }, {});
+
+  if (Object.keys(form).length === 0) return "loading.................";
   return (
     <div className={className}>
       <h2>Campaign Settings</h2>
@@ -50,36 +69,52 @@ const CampaignDetails = ({ form, updateForm, className }) => {
 
       <div className="form-section">
         <h3>Mailchimp Settings</h3>
-        <label htmlFor="mc_api_key">
-          <span>Mailchimp Api Key</span>
-          <input
-            type="text"
-            onChange={updateForm}
-            name="serviceApiKey"
-            id="mc_api_key"
-            value={form.serviceApiKey}
-          />
-        </label>
-        <label htmlFor="mc_list_id">
-          <span>Mailchimp List Id</span>
-          <input
-            type="text"
-            onChange={updateForm}
-            name="serviceListId"
-            id="mc_list_id"
-            value={form.serviceListId}
-          />
-        </label>
-        <label htmlFor="mc_group_id">
-          <span>Mailchimp Group Id</span>
-          <input
-            type="text"
-            onChange={updateForm}
-            name="serviceGroupId"
-            id="mc_group_id"
-            value={form.serviceGroupId}
-          />
-        </label>
+        {mcListData?.getMailServiceLists?.lists?.length > 0 && (
+          <label htmlFor="list-id">
+            <span className="label-text">Mail Service List Id</span>
+            <select
+              name="serviceListId"
+              id="list-id"
+              value={form.serviceListId}
+              onChange={updateForm}
+            >
+              <option key="--" value={null}>
+                Select a List
+              </option>
+              {mcListData?.getMailServiceLists?.lists.map((list) => (
+                <option key={list.id} value={list.id}>
+                  {list.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        {list?.groups?.length > 0 && (
+          <label htmlFor="group-id">
+            <span className="label-text">Mail Service Interest Group</span>
+            <select
+              name="serviceGroupId"
+              id="group-id"
+              value={form.serviceGroupId}
+              onChange={updateForm}
+            >
+              <option key="--" value={null}>
+                Select a Group
+              </option>
+              {Object.keys(groupsByParent)?.map((parent) => (
+                <optgroup key={parent} label={parent}>
+                  {groupsByParent[parent].map((group) => {
+                    return (
+                      <option key={group.id} value={group.id}>
+                        {group.name}
+                      </option>
+                    );
+                  })}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
       <div className="form-section">
         <h3>Publish</h3>
@@ -92,8 +127,8 @@ const CampaignDetails = ({ form, updateForm, className }) => {
         </label>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default styled(CampaignDetails)`
   position: relative;
@@ -129,4 +164,4 @@ export default styled(CampaignDetails)`
       margin-left: 10px;
     }
   }
-`
+`;

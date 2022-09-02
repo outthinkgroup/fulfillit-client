@@ -1,6 +1,6 @@
+import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { WizardFormButton } from "./WizardCards";
-import React from "react";
 
 export default function MailchimpSetupForm({
   style,
@@ -11,17 +11,24 @@ export default function MailchimpSetupForm({
   formData,
   mailserviceInfo,
 }) {
-  const { mcListData, listsLoading, listsError } = useLazyMCLists(
+  const { mcListData, listsLoading, listsError } = useMailChimpLists(
     formData.mailserviceInfo.serviceApiKey
   );
 
-  const groups = mcListData?.getMailServiceLists?.lists.find(
-    (list) => list.id === formData.mailserviceInfo.serviceListId
-  )?.groupCategories;
-
-  const nestedGroups = groups?.find(
-    (ng) => ng.id === formData.mailserviceInfo.serviceInterestGroupId
-  )?.groups;
+  const list = React.useMemo(
+    () =>
+      mcListData?.getMailServiceLists?.lists?.find(
+        (list) => list.id === formData.mailserviceInfo.serviceListId
+      ),
+    [mcListData, formData]
+  );
+  const groupsByParent = list?.groups.reduce((acc, group) => {
+    if (!(group.parentGroupName in acc)) {
+      acc[group.parentGroupName] = [];
+    }
+    acc[group.parentGroupName].push(group);
+    return acc;
+  }, {});
 
   return (
     <>
@@ -62,28 +69,7 @@ export default function MailchimpSetupForm({
             </select>
           </label>
         )}
-        {groups?.length > 0 && (
-          <label htmlFor="interest-group-id">
-            <span className="label-text">Mail Service Interest Group</span>
-            <select
-              name="serviceInterestGroupId"
-              id="interest-group-id"
-              value={formData.mailserviceInfo.serviceInterestGroupId}
-              onChange={updateFormData}
-              data-cardname={cards[item]}
-            >
-              <option key="--" value={null}>
-                Select a Group Category
-              </option>
-              {groups.map((group) => (
-                <option key={group.id} value={group.id}>
-                  {group.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-        {nestedGroups?.length > 0 && (
+        {list?.groups?.length > 0 && (
           <label htmlFor="group-id">
             <span className="label-text">Mail Service Interest Group</span>
             <select
@@ -96,10 +82,16 @@ export default function MailchimpSetupForm({
               <option key="--" value={null}>
                 Select a Group
               </option>
-              {nestedGroups?.map((list) => (
-                <option key={list.id} value={list.id}>
-                  {list.name}
-                </option>
+              {Object.keys(groupsByParent)?.map((parent) => (
+                <optgroup key={parent} label={parent}>
+                  {groupsByParent[parent].map((group) => {
+                    return (
+                      <option key={group.id} value={group.id}>
+                        {group.name}
+                      </option>
+                    );
+                  })}
+                </optgroup>
               ))}
             </select>
           </label>
@@ -116,7 +108,7 @@ export default function MailchimpSetupForm({
   );
 }
 
-function useLazyMCLists(apiKey) {
+export function useMailChimpLists(apiKey) {
   const {
     data: mcListData,
     loading: listLoading,
@@ -130,71 +122,11 @@ const MC_LIST_QUERY = gql`
       lists {
         name
         id
-        groupCategories {
+        groups {
+          parentGroupName
           name
           id
-          groups {
-            name
-            id
-          }
         }
-      }
-    }
-  }
-`;
-
-function useLazyMCInterestGroups({ apiKey, listId }) {
-  const {
-    data: mcInterestGroupsData,
-    loading: interestGroupsLoading,
-    error: interestGroupsError,
-  } = useQuery(MC_INTEREST_GROUP_QUERY, { variables: { apiKey, listId } });
-  return {
-    mcInterestGroupsData,
-    interestGroupsLoading,
-    interestGroupsError,
-  };
-}
-const MC_INTEREST_GROUP_QUERY = gql`
-  query MC_INTEREST_GROUP_QUERY($apiKey: String, $listId: String) {
-    getMailServiceInterestGroups(
-      mailservice: "mailchimp"
-      apiKey: $apiKey
-      listId: $listId
-    ) {
-      interestGroups {
-        name
-        id
-      }
-    }
-  }
-`;
-
-function useLazyMCGroups({ apiKey, listId, groupId }) {
-  const {
-    data: mcGroupsData,
-    loading: groupsLoading,
-    error: groupsError,
-  } = useQuery(MC_GROUPS_QUERY, {
-    variables: { apiKey, listId, groupCategoryId: groupId },
-  });
-  return { mcGroupsData, groupsLoading, groupsError };
-}
-const MC_GROUPS_QUERY = gql`
-  query MC_GROUPS_QUERY(
-    $apiKey: String
-    $listId: String
-    $groupCategoryId: String
-  ) {
-    getMailServiceGroups(
-      mailservice: "mailchimp"
-      apiKey: $apiKey
-      listId: $listId
-      groupCategoryId: $groupCategoryId
-    ) {
-      groups {
-        name
-        id
       }
     }
   }
