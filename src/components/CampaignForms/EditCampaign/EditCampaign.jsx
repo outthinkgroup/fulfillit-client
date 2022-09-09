@@ -17,7 +17,7 @@ export const SINGLE_CAMPAIGN = gql`
       email: title(format: RAW)
       date
       databaseId
-      campaignOptions {
+      meta {
         description
         emailMarketingService
         name
@@ -59,7 +59,7 @@ export const UPDATE_CAMPAIGN = gql`
         databaseId
         email: title
         date
-        campaignOptions {
+        meta {
           description
           emailMarketingService
           name
@@ -88,10 +88,11 @@ const EditCampaign = ({ className }) => {
     },
   });
 
+  console.log(data);
   useEffect(() => {
     if (data) {
-      const { id, email, status, campaignOptions, databaseId } = data.campaign;
-      setForm({ id, email, databaseId, status, ...campaignOptions });
+      const { id, email, status, meta, databaseId } = data.campaign;
+      setForm({ id, email, databaseId, status, ...meta });
     }
   }, [data]);
 
