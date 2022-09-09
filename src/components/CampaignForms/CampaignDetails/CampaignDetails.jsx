@@ -65,6 +65,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
             <option value="">choose a email marketing service</option>
             <option value="mailchimp">mailchimp</option>
             <option value="mailgun">mailgun</option>
+            <option value="mailerlite">mailerlite</option>
             <option value="converkit">converkit</option>
           </select>
         </label>
