@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Loader } from "../../../designSystem/styles";
+import {HiddenInput} from "../../../elements/HiddenInput";
 import { useMailChimpLists } from "../WizardCards/Mailchimp";
 
 const CampaignDetails = ({ form, updateForm, className }) => {
-  const { mcListData, listLoading, listsError } = useMailChimpLists(
+  const { mcListData:mc, listLoading, listsError } = useMailChimpLists(
     form?.serviceApiKey
   );
 
   console.log(listLoading);
   const list = React.useMemo(
     () =>
-      mcListData?.getMailServiceLists?.lists?.find(
+      mc?.mailchimpData?.lists?.find(
         (list) => list.id === form.serviceListId
       ),
-    [mcListData, form]
+    [mc, form]
   );
   const groupsByParent = list?.groups.reduce((acc, group) => {
     if (!(group.parentGroupName in acc)) {
@@ -71,13 +72,25 @@ const CampaignDetails = ({ form, updateForm, className }) => {
 
       <div className="form-section">
         <h3>Mailchimp Settings</h3>
+
+        <label htmlFor="mc_api_key">
+          <span className="label-text">Mailchimp Api Key</span>
+          <HiddenInput           
+            onChange={updateForm}
+            name="serviceApiKey"
+            id="mc_api_key"
+            value={form.serviceApiKey}
+          />
+        </label>
+
         {listLoading && (
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Loader />
             <span>Loading Mailchimp Data</span>
           </div>
         )}
-        {mcListData?.getMailServiceLists?.lists?.length > 0 && (
+        
+        {mc?.mailchimpData?.lists?.length > 0 && (
           <label htmlFor="list-id">
             <span className="label-text">Mail Service List Id</span>
             <select
@@ -89,7 +102,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
               <option key="--" value={null}>
                 Select a List
               </option>
-              {mcListData?.getMailServiceLists?.lists.map((list) => (
+              {mc?.mailchimpData?.lists.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.name}
                 </option>

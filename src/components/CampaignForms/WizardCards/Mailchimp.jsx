@@ -12,16 +12,16 @@ export default function MailchimpSetupForm({
   formData,
   mailserviceInfo,
 }) {
-  const { mcListData, listLoading, listsError } = useMailChimpLists(
+  const { mcListData:mc, listLoading, listsError } = useMailChimpLists(
     formData.mailserviceInfo.serviceApiKey
   );
 
   const list = React.useMemo(
     () =>
-      mcListData?.getMailServiceLists?.lists?.find(
+      mc?.mailchimpData?.lists?.find(
         (list) => list.id === formData.mailserviceInfo.serviceListId
       ),
-    [mcListData, formData]
+    [mc, formData]
   );
   const groupsByParent = list?.groups.reduce((acc, group) => {
     if (!(group.parentGroupName in acc)) {
@@ -55,7 +55,7 @@ export default function MailchimpSetupForm({
             <span>Loading Mailchimp Data</span>
           </div>
         )}
-        {mcListData?.getMailServiceLists?.lists?.length > 0 && (
+        {mc?.mailchimpData?.lists?.length > 0 && (
           <label htmlFor="list-id">
             <span className="label-text">Mail Service List Id</span>
             <select
@@ -68,7 +68,7 @@ export default function MailchimpSetupForm({
               <option key="--" value={null}>
                 Select a List
               </option>
-              {mcListData?.getMailServiceLists?.lists.map((list) => (
+              {mc?.mailchimpData?.lists.map((list) => (
                 <option key={list.id} value={list.id}>
                   {list.name}
                 </option>
@@ -125,7 +125,7 @@ export function useMailChimpLists(apiKey) {
 }
 const MC_LIST_QUERY = gql`
   query MC_LIST_QUERY($apiKey: String) {
-    getMailServiceLists(apiKey: $apiKey, mailservice: "mailchimp") {
+    mailchimpData(apiKey: $apiKey ) {
       lists {
         name
         id
