@@ -1,27 +1,22 @@
 import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
-import { WizardFormButton } from "./WizardCards";
 import { Loader } from "../../../designSystem/styles";
 
 export default function MailchimpSetupForm({
-  style,
-  cards,
-  item,
-  updateFormData,
-  nextCard,
-  formData,
-  mailserviceInfo,
+  cardname,
+  updateForm,
+  form,
 }) {
   const { mcListData:mc, listLoading, listsError } = useMailChimpLists(
-    formData.mailserviceInfo.serviceApiKey
+    form.serviceApiKey
   );
 
   const list = React.useMemo(
     () =>
       mc?.mailchimpData?.lists?.find(
-        (list) => list.id === formData.mailserviceInfo.serviceListId
+        (list) => list.id === form.serviceListId
       ),
-    [mc, formData]
+    [mc, form]
   );
   const groupsByParent = list?.groups.reduce((acc, group) => {
     if (!(group.parentGroupName in acc)) {
@@ -41,13 +36,13 @@ export default function MailchimpSetupForm({
             type="text"
             name="serviceApiKey"
             id="api-key"
-            value={formData.mailserviceInfo.serviceApiKey}
+            value={form.serviceApiKey}
             onChange={(e) => {
-              updateFormData(e);
+              updateForm(e);
             }}
-            data-cardname={cards[item]}
+            data-cardname={cardname}
           />
-          {formData.mailserviceInfo.serviceApiKey && listsError?.message}
+          {form.serviceApiKey && listsError?.message}
         </label>
         {listLoading && (
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -61,9 +56,9 @@ export default function MailchimpSetupForm({
             <select
               name="serviceListId"
               id="list-id"
-              value={formData.mailserviceInfo.serviceListId}
-              onChange={updateFormData}
-              data-cardname={cards[item]}
+              value={form.serviceListId}
+              onChange={updateForm}
+              data-cardname={cardname}
             >
               <option key="--" value={null}>
                 Select a List
@@ -82,9 +77,9 @@ export default function MailchimpSetupForm({
             <select
               name="serviceGroupId"
               id="group-id"
-              value={formData.mailserviceInfo.serviceGroupId}
-              onChange={updateFormData}
-              data-cardname={cards[item]}
+              value={form.serviceGroupId}
+              onChange={updateForm}
+              data-cardname={cardname}
             >
               <option key="--" value={null}>
                 Select a Group
@@ -103,13 +98,6 @@ export default function MailchimpSetupForm({
             </select>
           </label>
         )}
-      </div>
-      <div className="card-nav">
-        <WizardFormButton
-          card={cards[item]}
-          formData={formData}
-          fn={nextCard}
-        />
       </div>
     </>
   );

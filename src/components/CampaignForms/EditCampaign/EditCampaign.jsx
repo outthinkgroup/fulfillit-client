@@ -5,7 +5,6 @@ import CampaignDetails from "../CampaignDetails/CampaignDetails";
 import getUrlParam from "../../../utils/getUrlParams";
 import useForm from "../../../utils/useForm";
 import { LocalContext } from "../../../utils/LocalContext";
-import {} from "../WizardCards/Mailchimp";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 

@@ -1,29 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Loader } from "../../../designSystem/styles";
-import {HiddenInput} from "../../../elements/HiddenInput";
-import { useMailChimpLists } from "../WizardCards/Mailchimp";
+import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 const CampaignDetails = ({ form, updateForm, className }) => {
-  const { mcListData:mc, listLoading, listsError } = useMailChimpLists(
-    form?.serviceApiKey
-  );
-
-  console.log(listLoading);
-  const list = React.useMemo(
-    () =>
-      mc?.mailchimpData?.lists?.find(
-        (list) => list.id === form.serviceListId
-      ),
-    [mc, form]
-  );
-  const groupsByParent = list?.groups.reduce((acc, group) => {
-    if (!(group.parentGroupName in acc)) {
-      acc[group.parentGroupName] = [];
-    }
-    acc[group.parentGroupName].push(group);
-    return acc;
-  }, {});
 
   if (Object.keys(form).length === 0) return "loading.................";
   return (
@@ -73,71 +52,7 @@ const CampaignDetails = ({ form, updateForm, className }) => {
 
       <div className="form-section">
         <h3>Mailchimp Settings</h3>
-
-        <label htmlFor="mc_api_key">
-          <span className="label-text">Mailchimp Api Key</span>
-          <HiddenInput           
-            onChange={updateForm}
-            name="serviceApiKey"
-            id="mc_api_key"
-            value={form.serviceApiKey}
-          />
-        </label>
-
-        {listLoading && (
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Loader />
-            <span>Loading Mailchimp Data</span>
-          </div>
-        )}
-        
-        {mc?.mailchimpData?.lists?.length > 0 && (
-          <label htmlFor="list-id">
-            <span className="label-text">Mail Service List Id</span>
-            <select
-              name="serviceListId"
-              id="list-id"
-              value={form.serviceListId}
-              onChange={updateForm}
-            >
-              <option key="--" value={null}>
-                Select a List
-              </option>
-              {mc?.mailchimpData?.lists.map((list) => (
-                <option key={list.id} value={list.id}>
-                  {list.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-
-        {list?.groups?.length > 0 && (
-          <label htmlFor="group-id">
-            <span className="label-text">Mail Service Interest Group</span>
-            <select
-              name="serviceGroupId"
-              id="group-id"
-              value={form.serviceGroupId}
-              onChange={updateForm}
-            >
-              <option key="--" value={null}>
-                Select a Group
-              </option>
-              {Object.keys(groupsByParent)?.map((parent) => (
-                <optgroup key={parent} label={parent}>
-                  {groupsByParent[parent].map((group) => {
-                    return (
-                      <option key={group.id} value={group.id}>
-                        {group.name}
-                      </option>
-                    );
-                  })}
-                </optgroup>
-              ))}
-            </select>
-          </label>
-        )}
+        <EmailMarketingServiceConfig service={form.emailMarketingService} cardname="empty" updateForm={updateForm} form={form} />
       </div>
       <div className="form-section">
         <h3>Publish</h3>

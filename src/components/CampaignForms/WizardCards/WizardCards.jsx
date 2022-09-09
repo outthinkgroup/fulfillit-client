@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { animated } from "react-spring";
 import { allFieldsHaveData } from "../../../utils/formValidation";
-import MailchimpSetupForm from "./Mailchimp";
+import {EmailMarketingServiceConfigWizard} from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 const FormCards = [
   ({ style, cards, item, updateFormData, nextCard, formData }) => (
@@ -75,6 +75,7 @@ const FormCards = [
             <option value="">choose a email marketing service</option>
             <option value="mailchimp">mailchimp</option>
             <option value="mailgun">mailgun</option>
+            <option value="mailerlite">mailerlite</option>
             <option value="converkit">converkit</option>
           </select>
         </label>
@@ -88,11 +89,13 @@ const FormCards = [
       </div>
     </WizardCard>
   ),
-  (props) => (
-    <WizardCard depth="medium" style={{ ...props.style }}>
-      <MailchimpSetupForm {...props} />
-    </WizardCard>
-  ),
+  (props) =>{
+    return (
+      <WizardCard depth="medium" style={{ ...props.style }}>
+        <EmailMarketingServiceConfigWizard {...props}/>
+      </WizardCard>
+    )
+  },
   ({
     style,
     cards,
