@@ -12,7 +12,7 @@ const Dashboard = ({ query, className }) => {
   const { data, loading, error } = useQuery(USER_DATA);
   const { localState, setLocalState } = useContext(LocalContext);
   const navigate = useNavigate();
-  console.log(localState);
+ 
   React.useEffect(() => {
     if (error) {
       navigate("/sign-in?here");

@@ -7,6 +7,7 @@ import useForm from "../../../utils/useForm";
 import { LocalContext } from "../../../utils/LocalContext";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { Loader } from "../../../designSystem/styles";
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {
@@ -79,7 +80,8 @@ const EditCampaign = ({ className }) => {
     },
   });
   const [form, updateForm, setForm] = useForm({});
-  const [updateCampaign, updatedData] = useMutation(UPDATE_CAMPAIGN, {
+
+  const [updateCampaign] = useMutation(UPDATE_CAMPAIGN, {
     variables: { ...form },
     refetchQueries: ["CAMPAIGNS"],
     onCompleted() {
@@ -87,7 +89,6 @@ const EditCampaign = ({ className }) => {
     },
   });
 
-  console.log(data);
   useEffect(() => {
     if (data) {
       const { id, email, status, meta, databaseId } = data.campaign;
@@ -95,7 +96,12 @@ const EditCampaign = ({ className }) => {
     }
   }, [data]);
 
-  if (loading) return "loading...."; //todo get real loader
+  if (loading){
+    return <div className={className}>
+      <div style={{display:'flex', alignItems:'center', gap:5}}><Loader/> <span>loading...</span></div>
+    </div>
+  }
+
   return (
     <form
       className={className}

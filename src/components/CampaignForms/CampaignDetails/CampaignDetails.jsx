@@ -52,7 +52,6 @@ const CampaignDetails = ({ form, updateForm, className }) => {
       </div>
 
       <div className="form-section">
-        <h3>Email Service Settings</h3>
         <EmailMarketingServiceConfig service={form.emailMarketingService} cardname="empty" updateForm={updateForm} form={form} />
       </div>
       <div className="form-section">

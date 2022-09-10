@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useQuery, gql } from "@apollo/client";
 import CampaignCard from "../CampaignCard/CampaignCard";
+import { Loader } from "../../designSystem/styles";
 
 export const CAMPAIGNS = gql`
   query CAMPAIGNS {
@@ -41,23 +42,27 @@ export const CAMPAIGNS = gql`
 
 const CampaignList = ({ className }) => {
   const { data, loading, error } = useQuery(CAMPAIGNS);
-  console.log(error);
+  
   if (error) return error.errors[0].debugMessage;
+
   const campaigns = data
     ? [...data.viewer.campaigns.nodes, ...data.viewer.draftCampaigns.nodes]
     : [];
+
+  if(loading){
+    return <div className={className}>
+      <div style={{display:'flex', alignItems:'center', gap:5}}><Loader/> <span>loading...</span></div>
+    </div>
+  }
   return (
     <div className={className}>
       <ul>
-        {loading
-          ? "loading"
-          : campaigns.map((campaign) => {
-              return (
-                <li key={campaign.id}>
-                  <CampaignCard {...campaign} />
-                </li>
-              );
-            })}
+      {campaigns.map((campaign) => {
+        return (
+          <li key={campaign.id}>
+            <CampaignCard {...campaign} />
+          </li>
+        )})}
       </ul>
     </div>
   );
@@ -68,14 +73,12 @@ export default styled(CampaignList)`
     display: grid;
     grid-template-columns: repeat(2, minmax(250px, 1fr));
     ${({ theme }) => theme.below.medium`
-    grid-template-columns: 1fr;
-      
+      grid-template-columns: 1fr;
     `}
-    grid-gap: 20px;
+    gap: 20px;
     margin: 0px;
     padding: 0px;
     li {
-      margin-bottom: 20px;
       list-style: none;
     }
   }
