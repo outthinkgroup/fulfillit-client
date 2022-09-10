@@ -62,8 +62,7 @@ const FormCards = [
         <h3>Email Service</h3>
         <label htmlFor="mailservice">
           <span className="label-text">
-            Select which Email Marketing Service You want to deliver your
-            message too
+            Select which Email Marketing Service You want to subscibe your users to
           </span>
           <select
             id="mailservice"

@@ -13,9 +13,9 @@ export default function MailerliteSetupForm({
 
   return (
     <div className="mailservice-info">
-      <h3>Email Service Info</h3>
+      <h3>Mailerlite Options</h3>
       <label htmlFor="api-key">
-        <span className="label-text">Mail Service Api Key</span>
+        <span className="label-text">Mailerlite Api Key</span>
         <input
           type="text"
           name="serviceApiKey"
@@ -36,7 +36,7 @@ export default function MailerliteSetupForm({
       )}
       {data?.mailerliteData?.groups?.length > 0 && (
         <label htmlFor="list-id">
-          <span className="label-text">Group Id</span>
+          <span className="label-text">Group</span>
           <select
             name="serviceGroupId"
             id="list-id"

@@ -29,9 +29,9 @@ export default function MailchimpSetupForm({
   return (
     <>
       <div className="mailservice-info">
-        <h3>Email Service Info</h3>
+        <h3>Mailchimp options</h3>
         <label htmlFor="api-key">
-          <span className="label-text">Mail Service Api Key</span>
+          <span className="label-text">Mailchimp Api Key</span>
           <input
             type="text"
             name="serviceApiKey"
@@ -52,7 +52,7 @@ export default function MailchimpSetupForm({
         )}
         {mc?.mailchimpData?.lists?.length > 0 && (
           <label htmlFor="list-id">
-            <span className="label-text">Mail Service List Id</span>
+            <span className="label-text">Mailchimp List</span>
             <select
               name="serviceListId"
               id="list-id"
@@ -73,7 +73,7 @@ export default function MailchimpSetupForm({
         )}
         {list?.groups?.length > 0 && (
           <label htmlFor="group-id">
-            <span className="label-text">Mail Service Interest Group</span>
+            <span className="label-text">Mailchimp Group</span>
             <select
               name="serviceGroupId"
               id="group-id"
