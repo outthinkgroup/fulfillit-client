@@ -58,7 +58,7 @@ const NEW_CAMPAIGN = gql`
         databaseId
         email: title
         date
-        campaignOptions {
+        meta {
           description
           emailMarketingService
           name

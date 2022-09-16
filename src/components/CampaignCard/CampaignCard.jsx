@@ -1,11 +1,7 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
+import { Link } from "react-router-dom";
 import Card from "../../elements/Card";
-import Icon from "../../elements/Icon";
-import { CAMPAIGNS } from "../CampaignList/CampaignList";
-import { LocalContext } from "../../utils/LocalContext";
 
 export const DELETE_CAMPAIGN = gql`
   mutation DELETE_CAMPAIGN($id: ID!) {
@@ -24,83 +20,21 @@ const CampaignCard = ({
   date,
   email,
   transactionCount,
-  campaignOptions,
+  meta,
 }) => {
-  const [showActions, setShowActions] = useState(false);
   const dateFormatted = `${new Date(date).getMonth() + 1}/${new Date(
     date
   ).getDate()}/${new Date(date).getFullYear()}`;
   const emailAddress = `${email}@sendmagnet.com`;
-  const { localState, setLocalState } = useContext(LocalContext);
-  const navigate = useNavigate();
-  const [
-    deleteCampaign,
-    { data: deletedData, loading: deleting, error: deleteError },
-  ] = useMutation(DELETE_CAMPAIGN, {
-    variables: {
-      id,
-    },
-    refetchQueries: ["CAMPAIGNS"],
-  });
-
-  const viewDetails = () => navigate(`/campaign/?campaign_id=${id}`);
-
   return (
     <Card depth="low" className={className}>
-      <div onMouseLeave={() => setShowActions(false)}>
+      <Link to={`/campaign/?campaign_id=${id}`} onMouseLeave={() => setShowActions(false)}>
         <div className="top-section">
           <div className="title">
             <p className="tag">{status}</p>
-            <h3>{campaignOptions.name}</h3>
-            <p>{emailAddress}</p>
-          </div>
-          <div className="actions-group">
-            {showActions && (
-              <div className="actions" data-testid="actions-wrapper">
-                <button
-                  type="button"
-                  onClick={() => {
-                    navigate(`/?campaign_id=${id}`);
-                    setLocalState({
-                      ...localState,
-                      isSideBarOpen: "EDIT_CAMPAIGN",
-                    });
-                  }}
-                  className="edit"
-                  title="Edit"
-                >
-                  <Icon name="edit" color="white" />
-                </button>
-                {/*<button
-                  type="button"
-                  onClick={viewDetails}
-                  className="analytics"
-                  title="View Details"
-                >
-                  <Icon name="chart" color="white" />
-                </button>*/}
-                <button
-                  type="button"
-                  onClick={deleteCampaign}
-                  className="delete"
-                  title="Delete Campaign"
-                >
-                  <Icon name="delete" color="white" />
-                </button>
-              </div>
-            )}
-            <button
-              type="button"
-              data-testid="option-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowActions(!showActions);
-              }}
-              className="options"
-              title="Show Options"
-            >
-              <Icon name="options" />
-            </button>
+            <h3>{meta.name}</h3>
+            {/* TODO: get this working*/}
+            <a href={`mailto:${emailAddress}`} >{emailAddress}</a>
           </div>
         </div>
         <div className="info">
@@ -113,7 +47,7 @@ const CampaignCard = ({
             <span className="value">{transactionCount}</span>
           </div>
         </div>
-      </div>
+      </Link>
     </Card>
   );
 };
