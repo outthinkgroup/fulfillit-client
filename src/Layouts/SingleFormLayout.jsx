@@ -8,7 +8,7 @@ const SingleFormLayout = ({ children, className }) => {
     <div className={className}>
       <Header includeLogo />
       <PageContent>{children}</PageContent>
-      <Footer background>©️{new Date().getFullYear()} fulfullit</Footer>
+      <Footer background>©️{new Date().getFullYear()}  Sendmagnet</Footer>
       <GlobalStyle />
     </div>
   )
@@ -17,9 +17,7 @@ export default styled(SingleFormLayout)`
   min-height: 100vh;
   max-width: 100vw;
   min-width: 100vw;
-  display: grid;
   background: ${({ theme }) => theme.colors.lightGrey};
-  grid-template-rows: 65px 1fr 65px;
 `
 
 const PageContent = styled.div`
@@ -37,6 +35,7 @@ export const Footer = styled.footer`
   justify-content: center;
   font-weight: 300;
   letter-spacing: -0.2px;
+  padding:20px;
   text-align: center;
   background: ${props =>
     props.background ? "hsl(212, 100%, 20%)" : "transparent"};

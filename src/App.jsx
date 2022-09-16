@@ -5,7 +5,7 @@ import SignIn from "./pages/sign-in";
 import NewCampaign from "./pages/new-campaign";
 import CampaignSingle from "./pages/campaign";
 
-// DOCS https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
+// DOCS: https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 export default function App() {
   return (
     <Router basename="/">

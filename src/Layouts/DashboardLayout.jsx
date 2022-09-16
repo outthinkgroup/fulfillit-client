@@ -1,17 +1,15 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderComp from "../components/Header/Header";
 import GlobalStyle from "../designSystem/globalStyles";
 
-import MobileSidebar from "../components/MobileSidebar/MobileSidebar";
 
 const DashboardLayout = ({ children, className }) => {
   return (
     <div className={className}>
       <HeaderComp
-        includeLogo="false"
+        includeLogo
         includeUserMenu
         css={`
           grid-row: 1/2;
@@ -24,8 +22,6 @@ const DashboardLayout = ({ children, className }) => {
           gridRow: `1/4`,
         }}
       >
-        <Sidebar />
-        <MobileSidebar />
       </div>
       <PageContent>{children}</PageContent>
       <GlobalStyle />
@@ -34,17 +30,8 @@ const DashboardLayout = ({ children, className }) => {
 };
 export default styled(DashboardLayout)`
   min-height: 100vh;
-  max-width: 100vw;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  display: grid;
+  overflow:auto;
   padding: 0;
-  margin: 0;
-  grid-template-rows: 65px 1fr;
-  grid-template-columns: 100%;
-  ${({ theme }) => theme.above.small`
-    grid-template-columns: 267px 1fr;
-  `}
   ${HeaderComp} {
     width: 100%;
   }
@@ -52,11 +39,11 @@ export default styled(DashboardLayout)`
 `;
 
 const PageContent = styled.div`
+  max-width: 1100px;
+  margin: 0 auto;
   height: 100%;
-  grid-column: 2/3;
   padding: 20px;
   width: 100%;
-  max-width: 1100px;
   margin: 0 auto;
 
   ${({ theme }) => theme.below.small`

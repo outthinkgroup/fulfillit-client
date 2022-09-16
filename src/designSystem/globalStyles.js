@@ -5,9 +5,15 @@ export default createGlobalStyle`
 :root {
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
   --primary-color: hsl(212, 100%, 48%);
+  --primary-dark: hsl(212, 100%, 20%);
+  --primary-light: #b3cfef;
+
   --warning-color: hsl(0, 74%, 61%);
+
   --success-color: hsl(140, 60%, 45%);
+
 }
 body {
   padding: 0;

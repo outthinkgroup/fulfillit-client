@@ -47,7 +47,10 @@ export default styled(Navigation)`
     white-space: nowrap;
     text-decoration: none;
     text-transform: capitalize;
-    color: ${({ theme }) => theme.colors.primary};
+    color:white;
     padding-left: 20px;
+    &:hover{
+      color:var(--primary-light);
+    }
   }
 `;

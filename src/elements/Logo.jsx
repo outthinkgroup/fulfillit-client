@@ -14,6 +14,7 @@ const Logo = ({ className, includeLogo }) => {
 
 export default styled(Logo)`
   font-size: 34px;
+  color:white;
   .byline {
     font-size: 16px;
   }
@@ -29,6 +30,6 @@ export default styled(Logo)`
     white-space: nowrap;
     display: block;
     font-weight: 300;
-    color: ${({ theme }) => theme.colors.primary};
+    color: var(--primary-light);
   }
 `

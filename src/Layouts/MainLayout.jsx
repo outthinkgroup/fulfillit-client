@@ -4,12 +4,11 @@ import HeaderComp from "../components/Header/Header"
 import GlobalStyle from "../designSystem/globalStyles"
 
 const MainLayout = ({ children, className }) => {
-  const isLoggedIn = true
   return (
     <div className={className}>
       <HeaderComp includeLogo={true} />
       <PageContent>{children}</PageContent>
-      <Footer background>©️{new Date().getFullYear()} fulfullit</Footer>
+      <Footer background>©️{new Date().getFullYear()} fSendmagnet</Footer>
       <GlobalStyle />
     </div>
   )
@@ -17,8 +16,6 @@ const MainLayout = ({ children, className }) => {
 export default styled(MainLayout)`
   min-height: 100vh;
   max-width: 100vw;
-  display: grid;
-  grid-template-rows: 65px 1fr 65px;
 `
 
 const PageContent = styled.div`

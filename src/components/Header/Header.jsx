@@ -19,29 +19,35 @@ const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
 
   return (
     <header className={className}>
-      <span
-        css={`
-          display: flex;
-          align-items: center;
-        `}
-      >
-        <Logo includeLogo={includeLogo} />
-      </span>
-      <Navigation userData={data && data.viewer} />
+      <div className="wrapper">
+        <span
+          css={`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          <Logo includeLogo={includeLogo} />
+        </span>
+        <Navigation userData={data && data.viewer} />
+      </div>
     </header>
   );
 };
 
 export default styled(HeaderComp)`
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-  height: 100%;
-  padding: 20px;
-  width: 100%;
-  justify-content: ${({ includeLogo }) =>
-    includeLogo ? "space-between" : "flex-end"};
-  ${({ theme }) => theme.below.small`
-    justify-content:space-between;
-  `}
+  background:var(--primary-dark);
+  .wrapper{
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    margin:0 auto;
+    height: 100%;
+    padding: 20px;
+    width: 100%;
+    justify-content: ${({ includeLogo }) =>
+      includeLogo ? "space-between" : "flex-end"};
+    ${({ theme }) => theme.below.small`
+      justify-content:space-between;
+    `}
+  }
 `;

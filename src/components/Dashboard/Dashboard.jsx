@@ -14,16 +14,19 @@ const Dashboard = ({ query, className }) => {
   const navigate = useNavigate();
  
   React.useEffect(() => {
-    if (error) {
+    if (error ) {
       navigate("/sign-in?here");
     }
-  }, [error]);
+    if(data && data.viewer == null){
+      navigate("/sign-in?here");
+    }
+  }, [error, data]);
 
   const { isSideBarOpen } = localState;
   return (
     <div className={className}>
       <PageHeading>
-        <h1>{loading ? "" : data && data.viewer.name}</h1>
+        <h1>{loading ? "" : data && data?.viewer?.name}</h1>
         <p>A list of your registered emailAddresses and stats</p>
       </PageHeading>
       <CampaignList />
