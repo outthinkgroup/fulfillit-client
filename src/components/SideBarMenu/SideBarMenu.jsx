@@ -39,11 +39,6 @@ const SideBarMenu = ({ closeSideBar = null }) => {
           </ul>
         </nav>
       </NavGroup>
-      <UpgradeButton>
-        <Link onClick={closeSideBar} to="/" className="btn">
-          Upgrade Plan
-        </Link>
-      </UpgradeButton>
     </div>
   );
 };
