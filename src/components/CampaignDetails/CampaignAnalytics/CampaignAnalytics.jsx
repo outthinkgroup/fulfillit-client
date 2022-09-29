@@ -1,12 +1,15 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
+import styled from "styled-components";
+import CampaignGraph from "./CampaignGraph.jsx";
 
-import { PageHeading } from "../../../designSystem/styles";
-import { USER_DATA } from "../../Header/Header";
-import { LocalContext } from "../../../utils/LocalContext";
-import getUrlParam from "../../../utils/getUrlParams";
+// import { PageHeading } from "../../../designSystem/styles";
+// import { USER_DATA } from "../../Header/Header";
+// import { LocalContext } from "../../../utils/LocalContext";
+// import getUrlParam from "../../../utils/getUrlParams";
 
-export default function CampaignAnalytics({ id, campaignName }) {
+export default function CampaignAnalytics({ id, campaignSlug }) {
+  console.log({ id, campaignSlug });
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
@@ -14,9 +17,29 @@ export default function CampaignAnalytics({ id, campaignName }) {
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
       id,
-      campaign: campaignName,
+      campaign: [campaignSlug],
     },
   });
+
+  const [logQuery, setLogQuery] = React.useState({
+    date: null,
+    search: "",
+  });
+
+  function logFilter(log) {
+    const { search, date } = logQuery;
+    if (!search || !search.length > 2) {
+      return true;
+    }
+    if (
+      log.title.toLowerCase().includes(search.toLowerCase()) ||
+      log.content.toLowerCase().includes(search.toLowerCase())
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
@@ -26,50 +49,98 @@ export default function CampaignAnalytics({ id, campaignName }) {
   }
 
   return (
-    <div>
+    <CampaignAnalyticsWrapper>
       <div>
-        <h3>Total Transactions</h3>
-        <p>{dataAnalytics.campaign?.transactionCount}</p>
-      </div>
-      <div>
+        <CampaignGraph
+          name={campaignSlug}
+          view={"hour"}
+          logs={dataAnalytics?.viewer?.logs?.nodes}
+        />
         <h3>Logs</h3>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <label htmlFor="search">Filter logs by title or content</label>
+          <input
+            type="text"
+            id="search"
+            value={logQuery.search}
+            onChange={(e) =>
+              setLogQuery((s) => ({ ...s, search: e.target.value }))
+            }
+          />
+        </form>
         <ul>
-          {dataAnalytics?.logs?.nodes.length &&
-            dataAnalytics.logs.nodes.map(({ title, id }) => {
-              return <li key={id}>{title}</li>;
-            })}
+          {dataAnalytics?.viewer?.logs?.nodes.length &&
+            dataAnalytics?.viewer?.logs.nodes
+              .filter(logFilter)
+              .map(({ date, content, title, id }) => {
+                return (
+                  <li key={id}>
+                    <details>
+                      <summary>
+                        {date} : {title}
+                      </summary>
+                      <p dangerouslySetInnerHTML={{ __html: content }} />
+                    </details>
+                  </li>
+                );
+              })}
         </ul>
       </div>
-    </div>
+    </CampaignAnalyticsWrapper>
   );
 }
 
 export const CAMPAIGN_ANALYTICS = gql`
-  query CAMPAIGN_ANALYTICS($id: ID!, $campaign: String!) {
+  query CAMPAIGN_ANALYTICS($id: ID!, $campaign: [String]) {
     campaign(id: $id, idType: DATABASE_ID) {
       transactionCount
     }
-    logs(
-      where: {
-        metaQuery: {
-          metaArray: {
-            compare: EQUAL_TO
-            key: "campaign"
-            type: CHAR
-            value: $campaign
+    viewer {
+      logs(
+        last: 100
+        where: {
+          taxQuery: {
+            taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
           }
         }
-      }
-    ) {
-      nodes {
-        id
-        title
+      ) {
+        nodes {
+          databaseId
+          authorDatabaseId
+          forCampaigns {
+            nodes {
+              name
+            }
+          }
+          dateGmt
+          date
+          content(format: RENDERED)
+          title
+        }
       }
     }
   }
 `;
-/*    
-   campaign(id: $id, idType: DATABASE_ID) {
-     campaignTransactions
+const CampaignAnalyticsWrapper = styled.div`
+  form {
+    max-width: 300px;
+    margin-bottom: 20px;
   }
-  */
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  br {
+    display: none;
+  }
+  details p {
+    margin-inline-start: 0.5em;
+    background: #eff4ff;
+    padding: 1em;
+  }
+  details p * {
+    margin-block: 0;
+    margin-bottom: 10px;
+  }
+`;

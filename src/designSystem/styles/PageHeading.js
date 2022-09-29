@@ -9,7 +9,6 @@ export const PageHeading = styled.div`
   max-width: 650px;
   margin-bottom: 40px;
   padding-bottom: 25px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightBlue};
 `;
 
 export const Loader = styled.div`

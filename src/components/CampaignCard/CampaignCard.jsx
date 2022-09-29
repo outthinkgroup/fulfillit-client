@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Card from "../../elements/Card";
 
@@ -28,13 +29,16 @@ const CampaignCard = ({
   const emailAddress = `${email}@sendmagnet.com`;
   return (
     <Card depth="low" className={className}>
-      <Link to={`/campaign/?campaign_id=${id}`} onMouseLeave={() => setShowActions(false)}>
+      <Link
+        to={`/campaign/?campaign_id=${id}`}
+        onMouseLeave={() => setShowActions(false)}
+      >
         <div className="top-section">
           <div className="title">
             <p className="tag">{status}</p>
             <h3>{meta.name}</h3>
             {/* TODO: get this working*/}
-            <a href={`mailto:${emailAddress}`} >{emailAddress}</a>
+            <span data-link={`mailto:${emailAddress}`}>{emailAddress}</span>
           </div>
         </div>
         <div className="info">

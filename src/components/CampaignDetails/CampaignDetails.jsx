@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useQuery, gql, useMutation } from "@apollo/client";
-
+import { useQuery, gql } from "@apollo/client";
+import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
 import { Loader, PageHeading } from "../../designSystem/styles";
 import { USER_DATA } from "../Header/Header";
-import { UPDATE_CAMPAIGN} from "../CampaignForms/EditCampaign/EditCampaign"
-import { LocalContext } from "../../utils/LocalContext";
+import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
+import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import getUrlParam from "../../utils/getUrlParams";
 
 const CampaignDetails = ({ query, className }) => {
@@ -21,61 +21,30 @@ const CampaignDetails = ({ query, className }) => {
     },
   });
   const navigate = useNavigate();
-  const { localState, setLocalState } = useContext(LocalContext);
-
-  function openEditingSideBar() {
-    setLocalState((state) => ({
-      ...state,
-      isSideBarOpen: "EDIT_CAMPAIGN",
-    }));
-  }
 
   if (error) {
     navigate("/sign-in");
     return null;
   }
-  if(loading || campaignDataLoading){
-    return <Loader /> 
+  if (loading || campaignDataLoading) {
+    return <Loader />;
   }
-  
 
   return (
     <div className={className}>
       <PageHeading>
-        <div>Details</div>
-        <CampaignDetailsHeading
-          campaign={campaignData.campaign}
-        />
+        <div>
+          <div>Details</div>
+          <CampaignDetailsHeading campaign={campaignData.campaign} />
+        </div>
+        <CampaignTransactions campaignId={campaignData.campaign.id} />
       </PageHeading>
-    </div>
-  );
-};
-
-const CampaignDetailsHeading = ({ campaign } ) => {
-  const [form, setForm] = useState({
-    name:campaign.name,
-    email:campaign.email,
-    description:campaign.description,
-  }) 
-  const [isShowEditUI, setIsShowEditUI] = useState(false);
-
-  const [updateCampaign] = useMutation(UPDATE_CAMPAIGN, {
-    variables: { 
-      name:form.name,
-      email:form.email,
-      description: form.description,
-      databaseId: campaign.databaseId,
-    },
-    refetchQueries: ["CAMPAIGNS"],
-    onCompleted() {
-      setLocalState({ ...localState, isSideBarOpen: false });
-    },
-  });
-  return ( 
-    <div>
-      <h2>{campaign.meta.name}</h2>
-      <p>{campaign.
-      <button onClick={()=>setIsShowEditUI(s=>!s)}>Edit</button>
+      <div>
+        <CampaignAnalytics
+          id={campaignData.campaign.databaseId}
+          campaignSlug={campaignData.campaign.email}
+        />
+      </div>
     </div>
   );
 };
@@ -86,11 +55,12 @@ export const SINGLE_CAMPAIGN_TITLE = gql`
   query SINGLE_CAMPAIGN_TITLE($id: ID!) {
     campaign(id: $id, idType: ID) {
       id
-      campaignId
+      databaseId
       status
       email: title(format: RAW)
       meta {
         name
+        description
       }
     }
   }
