@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 import HeaderComp from "../components/Header/Header";
 import GlobalStyle from "../designSystem/globalStyles";
 
-
 const DashboardLayout = ({ children, className }) => {
   return (
     <div className={className}>
@@ -21,8 +20,7 @@ const DashboardLayout = ({ children, className }) => {
           gridColumn: ` 1/2`,
           gridRow: `1/4`,
         }}
-      >
-      </div>
+      ></div>
       <PageContent>{children}</PageContent>
       <GlobalStyle />
     </div>
@@ -30,7 +28,7 @@ const DashboardLayout = ({ children, className }) => {
 };
 export default styled(DashboardLayout)`
   min-height: 100vh;
-  overflow:auto;
+  /*overflow: auto;*/
   padding: 0;
   ${HeaderComp} {
     width: 100%;
@@ -49,7 +47,6 @@ const PageContent = styled.div`
   ${({ theme }) => theme.below.small`
     grid-column: 1/-1;
     margin-top:30px;
-  `}
-  overflow-x: auto;
-  overflow-y: scroll;
+  `}/*overflow-x: auto;*/
+  /*overflow-y: scroll;*/
 `;

@@ -8,6 +8,7 @@ import { USER_DATA } from "../Header/Header";
 import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import getUrlParam from "../../utils/getUrlParams";
+import Tabs from "../Tabs/Tabs";
 
 const CampaignDetails = ({ query, className }) => {
   const { data, loading, error } = useQuery(USER_DATA);
@@ -33,18 +34,27 @@ const CampaignDetails = ({ query, className }) => {
   return (
     <div className={className}>
       <PageHeading>
+        <div>Campaign</div>
         <div>
-          <div>Details</div>
           <CampaignDetailsHeading campaign={campaignData.campaign} />
         </div>
         <CampaignTransactions campaignId={campaignData.campaign.id} />
       </PageHeading>
-      <div>
-        <CampaignAnalytics
-          id={campaignData.campaign.databaseId}
-          campaignSlug={campaignData.campaign.email}
-        />
-      </div>
+      <Tabs
+        tabs={{
+          ["Overview"]: () => (
+            <CampaignAnalytics
+              id={campaignData.campaign.databaseId}
+              campaignSlug={campaignData.campaign.email}
+            />
+          ),
+          ["Settings"]: () => (
+            <>
+              <h3>Settings</h3>
+            </>
+          ),
+        }}
+      />
     </div>
   );
 };

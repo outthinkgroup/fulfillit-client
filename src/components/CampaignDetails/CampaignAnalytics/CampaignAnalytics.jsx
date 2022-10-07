@@ -26,6 +26,8 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
     search: "",
   });
 
+  const [view, setView] = React.useState("month");
+
   function logFilter(log) {
     const { search, date } = logQuery;
     if (!search || !search.length > 2) {
@@ -48,12 +50,19 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
   }
 
+  console.log(view);
   return (
     <CampaignAnalyticsWrapper>
       <div>
+        <label htmlFor="viewSelect">view by</label>
+        <select onChange={(e) => setView(e.target.value)} value={view}>
+          <option value="month">Month by Month</option>
+          <option value="day">Day by Day</option>
+          <option value="hour">Hour by Hour</option>
+        </select>
         <CampaignGraph
           name={campaignSlug}
-          view={"hour"}
+          view={view}
           logs={dataAnalytics?.viewer?.logs?.nodes}
         />
         <h3>Logs</h3>

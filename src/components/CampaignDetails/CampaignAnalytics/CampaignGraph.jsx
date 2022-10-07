@@ -12,6 +12,13 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+import {
+  genDateKey,
+  datesBetween,
+  sortDates,
+  byOccurrences,
+} from "./datemanager";
+
 export default function CampaignGraph({ name, logs, view }) {
   const options = {
     responsive: true,
@@ -27,30 +34,48 @@ export default function CampaignGraph({ name, logs, view }) {
   };
   const data = React.useMemo(
     function transformLogsToGraphData() {
-      const dateObjadf = logs
-        .map((l) => new Date(l.date))
-        .reduce(dateReducer, {});
-      const datesData = flattenBy(view, dateObjadf);
-      console.log(datesData);
-      const datesForView = {
-        label: `By ${view}`,
-        data: datesData.data,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      };
+      const sortedDates = logs.map((l) => new Date(l.date)).sort(sortDates);
+
+      // generate all dates between start and end of our log data for more accurate representation
+      // with the same shape as what is created by byOccurrences
+      const fillerDates = datesBetween(
+        sortedDates[0],
+        sortedDates.at(-1),
+        view
+      ).reduce((acc, date) => {
+        acc[genDateKey(date, view)] = 0;
+        return acc;
+      }, {});
+      // the filler dates will be overwritten if we have logs for that date
+      const groups = { ...fillerDates, ...byOccurrences[view](sortedDates) };
+      const data = Object.values(groups);
+
+      const datasets = [
+        {
+          label: `By ${view}`,
+          data,
+          pointRadius: Object.values(groups).map((v) => (v > 0 ? 3 : 0)),
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+      ];
+      const labels = Object.keys(groups);
       return {
-        labels: filldates(datesData.labels, view),
-        datasets: [datesForView],
+        labels,
+        datasets,
       };
     },
-    [logs]
+    [logs, view]
   );
+
+  if (!data) return null;
   return (
     <CampaignGraphWrapper>
       <LChart options={options} data={data} />
     </CampaignGraphWrapper>
   );
 }
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
