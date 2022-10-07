@@ -47,6 +47,5 @@ const PageContent = styled.div`
   ${({ theme }) => theme.below.small`
     grid-column: 1/-1;
     margin-top:30px;
-  `}/*overflow-x: auto;*/
-  /*overflow-y: scroll;*/
+  `}
 `;

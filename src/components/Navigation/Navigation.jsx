@@ -16,7 +16,7 @@ const Navigation = ({ className, userData = false }) => {
         </>
       ) : (
         <>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/">Dashboard</Link>
           <button className="link" type="button" onClick={signOut}>
             Sign Out
           </button>
@@ -47,10 +47,10 @@ export default styled(Navigation)`
     white-space: nowrap;
     text-decoration: none;
     text-transform: capitalize;
-    color:white;
+    color: white;
     padding-left: 20px;
-    &:hover{
-      color:var(--primary-light);
+    &:hover {
+      color: var(--primary-light);
     }
   }
 `;

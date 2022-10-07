@@ -9,6 +9,8 @@ import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetails
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import getUrlParam from "../../utils/getUrlParams";
 import Tabs from "../Tabs/Tabs";
+import Logs from "../CampaignDetails/CampaignAnalytics/Logs";
+import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign";
 
 const CampaignDetails = ({ query, className }) => {
   const { data, loading, error } = useQuery(USER_DATA);
@@ -50,7 +52,12 @@ const CampaignDetails = ({ query, className }) => {
           ),
           ["Settings"]: () => (
             <>
-              <h3>Settings</h3>
+              <EditCampaign />
+            </>
+          ),
+          ["Logs"]: () => (
+            <>
+              <Logs campaign={campaignData.campaign.email} />
             </>
           ),
         }}

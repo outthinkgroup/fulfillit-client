@@ -35,7 +35,9 @@ export default function CampaignGraph({ name, logs, view }) {
   const data = React.useMemo(
     function transformLogsToGraphData() {
       const sortedDates = logs.map((l) => new Date(l.date)).sort(sortDates);
-
+      if (sortedDates.length <= 0) {
+        return null;
+      }
       // generate all dates between start and end of our log data for more accurate representation
       // with the same shape as what is created by byOccurrences
       const fillerDates = datesBetween(
@@ -68,7 +70,8 @@ export default function CampaignGraph({ name, logs, view }) {
     [logs, view]
   );
 
-  if (!data) return null;
+  if (!data) return <p>Not enough data to display</p>;
+
   return (
     <CampaignGraphWrapper>
       <LChart options={options} data={data} />

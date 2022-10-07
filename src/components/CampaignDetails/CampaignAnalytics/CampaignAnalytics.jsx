@@ -16,38 +16,29 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
     error: errorAnalytics,
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
-      id,
       campaign: [campaignSlug],
     },
   });
-
-  const [logQuery, setLogQuery] = React.useState({
-    date: null,
-    search: "",
+  const {
+    data: dataTransactionCount,
+    loading: loadingTransactionCount,
+    error: errorTransactionCount,
+  } = useQuery(CAMPAIGN_TRANSACTION_COUNT, {
+    variables: { id },
   });
 
   const [view, setView] = React.useState("month");
 
-  function logFilter(log) {
-    const { search, date } = logQuery;
-    if (!search || !search.length > 2) {
-      return true;
-    }
-    if (
-      log.title.toLowerCase().includes(search.toLowerCase()) ||
-      log.content.toLowerCase().includes(search.toLowerCase())
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  if (loadingAnalytics) {
+  if (loadingAnalytics || loadingTransactionCount) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
   }
   if (errorAnalytics) {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
+  }
+  if (errorTransactionCount) {
+    return (
+      <div style={{ textAlign: "center" }}>{errorTransactionCount.message}</div>
+    );
   }
 
   console.log(view);
@@ -65,45 +56,19 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
           view={view}
           logs={dataAnalytics?.viewer?.logs?.nodes}
         />
-        <h3>Logs</h3>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="search">Filter logs by title or content</label>
-          <input
-            type="text"
-            id="search"
-            value={logQuery.search}
-            onChange={(e) =>
-              setLogQuery((s) => ({ ...s, search: e.target.value }))
-            }
-          />
-        </form>
-        <ul>
-          {dataAnalytics?.viewer?.logs?.nodes.length &&
-            dataAnalytics?.viewer?.logs.nodes
-              .filter(logFilter)
-              .map(({ date, content, title, id }) => {
-                return (
-                  <li key={id}>
-                    <details>
-                      <summary>
-                        {date} : {title}
-                      </summary>
-                      <p dangerouslySetInnerHTML={{ __html: content }} />
-                    </details>
-                  </li>
-                );
-              })}
-        </ul>
       </div>
     </CampaignAnalyticsWrapper>
   );
 }
-
-export const CAMPAIGN_ANALYTICS = gql`
-  query CAMPAIGN_ANALYTICS($id: ID!, $campaign: [String]) {
+export const CAMPAIGN_TRANSACTION_COUNT = gql`
+  query CAMPAIGN_TRANSACTION_COUNT($id: ID!) {
     campaign(id: $id, idType: DATABASE_ID) {
       transactionCount
     }
+  }
+`;
+export const CAMPAIGN_ANALYTICS = gql`
+  query CAMPAIGN_ANALYTICS($campaign: [String]) {
     viewer {
       logs(
         last: 100

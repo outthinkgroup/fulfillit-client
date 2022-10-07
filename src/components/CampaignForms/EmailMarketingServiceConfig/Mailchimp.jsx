@@ -2,20 +2,16 @@ import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Loader } from "../../../designSystem/styles";
 
-export default function MailchimpSetupForm({
-  cardname,
-  updateForm,
-  form,
-}) {
-  const { mcListData:mc, listLoading, listsError } = useMailChimpLists(
-    form.serviceApiKey
-  );
+export default function MailchimpSetupForm({ cardname, updateForm, form }) {
+  const {
+    mcListData: mc,
+    listLoading,
+    listsError,
+  } = useMailChimpLists(form.serviceApiKey);
 
   const list = React.useMemo(
     () =>
-      mc?.mailchimpData?.lists?.find(
-        (list) => list.id === form.serviceListId
-      ),
+      mc?.mailchimpData?.lists?.find((list) => list.id === form.serviceListId),
     [mc, form]
   );
   const groupsByParent = list?.groups.reduce((acc, group) => {
@@ -50,54 +46,56 @@ export default function MailchimpSetupForm({
             <span>Loading Mailchimp Data</span>
           </div>
         )}
-        {mc?.mailchimpData?.lists?.length > 0 && (
-          <label htmlFor="list-id">
-            <span className="label-text">Mailchimp List</span>
-            <select
-              name="serviceListId"
-              id="list-id"
-              value={form.serviceListId}
-              onChange={updateForm}
-              data-cardname={cardname}
-            >
-              <option key="--" value={null}>
-                Select a List
-              </option>
-              {mc?.mailchimpData?.lists.map((list) => (
-                <option key={list.id} value={list.id}>
-                  {list.name}
+        <div className="settings-group">
+          {mc?.mailchimpData?.lists?.length > 0 && (
+            <label htmlFor="list-id">
+              <span className="label-text">Mailchimp List</span>
+              <select
+                name="serviceListId"
+                id="list-id"
+                value={form.serviceListId}
+                onChange={updateForm}
+                data-cardname={cardname}
+              >
+                <option key="--" value={null}>
+                  Select a List
                 </option>
-              ))}
-            </select>
-          </label>
-        )}
-        {list?.groups?.length > 0 && (
-          <label htmlFor="group-id">
-            <span className="label-text">Mailchimp Group</span>
-            <select
-              name="serviceGroupId"
-              id="group-id"
-              value={form.serviceGroupId}
-              onChange={updateForm}
-              data-cardname={cardname}
-            >
-              <option key="--" value={null}>
-                Select a Group
-              </option>
-              {Object.keys(groupsByParent)?.map((parent) => (
-                <optgroup key={parent} label={parent}>
-                  {groupsByParent[parent].map((group) => {
-                    return (
-                      <option key={group.id} value={group.id}>
-                        {group.name}
-                      </option>
-                    );
-                  })}
-                </optgroup>
-              ))}
-            </select>
-          </label>
-        )}
+                {mc?.mailchimpData?.lists.map((list) => (
+                  <option key={list.id} value={list.id}>
+                    {list.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+          {list?.groups?.length > 0 && (
+            <label htmlFor="group-id">
+              <span className="label-text">Mailchimp Group</span>
+              <select
+                name="serviceGroupId"
+                id="group-id"
+                value={form.serviceGroupId}
+                onChange={updateForm}
+                data-cardname={cardname}
+              >
+                <option key="--" value={null}>
+                  Select a Group
+                </option>
+                {Object.keys(groupsByParent)?.map((parent) => (
+                  <optgroup key={parent} label={parent}>
+                    {groupsByParent[parent].map((group) => {
+                      return (
+                        <option key={group.id} value={group.id}>
+                          {group.name}
+                        </option>
+                      );
+                    })}
+                  </optgroup>
+                ))}
+              </select>
+            </label>
+          )}
+        </div>
       </div>
     </>
   );
@@ -113,7 +111,7 @@ export function useMailChimpLists(apiKey) {
 }
 const MC_LIST_QUERY = gql`
   query MC_LIST_QUERY($apiKey: String) {
-    mailchimpData(apiKey: $apiKey ) {
+    mailchimpData(apiKey: $apiKey) {
       lists {
         name
         id

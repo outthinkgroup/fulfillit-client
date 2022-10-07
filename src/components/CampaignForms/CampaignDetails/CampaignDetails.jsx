@@ -3,37 +3,38 @@ import styled from "styled-components";
 import { Loader } from "../../../designSystem/styles";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
-const CampaignDetails = ({ form, updateForm, className }) => {
-
-  if (Object.keys(form).length === 0) return <Loader />
+export default function CampaignDetails({ form, updateForm, className }) {
+  if (Object.keys(form).length === 0) return <Loader />;
   return (
-    <div className={className}>
+    <CampaignDetailsWrapper>
       <h2>Campaign Settings</h2>
       <div className="form-section">
         <h3>General Settings</h3>
-        <label htmlFor="name">
-          <span>Campaign Name</span>
-          <input
-            type="text"
-            onChange={updateForm}
-            name="name"
-            id="name"
-            value={form.name}
-          />
-        </label>
-        <label htmlFor="email">
-          <span>Campaign Email</span>
-          <span className="emailFieldWithSuffix">
+        <div className="flex-row">
+          <label htmlFor="name">
+            <span>Campaign Name</span>
             <input
               type="text"
               onChange={updateForm}
-              name="email"
-              id="email"
-              value={form.email || ""}
+              name="name"
+              id="name"
+              value={form.name}
             />
-            <span className="suffix">@sendmagnet.com</span>
-          </span>
-        </label>
+          </label>
+          <label htmlFor="email">
+            <span>Campaign Email</span>
+            <span className="emailFieldWithSuffix">
+              <input
+                type="text"
+                onChange={updateForm}
+                name="email"
+                id="email"
+                value={form.email || ""}
+              />
+              <span className="suffix">@sendmagnet.com</span>
+            </span>
+          </label>
+        </div>
         <label htmlFor="service">
           <span>Email Marketing Service</span>
           <select
@@ -52,7 +53,12 @@ const CampaignDetails = ({ form, updateForm, className }) => {
       </div>
 
       <div className="form-section">
-        <EmailMarketingServiceConfig service={form.emailMarketingService} cardname="empty" updateForm={updateForm} form={form} />
+        <EmailMarketingServiceConfig
+          service={form.emailMarketingService}
+          cardname="empty"
+          updateForm={updateForm}
+          form={form}
+        />
       </div>
       <div className="form-section">
         <h3>Publish</h3>
@@ -64,12 +70,18 @@ const CampaignDetails = ({ form, updateForm, className }) => {
           </select>
         </label>
       </div>
-    </div>
+    </CampaignDetailsWrapper>
   );
-};
+}
 
-export default styled(CampaignDetails)`
+const CampaignDetailsWrapper = styled.div`
   position: relative;
+  max-width: 750px;
+  .flex-row {
+    gap: 10px;
+    display: flex;
+  }
+
   h2 {
     margin-bottom: 30px;
     font-weight: 800;
@@ -101,5 +113,12 @@ export default styled(CampaignDetails)`
       margin-top: 5px;
       margin-left: 10px;
     }
+  }
+  .settings-group {
+    gap: 10px;
+    display: flex;
+  }
+  .settings-group > * {
+    width: 100%;
   }
 `;
