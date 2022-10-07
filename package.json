@@ -2,7 +2,7 @@
   "name": "sendmagnet-frontend",
   "private": true,
   "description": "Sendmagnet's gatsby site",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "josh kennedy",
   "license": "MIT",
   "scripts": {
