@@ -5,7 +5,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 
 import { Loader, PageHeading } from "../../designSystem/styles";
 import { USER_DATA } from "../Header/Header";
-import { UPDATE_CAMPAIGN} from "../CampaignForms/EditCampaign/EditCampaign"
+import { UPDATE_CAMPAIGN } from "../CampaignForms/EditCampaign/EditCampaign";
 import { LocalContext } from "../../utils/LocalContext";
 import getUrlParam from "../../utils/getUrlParams";
 
@@ -34,35 +34,32 @@ const CampaignDetails = ({ query, className }) => {
     navigate("/sign-in");
     return null;
   }
-  if(loading || campaignDataLoading){
-    return <Loader /> 
+  if (loading || campaignDataLoading) {
+    return <Loader />;
   }
-  
 
   return (
     <div className={className}>
       <PageHeading>
         <div>Details</div>
-        <CampaignDetailsHeading
-          campaign={campaignData.campaign}
-        />
+        <CampaignDetailsHeading campaign={campaignData.campaign} />
       </PageHeading>
     </div>
   );
 };
 
-const CampaignDetailsHeading = ({ campaign } ) => {
+const CampaignDetailsHeading = ({ campaign }) => {
   const [form, setForm] = useState({
-    name:campaign.name,
-    email:campaign.email,
-    description:campaign.description,
-  }) 
+    name: campaign.name,
+    email: campaign.email,
+    description: campaign.description,
+  });
   const [isShowEditUI, setIsShowEditUI] = useState(false);
 
   const [updateCampaign] = useMutation(UPDATE_CAMPAIGN, {
-    variables: { 
-      name:form.name,
-      email:form.email,
+    variables: {
+      name: form.name,
+      email: form.email,
       description: form.description,
       databaseId: campaign.databaseId,
     },
@@ -71,11 +68,10 @@ const CampaignDetailsHeading = ({ campaign } ) => {
       setLocalState({ ...localState, isSideBarOpen: false });
     },
   });
-  return ( 
+  return (
     <div>
       <h2>{campaign.meta.name}</h2>
-      <p>{campaign.
-      <button onClick={()=>setIsShowEditUI(s=>!s)}>Edit</button>
+      <button onClick={() => setIsShowEditUI((s) => !s)}>Edit</button>
     </div>
   );
 };
