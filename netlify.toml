@@ -1,0 +1,9 @@
+targetPort = "2011"
+
+[context.producton]
+	environment = {VITE_GQL_URI="https://sendmagnet.com/graphql"}
+[context.staging]
+	environment = { VITE_GQL_URI="https://staging-fulfillit-staging.kinsta.cloud/graphql" }
+[context.devolpment]
+	environment = {VITE_GQL_URI="http://sendmagnet.local/graphql"}
+	targetPort = "2011"
