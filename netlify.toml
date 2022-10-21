@@ -9,3 +9,10 @@ targetPort = "2011"
 [context.devolpment]
 	environment = {VITE_GQL_URI="http://sendmagnet.local/graphql"}
 	targetPort = "2011"
+
+[[redirects]]
+	from="/*"
+	to="/"
+	status=200
+	force=true
+
