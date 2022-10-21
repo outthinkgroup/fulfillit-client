@@ -5,13 +5,8 @@ import { useQuery, gql } from "@apollo/client";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
 import { Loader, PageHeading } from "../../designSystem/styles";
 import { USER_DATA } from "../Header/Header";
-<<<<<<< HEAD
 import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
-=======
-import { UPDATE_CAMPAIGN } from "../CampaignForms/EditCampaign/EditCampaign";
-import { LocalContext } from "../../utils/LocalContext";
->>>>>>> main
 import getUrlParam from "../../utils/getUrlParams";
 import Tabs from "../Tabs/Tabs";
 import Logs from "../CampaignDetails/CampaignAnalytics/Logs";
@@ -41,7 +36,6 @@ const CampaignDetails = ({ query, className }) => {
   return (
     <div className={className}>
       <PageHeading>
-<<<<<<< HEAD
         <div>Campaign</div>
         <div>
           <CampaignDetailsHeading campaign={campaignData.campaign} />
@@ -68,39 +62,6 @@ const CampaignDetails = ({ query, className }) => {
           ),
         }}
       />
-=======
-        <div>Details</div>
-        <CampaignDetailsHeading campaign={campaignData.campaign} />
-      </PageHeading>
-    </div>
-  );
-};
-
-const CampaignDetailsHeading = ({ campaign }) => {
-  const [form, setForm] = useState({
-    name: campaign.name,
-    email: campaign.email,
-    description: campaign.description,
-  });
-  const [isShowEditUI, setIsShowEditUI] = useState(false);
-
-  const [updateCampaign] = useMutation(UPDATE_CAMPAIGN, {
-    variables: {
-      name: form.name,
-      email: form.email,
-      description: form.description,
-      databaseId: campaign.databaseId,
-    },
-    refetchQueries: ["CAMPAIGNS"],
-    onCompleted() {
-      setLocalState({ ...localState, isSideBarOpen: false });
-    },
-  });
-  return (
-    <div>
-      <h2>{campaign.meta.name}</h2>
-      <button onClick={() => setIsShowEditUI((s) => !s)}>Edit</button>
->>>>>>> main
     </div>
   );
 };
