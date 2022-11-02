@@ -1,14 +1,14 @@
-import React from "react"
+import React from "react";
 
-import SingleFormLayout from "../Layouts/SingleFormLayout"
-import SignIn from "../components/SignIn/SignIn"
+import SingleFormLayout from "../Layouts/SingleFormLayout";
+import SignIn from "../components/SignIn/SignIn";
 
-const SignInPage = ({ query }) => {
+const SignInPage = ({}) => {
   return (
     <SingleFormLayout>
       <SignIn />
     </SingleFormLayout>
-  )
-}
+  );
+};
 
-export default SignInPage
+export default SignInPage;
