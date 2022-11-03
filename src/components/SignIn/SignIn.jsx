@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 import Error from "../Error/ErrorMessage";
 import useForm from "../../utils/useForm";
 import {

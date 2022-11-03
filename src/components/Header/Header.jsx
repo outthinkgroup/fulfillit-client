@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useQuery, gql } from "@apollo/client";
 import Logo from "../../elements/Logo";
 import Navigation from "../Navigation/Navigation";

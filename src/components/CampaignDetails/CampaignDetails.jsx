@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
@@ -34,7 +33,7 @@ const CampaignDetails = ({ query, className }) => {
   }
 
   return (
-    <div className={className}>
+    <div className="">
       <header className="mb-10">
         <p className="text-blue-600">Campaign</p>
         <div>
@@ -67,7 +66,7 @@ const CampaignDetails = ({ query, className }) => {
   );
 };
 
-export default styled(CampaignDetails)``;
+export default CampaignDetails;
 
 export const SINGLE_CAMPAIGN_TITLE = gql`
   query SINGLE_CAMPAIGN_TITLE($id: ID!) {

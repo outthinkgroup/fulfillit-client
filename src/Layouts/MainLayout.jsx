@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HeaderComp from "../components/Header/Header";
 import GlobalStyle from "../designSystem/globalStyles";
 
-const MainLayout = ({ children, className }) => {
+const MainLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <HeaderComp includeLogo={true} />

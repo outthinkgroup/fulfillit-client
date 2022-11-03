@@ -1,5 +1,4 @@
 import {} from "react";
-import styled from "styled-components";
 
 export const SingleForm = ({ children }) => {
   return <div className={`mx-auto max-w-xl md:mt-24`}>{children}</div>;

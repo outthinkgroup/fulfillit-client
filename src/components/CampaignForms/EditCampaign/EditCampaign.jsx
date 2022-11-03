@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import styled from "styled-components";
 
 import CampaignDetails from "../CampaignDetails/CampaignDetails";
 import getUrlParam from "../../../utils/getUrlParams";
@@ -127,4 +126,4 @@ const EditCampaign = ({ className }) => {
   );
 };
 
-export default styled(EditCampaign)``;
+export default EditCampaign;

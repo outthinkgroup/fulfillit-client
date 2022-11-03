@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useQuery } from "@apollo/client";
-import styled from "styled-components";
 
 import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
 import { Label } from "../../../designSystem/styles";
@@ -84,21 +83,3 @@ export default function Logs({ campaign }) {
     </div>
   );
 }
-
-const LogsWrapper = styled.div`
-  .wrapper {
-    border: 1px solid #eee;
-    border-radius: 6px;
-  }
-  ul {
-    padding: 0;
-    list-style: none;
-  }
-  li,
-  form {
-    padding: 1rem;
-  }
-  li:not(:first-child) {
-    border: 1px solid #eee;
-  }
-`;

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import { Label, Loader } from "../../../designSystem/styles";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
-export default function CampaignDetails({ form, updateForm, className }) {
+export default function CampaignDetails({ form, updateForm }) {
   if (Object.keys(form).length === 0) return <Loader />;
   return (
     <div className="relative max-w-screen-md">
@@ -80,52 +79,3 @@ export default function CampaignDetails({ form, updateForm, className }) {
     </div>
   );
 }
-
-const CampaignDetailsWrapper = styled.div`
-  position: relative;
-  max-width: 750px;
-  .flex-row {
-    gap: 10px;
-    display: flex;
-  }
-
-  h2 {
-    margin-bottom: 30px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
-  label {
-    margin-bottom: 37px;
-
-    /* justify-content: space-between;
-    display: flex;
-    align-content: center; */
-    height: 100%;
-    input {
-      max-width: 250px;
-    }
-    span {
-      display: block;
-      min-width: 170px;
-      font-size: 18px;
-      font-weight: 300;
-    }
-  }
-  .emailFieldWithSuffix {
-    display: flex;
-    align-items: center;
-
-    .suffix {
-      margin-top: 5px;
-      margin-left: 10px;
-    }
-  }
-  .settings-group {
-    gap: 10px;
-    display: flex;
-  }
-  .settings-group > * {
-    width: 100%;
-  }
-`;
