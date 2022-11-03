@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 
 export default function Tabs({ tabs }) {
   const tablist = Object.keys(tabs);
@@ -9,12 +8,16 @@ export default function Tabs({ tabs }) {
   }
   const ActiveTab = tabs[selected];
   return (
-    <TabsWrapper>
-      <ul className="tab-buttons">
+    <div className="flex items-start gap-6 pt-0">
+      <ul className="tab-buttons sticky top-4 m-0 flex w-1/3 min-w-[275px] max-w-[350px] flex-col rounded-md border border-gray-200 bg-gray-100 ">
         {tablist.map((tabname) => (
-          <li>
+          <li className="relative" key={tabname}>
             <button
-              className={selected == tabname && `active`}
+              className={`h-full w-full rounded-none text-left text-black ${
+                selected == tabname
+                  ? `border-0  border-l-4 border-solid  border-blue-600 bg-white `
+                  : `bg-transparent`
+              }`}
               onClick={() => selectTab(tabname)}
             >
               {tabname}
@@ -22,54 +25,9 @@ export default function Tabs({ tabs }) {
           </li>
         ))}
       </ul>
-      <div className="view">
+      <div className="flex-1">
         <ActiveTab />
       </div>
-    </TabsWrapper>
+    </div>
   );
 }
-
-const TabsWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-  padding-top: 0px;
-
-  .tab-buttons {
-    border-radius: 6px;
-    margin: 0;
-    border: 1px solid #eee;
-    padding: 0;
-    align-self: flex-start;
-    position: sticky;
-    top: 1rem;
-    left: 0px;
-    display: flex;
-    flex-direction: column;
-    min-width: 275px;
-    width: 33%;
-    max-width: 350px;
-    list-style: none;
-    background: #f9f9f9;
-  }
-  .tab-buttons button {
-    padding: 1rem 0.5rem;
-    width: 100%;
-    box-shadow: none;
-    background: transparent;
-    color: black;
-    font-weight: bold;
-    margin: 0;
-    border-radius: 0;
-    text-align: left;
-    &.active {
-      background-color: white;
-      border-left: 3px solid var(--primary-color);
-    }
-  }
-  .tab-buttons li:not(:first-child) {
-    border-top: 1px solid #eee;
-  }
-  .view {
-    width: 100%;
-  }
-`;

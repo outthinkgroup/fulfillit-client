@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import { PageHeading } from "../../designSystem/styles";
 import NewCampaignWizard from "../CampaignForms/NewCampaignWizard/NewCampaignWizard";
 
 const NewCampaign = ({ className }) => {
   return (
     <div className={className}>
-      <PageHeading>
-        <h1>New Campaign</h1>
-        <p>Follow the prompts to create a new Campaign</p>
-      </PageHeading>
+      <header className="mb-10">
+        <h1 className="text-2xl font-bold text-blue-900">New Campaign</h1>
+        <p className="text-blue-600">Create a new Campaign</p>
+      </header>
       <NewCampaignWizard />
     </div>
   );
