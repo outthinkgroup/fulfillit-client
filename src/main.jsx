@@ -8,8 +8,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { ThemeProvider } from "styled-components";
-import theme from "./designSystem/theme";
+
 import LocalState from "./utils/LocalContext";
 
 const link = createHttpLink({
@@ -35,9 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <LocalState>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
+        <App />
       </LocalState>
     </ApolloProvider>
   </React.StrictMode>
