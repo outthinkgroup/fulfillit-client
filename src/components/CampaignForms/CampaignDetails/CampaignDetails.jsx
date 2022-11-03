@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, Loader } from "../../../designSystem/styles";
+import { Label, Loader } from "../../../elements";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 export default function CampaignDetails({ form, updateForm }) {

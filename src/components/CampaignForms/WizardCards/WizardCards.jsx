@@ -1,6 +1,6 @@
 import React from "react";
 import { animated } from "react-spring";
-import { Label } from "../../../designSystem/styles";
+import { Label } from "../../../elements";
 import { allFieldsHaveData } from "../../../utils/formValidation";
 import { EmailMarketingServiceConfigWizard } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 

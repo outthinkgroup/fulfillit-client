@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import Error from "../Error/ErrorMessage";
 import useForm from "../../utils/useForm";
-import {
-  SingleForm,
-  SigninFormWrapper,
-  Label,
-} from "../../designSystem/styles";
+import { SingleForm, SigninFormWrapper, Label } from "../../elements";
 import { hardNavigate } from "../../utils";
 export const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($username: String!, $password: String!) {

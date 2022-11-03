@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-import { SingleForm } from "../../designSystem/styles";
+import { SingleForm } from "../../elements";
 import { useMutation, gql } from "@apollo/client";
 import UseForm from "../../utils/useForm";
 import { LOGIN_MUTATION } from "../SignIn/SignIn";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader } from "../../../designSystem/styles";
+import { Loader } from "../../../elements";
 import { gql, useQuery } from "@apollo/client";
 
 export default function CampaignTransactions({ campaignId }) {

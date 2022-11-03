@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
-import { Loader } from "../../designSystem/styles";
+import { Loader } from "../../elements";
 import { USER_DATA } from "../Header/Header";
 import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";

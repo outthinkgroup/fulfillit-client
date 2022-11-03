@@ -1,10 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import CampaignCard from "../CampaignCard/CampaignCard";
-import { Loader } from "../../designSystem/styles";
-import { TextButton } from "../../elements/Button";
+import { Loader } from "../../elements";
 
 export const CAMPAIGNS = gql`
   query CAMPAIGNS {

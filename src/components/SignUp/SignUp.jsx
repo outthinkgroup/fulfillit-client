@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { SingleForm } from "../../designSystem/styles";
+import { SingleForm } from "../../elements";
 import UseForm from "../../utils/useForm";
 import { useMutation, gql } from "@apollo/client";
 

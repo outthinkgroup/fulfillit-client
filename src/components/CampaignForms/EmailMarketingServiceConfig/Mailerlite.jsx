@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Label } from "../../../designSystem/styles";
-import { Loader } from "../../../designSystem/styles";
+import { Loader, Label } from "../../../elements";
 
 export default function MailerliteSetupForm({ cardname, updateForm, form }) {
   const { data, loading, error } = useMailerliteData(form.serviceApiKey);

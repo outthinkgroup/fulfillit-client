@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery } from "@apollo/client";
 
 import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
-import { Label } from "../../../designSystem/styles";
+import { Label } from "../../../elements";
 export default function Logs({ campaign }) {
   const {
     data: dataAnalytics,

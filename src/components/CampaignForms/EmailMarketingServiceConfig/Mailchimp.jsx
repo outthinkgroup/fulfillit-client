@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Loader } from "../../../designSystem/styles";
-import { Label } from "../../../designSystem/styles";
+import { Loader, Label } from "../../../elements";
 
 export default function MailchimpSetupForm({ cardname, updateForm, form }) {
   const {

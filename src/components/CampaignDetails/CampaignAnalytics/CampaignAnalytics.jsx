@@ -2,11 +2,6 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
 
-// import { PageHeading } from "../../../designSystem/styles";
-// import { USER_DATA } from "../../Header/Header";
-// import { LocalContext } from "../../../utils/LocalContext";
-// import getUrlParam from "../../../utils/getUrlParams";
-
 export default function CampaignAnalytics({ id, campaignSlug }) {
   console.log({ id, campaignSlug });
   const {

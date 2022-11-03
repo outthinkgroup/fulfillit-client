@@ -1,8 +1,9 @@
-import React from "react"
-import renderer from "react-test-renderer"
-import Sidebar from "./Sidebar"
-import { ThemeProvider } from "styled-components"
-import theme from "../../designSystem/theme"
+import React from "react";
+import renderer from "react-test-renderer";
+import Sidebar from "./Sidebar";
+import { ThemeProvider } from "styled-components";
+import theme from "../../designSystem/theme";
+
 describe("Sidebar", () => {
   it("renders correctly", () => {
     const tree = renderer
@@ -11,7 +12,7 @@ describe("Sidebar", () => {
           <Sidebar />
         </ThemeProvider>
       )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});

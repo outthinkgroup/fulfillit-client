@@ -6,7 +6,7 @@ import useForm from "../../../utils/useForm";
 import { LocalContext } from "../../../utils/LocalContext";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
-import { Loader } from "../../../designSystem/styles";
+import { Loader } from "../../../elements";
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {
