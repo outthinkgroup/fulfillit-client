@@ -118,7 +118,7 @@ const EditCampaign = ({ className }) => {
 
       <div className="bottom-bar">
         <div>
-          <button type="submit" value="save" className="save">
+          <button type="submit" value="save" className="bg-blue-600 text-sm">
             Save
           </button>
         </div>

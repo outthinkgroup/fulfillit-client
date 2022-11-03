@@ -25,9 +25,11 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
   return (
     <>
       <div className="mailservice-info">
-        <h3>Mailchimp options</h3>
-        <label htmlFor="api-key">
-          <span className="label-text">Mailchimp Api Key</span>
+        <h3 className="mb-8 text-lg font-bold tracking-tight">
+          Mailchimp options
+        </h3>
+        <label className="mb-8" htmlFor="api-key">
+          <Label className="label-text">Mailchimp Api Key</Label>
           <input
             type="text"
             name="serviceApiKey"
@@ -49,7 +51,7 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
         <div className="settings-group">
           {mc?.mailchimpData?.lists?.length > 0 && (
             <label htmlFor="list-id">
-              <span className="label-text">Mailchimp List</span>
+              <Label>Mailchimp List</Label>
               <select
                 name="serviceListId"
                 id="list-id"
@@ -69,8 +71,8 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
             </label>
           )}
           {list?.groups?.length > 0 && (
-            <label htmlFor="group-id">
-              <span className="label-text">Mailchimp Group</span>
+            <label className="mb-8" htmlFor="group-id">
+              <Label>Mailchimp Group</Label>
               <select
                 name="serviceGroupId"
                 id="group-id"

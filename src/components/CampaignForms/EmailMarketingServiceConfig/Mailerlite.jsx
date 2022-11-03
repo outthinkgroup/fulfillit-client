@@ -1,21 +1,16 @@
-import * as React from "react"
+import * as React from "react";
 import { useQuery, gql } from "@apollo/client";
+import { Label } from "../../../designSystem/styles";
 import { Loader } from "../../../designSystem/styles";
 
-export default function MailerliteSetupForm({
-	cardname,
-  updateForm,
-  form,
-}) {
-  const { data, loading, error } = useMailerliteData(
-    form.serviceApiKey
-  );
+export default function MailerliteSetupForm({ cardname, updateForm, form }) {
+  const { data, loading, error } = useMailerliteData(form.serviceApiKey);
 
   return (
     <div className="mailservice-info">
-      <h3>Mailerlite Options</h3>
+      <h3 className="mb-3 text-lg font-bold">Mailerlite Options</h3>
       <label htmlFor="api-key">
-        <span className="label-text">Mailerlite Api Key</span>
+        <Label>Mailerlite Api Key</Label>
         <input
           type="text"
           name="serviceApiKey"
@@ -36,7 +31,7 @@ export default function MailerliteSetupForm({
       )}
       {data?.mailerliteData?.groups?.length > 0 && (
         <label htmlFor="list-id">
-          <span className="label-text">Group</span>
+          <Label>Group</Label>
           <select
             name="serviceGroupId"
             id="list-id"
@@ -64,7 +59,7 @@ export function useMailerliteData(apiKey) {
 }
 const ML_LIST_QUERY = gql`
   query ML_LIST_QUERY($apiKey: String) {
-    mailerliteData(apiKey: $apiKey ) {
+    mailerliteData(apiKey: $apiKey) {
       groups {
         name
         id
@@ -72,4 +67,3 @@ const ML_LIST_QUERY = gql`
     }
   }
 `;
-

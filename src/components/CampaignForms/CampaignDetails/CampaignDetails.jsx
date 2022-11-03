@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Loader } from "../../../designSystem/styles";
+import { Label, Loader } from "../../../designSystem/styles";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 export default function CampaignDetails({ form, updateForm, className }) {
   if (Object.keys(form).length === 0) return <Loader />;
   return (
-    <CampaignDetailsWrapper>
-      <h2>Campaign Settings</h2>
-      <div className="form-section">
-        <h3>General Settings</h3>
-        <div className="flex-row">
-          <label htmlFor="name">
-            <span>Campaign Name</span>
+    <div className="relative max-w-screen-md">
+      <h2 className="mb-8 text-xl font-bold tracking-tight">
+        Campaign Settings
+      </h2>
+      <div className="">
+        <h3 className="mb-3 text-lg font-bold tracking-tight">
+          General Settings
+        </h3>
+        <div className="flex items-baseline gap-3">
+          <label htmlFor="name" className="mb-8">
+            <Label>Campaign Name</Label>
             <input
               type="text"
               onChange={updateForm}
@@ -21,22 +25,25 @@ export default function CampaignDetails({ form, updateForm, className }) {
               value={form.name}
             />
           </label>
-          <label htmlFor="email">
-            <span>Campaign Email</span>
-            <span className="emailFieldWithSuffix">
+          <label htmlFor="email" className="mb-8 ">
+            <Label>Campaign Email</Label>
+            <span className="emailFieldWithSuffix flex items-center gap-1">
               <input
                 type="text"
                 onChange={updateForm}
                 name="email"
                 id="email"
+                className=""
+                style={{ textAlign: "right" }}
                 value={form.email || ""}
+                autoComplete="0"
               />
-              <span className="suffix">@sendmagnet.com</span>
+              <span className="suffix pt-2">@sendmagnet.com</span>
             </span>
           </label>
         </div>
-        <label htmlFor="service">
-          <span>Email Marketing Service</span>
+        <label htmlFor="service" className="mb-8">
+          <Label>Email Marketing Service</Label>
           <select
             name="emailMarketingService"
             onChange={updateForm}
@@ -52,7 +59,7 @@ export default function CampaignDetails({ form, updateForm, className }) {
         </label>
       </div>
 
-      <div className="form-section">
+      <div className="">
         <EmailMarketingServiceConfig
           service={form.emailMarketingService}
           cardname="empty"
@@ -60,17 +67,17 @@ export default function CampaignDetails({ form, updateForm, className }) {
           form={form}
         />
       </div>
-      <div className="form-section">
-        <h3>Publish</h3>
-        <label>
-          <span>Publish or Pause</span>
+      <div className="">
+        <h3 className="mb-3 text-lg font-bold tracking-tight">Publish</h3>
+        <label className="mb-8">
+          <Label>Publish or Pause</Label>
           <select value={form.status} onChange={updateForm} name="status">
             <option value="publish">Publish</option>
             <option value="draft">Pause</option>
           </select>
         </label>
       </div>
-    </CampaignDetailsWrapper>
+    </div>
   );
 }
 
