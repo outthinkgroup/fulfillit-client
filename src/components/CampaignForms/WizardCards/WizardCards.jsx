@@ -1,16 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { animated } from "react-spring";
+import { Label } from "../../../designSystem/styles";
 import { allFieldsHaveData } from "../../../utils/formValidation";
-import {EmailMarketingServiceConfigWizard} from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
+import { EmailMarketingServiceConfigWizard } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 const FormCards = [
   ({ style, cards, item, updateFormData, nextCard, formData }) => (
-    <WizardCard depth="medium" style={{ ...style }}>
-      <div className="general-info">
-        <h3>General</h3>
+    <animated.div
+      className=" h-full  w-full bg-white p-4 shadow-lg"
+      style={{ ...style }}
+    >
+      <div className="general-info flex flex-col">
+        <h3 className="mb-8 text-lg font-bold">General</h3>
         <label htmlFor="name">
-          <span className="label-text">Campaign Name</span>
+          <Label>Campaign Name</Label>
           <input
             type="text"
             name="name"
@@ -21,9 +25,9 @@ const FormCards = [
           />
         </label>
         <label htmlFor="email">
-          <span className="label-text">
+          <Label>
             The Email Your Users Will forward or send their message to
-          </span>
+          </Label>
           <input
             onChange={updateFormData}
             type="text"
@@ -34,9 +38,7 @@ const FormCards = [
           />
         </label>
         <label htmlFor="description">
-          <span className="label-text">
-            Short Description of what your campaign does.
-          </span>
+          <Label>Short Description of what your campaign does.</Label>
           <textarea
             name="description"
             id="description"
@@ -54,16 +56,20 @@ const FormCards = [
           fn={nextCard}
         />
       </div>
-    </WizardCard>
+    </animated.div>
   ),
   ({ style, cards, item, updateFormData, nextCard, formData }) => (
-    <WizardCard depth="medium" style={{ ...style }}>
+    <animated.div
+      className="h-full  w-full bg-white p-4 shadow-lg"
+      style={{ ...style }}
+    >
       <div className="mailservice">
-        <h3>Email Service</h3>
+        <h3 className="mb-8 text-lg font-bold">Email Service</h3>
         <label htmlFor="mailservice">
-          <span className="label-text">
-            Select which Email Marketing Service You want to subscibe your users to
-          </span>
+          <Label>
+            Select which Email Marketing Service You want to subscibe your users
+            to
+          </Label>
           <select
             id="mailservice"
             name="emailMarketingService"
@@ -86,14 +92,17 @@ const FormCards = [
           fn={nextCard}
         />
       </div>
-    </WizardCard>
+    </animated.div>
   ),
-  (props) =>{
+  (props) => {
     return (
-      <WizardCard depth="medium" style={{ ...props.style }}>
-        <EmailMarketingServiceConfigWizard {...props}/>
-      </WizardCard>
-    )
+      <animated.div
+        className="h-full w-full bg-white p-4 shadow-lg"
+        style={{ ...props.style }}
+      >
+        <EmailMarketingServiceConfigWizard {...props} />
+      </animated.div>
+    );
   },
   ({
     style,
@@ -105,11 +114,14 @@ const FormCards = [
     finish,
     formData,
   }) => (
-    <WizardCard depth="medium" style={{ ...style }}>
+    <animated.div
+      className="h-full w-full bg-white p-4 shadow-lg"
+      style={{ ...style }}
+    >
       <div className="finish">
-        <h3>Publish</h3>
+        <h3 className="mb-8 text-lg font-bold">Publish</h3>
         <label htmlFor="publish">
-          <span className="label-text">Publish campaign</span>
+          <Label>Publish campaign</Label>
           <select
             value={formData.finish.status}
             onChange={updateFormData}
@@ -130,7 +142,7 @@ const FormCards = [
           txt={updating ? "creating...." : "Create Campaign"}
         />
       </div>
-    </WizardCard>
+    </animated.div>
   ),
 ];
 
@@ -152,9 +164,14 @@ const WizardCard = styled(animated.div)`
     }
   }
 `;
+
 const WizardFormButton = ({ card, formData, fn, txt = "next" }) => {
   return allFieldsHaveData(card, formData) ? (
-    <button type="button" onClick={fn}>
+    <button
+      className="rounded bg-blue-600 text-sm text-white"
+      type="button"
+      onClick={fn}
+    >
       {txt}
     </button>
   ) : (

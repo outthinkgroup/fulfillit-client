@@ -71,7 +71,7 @@ const NEW_CAMPAIGN = gql`
   }
 `;
 
-const NewCampaignWizard = ({ className }) => {
+const NewCampaignWizard = ({}) => {
   //Form state
   const [formData, setFormData] = useState(FORM_DEFAULT_STATE);
 
@@ -136,19 +136,19 @@ const NewCampaignWizard = ({ className }) => {
       opacity: 0,
       transform: "translateX(-400px)",
     },
-    enter: { opacity: 1, transform: "translateX(0px)" },
-    leave: { opacity: 0, transform: "translateX(400px)" },
+    enter: { position: "relative", opacity: 1, transform: "translateX(0px)" },
+    leave: { opacity: 0, position: "absolute", transform: "translateX(400px)" },
   });
 
   return (
-    <div className={className}>
+    <div className="">
       <NavigationProgress
         currentCard={currentCard}
         cards={cards}
         changeCardTo={tryToGoToCard}
         formData={formData}
       />
-      <form>
+      <form className="">
         {transitions((props, item) => {
           const ActiveCard = FormCards[item];
           return (
@@ -170,34 +170,34 @@ const NewCampaignWizard = ({ className }) => {
   );
 };
 
-export default styled(NewCampaignWizard)`
-  max-width: 475px;
-  padding-bottom: 300px;
-  margin-left: auto;
-  margin-right: auto;
-
-  label {
-    padding-bottom: 20px;
-  }
-  form {
-    padding-bottom: 30px;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 400px;
-    ${Card} {
-      background: white;
-      grid-column: 1/2;
-      grid-row: 1/2;
-      min-height: 100%;
-    }
-  }
-  .card-nav {
-    display: flex;
-    justify-content: flex-end;
-  }
-  .finish button {
-    width: 100%;
-    font-size: 16px;
-    display: block;
-  }
-`;
+export default NewCampaignWizard;
+//
+//   max-width: 475px;
+//   padding-bottom: 300px;
+//   margin-left: auto;
+//   margin-right: auto;
+//
+//   label {
+//     padding-bottom: 20px;
+//   }
+//   form {
+//     padding-bottom: 30px;
+//     display: grid;
+//     grid-template-columns: 1fr;
+//     ${Card} {
+//       background: white;
+//       grid-column: 1/2;
+//       grid-row: 1/2;
+//       min-height: 100%;
+//     }
+//   }
+//   .card-nav {
+//     display: flex;
+//     justify-content: flex-end;
+//   }
+//   .finish button {
+//     width: 100%;
+//     font-size: 16px;
+//     display: block;
+//   }
+// `;

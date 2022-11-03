@@ -1,11 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 
 import NewCampaignWizard from "../CampaignForms/NewCampaignWizard/NewCampaignWizard";
 
-const NewCampaign = ({ className }) => {
+const NewCampaign = ({}) => {
   return (
-    <div className={className}>
+    <div className="mx-auto max-w-screen-sm">
       <header className="mb-10">
         <h1 className="text-2xl font-bold text-blue-900">New Campaign</h1>
         <p className="text-blue-600">Create a new Campaign</p>
@@ -14,7 +13,4 @@ const NewCampaign = ({ className }) => {
     </div>
   );
 };
-
-export default styled(NewCampaign)`
-  max-width: 650px;
-`;
+export default NewCampaign;
