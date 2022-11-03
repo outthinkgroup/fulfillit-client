@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 
 import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
+import { Label } from "../../../designSystem/styles";
 export default function Logs({ campaign }) {
   const {
     data: dataAnalytics,
@@ -40,11 +41,13 @@ export default function Logs({ campaign }) {
   }
 
   return (
-    <LogsWrapper>
-      <h3>Logs</h3>
+    <div>
+      <h2 className="mb-8 px-4 text-xl font-bold tracking-tight">Logs</h2>
       <div className="wrapper">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="search">Filter logs by title or content</label>
+        <form onSubmit={(e) => e.preventDefault()} className="p-4">
+          <label className="mb-0" htmlFor="search">
+            <Label>Filter logs by title or content</Label>
+          </label>
           <input
             type="text"
             id="search"
@@ -54,13 +57,16 @@ export default function Logs({ campaign }) {
             }
           />
         </form>
-        <ul>
+        <ul className="list-none">
           {dataAnalytics?.viewer?.logs?.nodes.length ? (
             dataAnalytics?.viewer?.logs.nodes
               .filter(logFilter)
               .map(({ date, content, title, id }) => {
                 return (
-                  <li key={id}>
+                  <li
+                    key={id}
+                    className="border-b border-gray-200 p-4 last:border-none"
+                  >
                     <details>
                       <summary>
                         {date} : {title}
@@ -75,7 +81,7 @@ export default function Logs({ campaign }) {
           )}
         </ul>
       </div>
-    </LogsWrapper>
+    </div>
   );
 }
 
