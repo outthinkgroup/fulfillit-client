@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
-import { Loader, PageHeading } from "../../designSystem/styles";
+import { Loader } from "../../designSystem/styles";
 import { USER_DATA } from "../Header/Header";
 import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
@@ -35,13 +35,14 @@ const CampaignDetails = ({ query, className }) => {
 
   return (
     <div className={className}>
-      <PageHeading>
-        <div>Campaign</div>
+      <header className="mb-10">
+        <p className="text-blue-600">Campaign</p>
         <div>
           <CampaignDetailsHeading campaign={campaignData.campaign} />
         </div>
         <CampaignTransactions campaignId={campaignData.campaign.id} />
-      </PageHeading>
+      </header>
+
       <Tabs
         tabs={{
           ["Overview"]: () => (

@@ -1,35 +1,35 @@
-import React from "react"
-import styled from "styled-components"
-import {Loader} from "../../../designSystem/styles"
-import {gql, useQuery} from "@apollo/client"
+import React from "react";
+import { Loader } from "../../../designSystem/styles";
+import { gql, useQuery } from "@apollo/client";
 
-export default function CampaignTransactions({campaignId}){
-  const {data, loading, error} = useQuery(CAMPAIGN_TRANSACTIONS, {
-    variables:{
-      id:campaignId,
-    }
+export default function CampaignTransactions({ campaignId }) {
+  const { data, loading, error } = useQuery(CAMPAIGN_TRANSACTIONS, {
+    variables: {
+      id: campaignId,
+    },
   });
-  if(loading){
-    return <CampaignTransactionsWrapper><Loader/></CampaignTransactionsWrapper>
+  if (loading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
   return (
-    <CampaignTransactionsWrapper>
-      <div className="section">
-        <p className="label">Total</p>
-        <p className="count">{data.campaign.transactions}</p>
+    <div>
+      <div className="flex gap-2">
+        <p className="font-medium capitalize ">Total transactions:</p>
+        <p className="font-bold text-blue-700">{data.campaign.transactions}</p>
       </div>
-    </CampaignTransactionsWrapper>
-  )
+    </div>
+  );
 }
-const CampaignTransactionsWrapper = styled.div`
-  
-`
 export const CAMPAIGN_TRANSACTIONS = gql`
   query CAMPAIGN_TRANSACTIONS($id: ID!) {
     campaign(id: $id, idType: ID) {
       id
       databaseId
-      transactions:transactionCount
+      transactions: transactionCount
     }
   }
 `;

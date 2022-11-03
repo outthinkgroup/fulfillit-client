@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import styled from "styled-components";
 import CampaignGraph from "./CampaignGraph.jsx";
 
 // import { PageHeading } from "../../../designSystem/styles";
@@ -43,7 +42,7 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
 
   console.log(view);
   return (
-    <CampaignAnalyticsWrapper>
+    <div>
       <div>
         <label htmlFor="viewSelect">view by</label>
         <select onChange={(e) => setView(e.target.value)} value={view}>
@@ -57,7 +56,7 @@ export default function CampaignAnalytics({ id, campaignSlug }) {
           logs={dataAnalytics?.viewer?.logs?.nodes}
         />
       </div>
-    </CampaignAnalyticsWrapper>
+    </div>
   );
 }
 export const CAMPAIGN_TRANSACTION_COUNT = gql`
@@ -93,28 +92,5 @@ export const CAMPAIGN_ANALYTICS = gql`
         }
       }
     }
-  }
-`;
-const CampaignAnalyticsWrapper = styled.div`
-  form {
-    max-width: 300px;
-    margin-bottom: 20px;
-  }
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  br {
-    display: none;
-  }
-  details p {
-    margin-inline-start: 0.5em;
-    background: #eff4ff;
-    padding: 1em;
-  }
-  details p * {
-    margin-block: 0;
-    margin-bottom: 10px;
   }
 `;
