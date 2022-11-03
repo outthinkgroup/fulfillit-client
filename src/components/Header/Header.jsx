@@ -14,18 +14,17 @@ export const USER_DATA = gql`
   }
 `;
 
-const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
+const HeaderComp = ({ includeLogo }) => {
   const { data, loading, error } = useQuery(USER_DATA);
 
   return (
-    <header className={className}>
-      <div className="wrapper">
-        <span
-          css={`
-            display: flex;
-            align-items: center;
-          `}
-        >
+    <header className="bg-blue-900">
+      <div
+        className={`mx-auto flex max-w-screen-lg items-center p-5 ${
+          includeLogo ? "justify-between" : "justify-end"
+        } `}
+      >
+        <span className="flex items-center">
           <Logo includeLogo={includeLogo} />
         </span>
         <Navigation userData={data && data.viewer} />
@@ -35,12 +34,12 @@ const HeaderComp = ({ className, includeLogo, includeUserMenu }) => {
 };
 
 export default styled(HeaderComp)`
-  background:var(--primary-dark);
-  .wrapper{
+  background: var(--primary-dark);
+  .wrapper {
     display: flex;
     align-items: center;
     max-width: 1100px;
-    margin:0 auto;
+    margin: 0 auto;
     height: 100%;
     padding: 20px;
     width: 100%;
