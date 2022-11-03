@@ -1,37 +1,33 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { PageHeading } from "../../designSystem/styles";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { USER_DATA } from "../Header/Header";
 import CampaignList from "../CampaignList/CampaignList";
-import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign.jsx";
 import { useQuery } from "@apollo/client";
-import { LocalContext } from "../../utils/LocalContext";
 
-const Dashboard = ({ query, className }) => {
+const Dashboard = ({}) => {
   const { data, loading, error } = useQuery(USER_DATA);
-  const { localState, setLocalState } = useContext(LocalContext);
   const navigate = useNavigate();
- 
+
   React.useEffect(() => {
-    if (error ) {
+    if (error) {
       navigate("/sign-in?here");
     }
-    if(data && data.viewer == null){
+    if (data && data.viewer == null) {
       navigate("/sign-in?here");
     }
   }, [error, data]);
 
-  const { isSideBarOpen } = localState;
   return (
-    <div className={className}>
-      <PageHeading>
-        <h1>{loading ? "" : data && data?.viewer?.name}</h1>
-        <p>A list of your registered emailAddresses and stats</p>
-      </PageHeading>
+    <div className="">
+      <header className="mb-10">
+        <p className="text-blue-600">
+          {loading ? "" : data && data?.viewer?.name}
+        </p>
+        <h1 className="text-2xl font-bold text-blue-900">Campaigns</h1>
+      </header>
       <CampaignList />
-      {isSideBarOpen === "EDIT_CAMPAIGN" && <EditCampaign campaign />}
     </div>
   );
 };
-export default styled(Dashboard)``;
+
+export default Dashboard;

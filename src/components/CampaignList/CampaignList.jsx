@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import CampaignCard from "../CampaignCard/CampaignCard";
 import { Loader } from "../../designSystem/styles";
+import { TextButton } from "../../elements/Button";
 
 export const CAMPAIGNS = gql`
   query CAMPAIGNS {
@@ -62,15 +63,15 @@ const CampaignList = ({ className }) => {
   return (
     <div className={className}>
       <Link
-        style={{ marginBottom: `20px`, display: "inline-block" }}
+        className=" mb-4 inline-block rounded p-1 text-blue-600 hover:bg-blue-50"
         to="/new-campaign"
       >
         + New Campaign
       </Link>
-      <ul>
+      <ul className="grid grid-cols-2 gap-6">
         {campaigns.map((campaign) => {
           return (
-            <li key={campaign.id}>
+            <li key={campaign.id} className="list-none">
               <CampaignCard {...campaign} />
             </li>
           );
@@ -79,19 +80,4 @@ const CampaignList = ({ className }) => {
     </div>
   );
 };
-
-export default styled(CampaignList)`
-  ul {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-    ${({ theme }) => theme.below.medium`
-      grid-template-columns: 1fr;
-    `}
-    gap: 20px;
-    margin: 0px;
-    padding: 0px;
-    li {
-      list-style: none;
-    }
-  }
-`;
+export default CampaignList;

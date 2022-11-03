@@ -14,7 +14,7 @@ export const USER_DATA = gql`
   }
 `;
 
-const HeaderComp = ({ includeLogo }) => {
+export default function Header({ includeLogo }) {
   const { data, loading, error } = useQuery(USER_DATA);
 
   return (
@@ -31,22 +31,4 @@ const HeaderComp = ({ includeLogo }) => {
       </div>
     </header>
   );
-};
-
-export default styled(HeaderComp)`
-  background: var(--primary-dark);
-  .wrapper {
-    display: flex;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    height: 100%;
-    padding: 20px;
-    width: 100%;
-    justify-content: ${({ includeLogo }) =>
-      includeLogo ? "space-between" : "flex-end"};
-    ${({ theme }) => theme.below.small`
-      justify-content:space-between;
-    `}
-  }
-`;
+}

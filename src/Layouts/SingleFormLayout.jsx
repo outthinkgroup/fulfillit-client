@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 
 const SingleFormLayout = ({ children }) => {
   return (
-    <div className="flex min-h-screen min-w-full flex-col bg-gray-100">
+    <div className="flex min-h-screen min-w-full flex-col bg-gray-50">
       <Header includeLogo />
       <div className="mx-auto h-full w-full max-w-screen-md flex-1 py-8 px-6">
         {children}
