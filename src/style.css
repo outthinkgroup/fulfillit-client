@@ -110,3 +110,10 @@ button :where(:active, :focus){
       display: flex;
     }
 
+.before-content-empty:before, .after-content-empty:after{
+  content:"";
+}
+
+.before-width-var:before{
+  width:var(--width);
+}

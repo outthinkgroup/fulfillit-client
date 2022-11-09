@@ -1,6 +1,6 @@
 import React from "react";
 
-import SingleFormLayout from "../Layouts/SingleFormLayout";
+import SingleFormLayout from "../layouts/SingleFormLayout";
 import SignIn from "../components/SignIn/SignIn";
 
 const SignInPage = ({}) => {

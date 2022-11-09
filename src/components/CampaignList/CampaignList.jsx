@@ -66,7 +66,7 @@ const CampaignList = ({ className }) => {
       >
         + New Campaign
       </Link>
-      <ul className="grid grid-cols-2 gap-6">
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {campaigns.map((campaign) => {
           return (
             <li key={campaign.id} className="list-none">
