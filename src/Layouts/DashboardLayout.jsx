@@ -2,7 +2,7 @@ import React from "react";
 
 import HeaderComp from "../components/Header/Header";
 
-const DashboardLayout = ({ children, className }) => {
+const DashboardLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <HeaderComp includeLogo includeUserMenu />
