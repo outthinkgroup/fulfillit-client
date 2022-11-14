@@ -28,6 +28,9 @@ const Navigation = ({ userData = false }) => {
           >
             Dashboard
           </Link>
+          <TextButton onClick={goToMyAccount} type="button">
+            My Account
+          </TextButton>
           <TextButton onClick={signOut} type="button">
             Sign Out
           </TextButton>
@@ -36,5 +39,14 @@ const Navigation = ({ userData = false }) => {
     </nav>
   );
 };
+
+function goToMyAccount() {
+  const token = localStorage.getItem("token");
+  const url =
+    import.meta.env.VITE_GQL_URI.replace("/graphql", "/my-account") +
+    "?__token=" +
+    token;
+  window.open(url);
+}
 
 export default Navigation;

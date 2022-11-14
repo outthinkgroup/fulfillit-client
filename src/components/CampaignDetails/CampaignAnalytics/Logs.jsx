@@ -68,7 +68,10 @@ export default function Logs({ campaign }) {
                   >
                     <details>
                       <summary>
-                        {date} : {title}
+                        <span class="inline-block bg-pink-50 py-1 px-2 text-pink-400">
+                          {new Date(date).toLocaleDateString()}
+                        </span>{" "}
+                        : <span class="font-bold text-blue-500">{title}</span>
                       </summary>
                       <p dangerouslySetInnerHTML={{ __html: content }} />
                     </details>
