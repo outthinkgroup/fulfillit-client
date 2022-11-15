@@ -9,13 +9,15 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
+import getToken from "./utils/getToken";
 import LocalState from "./utils/LocalContext";
 
 const link = createHttpLink({
   uri: import.meta.env.VITE_GQL_URI,
 });
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("token");
+const authLink = setContext(async (_, { headers }) => {
+  // const token = localStorage.getItem("token");
+  const token = await getToken();
   // return the headers to the context so httpLink can read them
   return {
     headers: {

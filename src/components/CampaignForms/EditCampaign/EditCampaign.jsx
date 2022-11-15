@@ -17,6 +17,7 @@ export const SINGLE_CAMPAIGN = gql`
       date
       databaseId
       meta {
+        id
         description
         emailMarketingService
         name
@@ -59,6 +60,7 @@ export const UPDATE_CAMPAIGN = gql`
         email: title
         date
         meta {
+          id
           description
           emailMarketingService
           name

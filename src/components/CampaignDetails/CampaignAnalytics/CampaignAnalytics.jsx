@@ -58,12 +58,14 @@ export const CAMPAIGN_TRANSACTION_COUNT = gql`
   query CAMPAIGN_TRANSACTION_COUNT($id: ID!) {
     campaign(id: $id, idType: DATABASE_ID) {
       transactionCount
+      id
     }
   }
 `;
 export const CAMPAIGN_ANALYTICS = gql`
   query CAMPAIGN_ANALYTICS($campaign: [String]) {
     viewer {
+      id
       logs(
         last: 100
         where: {

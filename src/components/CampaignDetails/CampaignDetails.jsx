@@ -76,6 +76,7 @@ export const SINGLE_CAMPAIGN_TITLE = gql`
       status
       email: title(format: RAW)
       meta {
+        id
         name
         description
       }

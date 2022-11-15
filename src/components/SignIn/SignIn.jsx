@@ -15,7 +15,9 @@ export const LOGIN_MUTATION = gql`
       }
     ) {
       authToken
+      refreshToken
       user {
+        jwtAuthExpiration
         username
         id
         name
@@ -39,6 +41,11 @@ const SignIn = ({}) => {
     onCompleted({ userLogin }) {
       typeof window !== "undefined" &&
         localStorage.setItem("token", userLogin.authToken);
+      localStorage.setItem("refreshToken", userLogin.refreshToken);
+      localStorage.setItem(
+        "tokenExpires",
+        parseInt(userLogin.user.jwtAuthExpiration) * 1000
+      );
       localStorage.setItem("userID", userLogin.user.id);
       hardNavigate("/");
     },

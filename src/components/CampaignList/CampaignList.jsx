@@ -16,6 +16,7 @@ export const CAMPAIGNS = gql`
           email: title(format: RENDERED)
           transactionCount
           meta {
+            id
             name
             emailMarketingService
             description
@@ -30,6 +31,7 @@ export const CAMPAIGNS = gql`
           transactionCount
           email: title(format: RENDERED)
           meta {
+            id
             name
             emailMarketingService
             description
