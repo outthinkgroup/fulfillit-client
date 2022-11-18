@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 import CampaignDetails from "../components/CampaignDetails/CampaignDetails";

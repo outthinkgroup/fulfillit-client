@@ -10,7 +10,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import getToken from "./utils/getToken";
-import LocalState from "./utils/LocalContext";
+import LocalState from "./hooks/LocalContext";
 
 const link = createHttpLink({
   uri: `${import.meta.env.VITE_GQL_URI}/graphql`,

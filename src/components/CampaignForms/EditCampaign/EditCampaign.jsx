@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 
 import CampaignDetails from "../CampaignDetails/CampaignDetails";
 import getUrlParam from "../../../utils/getUrlParams";
-import useForm from "../../../utils/useForm";
-import { LocalContext } from "../../../utils/LocalContext";
+import useForm from "../../../hooks/useForm";
+import { LocalContext } from "../../../hooks/LocalContext";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Loader } from "../../../elements";

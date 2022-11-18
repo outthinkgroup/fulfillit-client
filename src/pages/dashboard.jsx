@@ -2,13 +2,12 @@ import React from "react";
 
 import Dashboard from "../components/Dashboard/Dashboard";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
-import ShouldRender from "../utils/isBrowser";
 import getUrlParams from "../utils/getUrlParams";
 
 const DashboardPage = () => {
   return (
     <DashboardLayout>
-      <Dashboard query={ShouldRender && getUrlParams("campaign_id", null)} />
+      <Dashboard query={getUrlParams("campaign_id", null)} />
     </DashboardLayout>
   );
 };
