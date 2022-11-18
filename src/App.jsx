@@ -7,6 +7,7 @@ import {
   CampaignSingle,
   NewCampaignPage,
   NotFound,
+  ResetPasswordPage,
 } from "./pages";
 
 // DOCS: https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/campaign" element={<CampaignSingle />} />
 
         <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         <Route path="/new-campaign" element={<NewCampaignPage />} />
 

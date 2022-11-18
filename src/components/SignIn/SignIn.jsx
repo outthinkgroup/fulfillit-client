@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import Error from "../Error/ErrorMessage";
 import useForm from "../../hooks/useForm";
-import { SingleForm, SigninFormWrapper, Label } from "../../elements";
-import { hardNavigate } from "../../utils";
+import {
+  SingleForm,
+  SigninFormWrapper,
+  Label,
+  TextButton,
+} from "../../elements";
+import { hardNavigate, wp_url } from "../../utils";
 
 export const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($username: String!, $password: String!) {
@@ -97,10 +102,19 @@ const SignIn = ({}) => {
               {loading ? "loading..." : "Sign in"}
             </button>
           </form>
-          <p>
-            <Link className="text-blue-800 underline" to="/checkout">
-              Don't have an account?
+          <p className="flex flex-col items-start gap-1">
+            <Link
+              to="/reset-password"
+              className="text-blue-800 underline hover:no-underline"
+            >
+              Forgot Password
             </Link>
+            <a
+              className="text-blue-800 underline hover:no-underline"
+              href={`${wp_url}/create-account`}
+            >
+              Don't have an account?
+            </a>
           </p>
         </div>
       </SigninFormWrapper>
