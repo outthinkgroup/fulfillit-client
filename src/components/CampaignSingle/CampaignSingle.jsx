@@ -8,6 +8,7 @@ import getUrlParam from "../../utils/getUrlParams";
 import { CampaignDetailsHeading } from "./PageHeader/PageHeader";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
+import { DeleteCampaign } from "./DeleteCampaign/DeleteCampaign";
 import Logs from "./CampaignAnalytics/Logs";
 
 import EditCampaign from "../CampaignForms/EditCampaign/EditCampaignForm";
@@ -61,6 +62,11 @@ const CampaignSingle = () => {
           ["Logs"]: () => (
             <>
               <Logs campaign={campaignData.campaign.email} />
+            </>
+          ),
+          ["DELETE"]: () => (
+            <>
+              <DeleteCampaign />
             </>
           ),
         }}

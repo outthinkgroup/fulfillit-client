@@ -3,16 +3,6 @@ import { gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Card from "../../elements/Card";
 
-export const DELETE_CAMPAIGN = gql`
-  mutation DELETE_CAMPAIGN($id: ID!) {
-    deleteCampaign(input: { clientMutationId: "sdfsdaa", id: $id }) {
-      campaign {
-        id
-      }
-    }
-  }
-`;
-
 const CampaignCard = ({ id, status, date, email, transactionCount, meta }) => {
   const dateFormatted = `${new Date(date).getMonth() + 1}/${new Date(
     date
