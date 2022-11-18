@@ -1,24 +1,12 @@
-function toQueryString(data) {
-  const urlSearhParams = new URLSearchParams(data);
-  const queryString = urlSearhParams.toString();
-  return queryString;
+export function getUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  return params;
 }
 
-function getUrlVars() {
-  var vars = {};
-  window.location.href.replace(
-    /[?&]+([^=&]+)=([^&]*)/gi,
-    function (m, key, value) {
-      vars[key] = value;
-    }
-  );
-  return vars;
-}
-
-export default function getUrlParam(parameter, defaultvalue) {
-  var urlparameter = defaultvalue;
-  if (window.location.href.indexOf(parameter) > -1) {
-    urlparameter = getUrlVars()[parameter];
+export default function getUrlParam(parameter, defaultValue = null) {
+  const params = getUrlParams();
+  if (params.has(parameter)) {
+    return params.get(parameter);
   }
-  return urlparameter;
+  return defaultValue;
 }
