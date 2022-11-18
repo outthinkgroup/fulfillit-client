@@ -1,3 +1,4 @@
+import { wp_url } from ".";
 import { AutoLogin } from "./autologin";
 
 export default async function getToken() {
@@ -14,7 +15,7 @@ export default async function getToken() {
   const expires = new Date(parseInt(localStorage.getItem("tokenExpires")));
   if (expires.getTime() < Date.now()) {
     const refreshToken = localStorage.getItem("refreshToken");
-    const res = await fetch(`${import.meta.env.VITE_GQL_URI}`, {
+    const res = await fetch(`${wp_url}/graphql`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
