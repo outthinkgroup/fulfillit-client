@@ -1,4 +1,8 @@
 import React from "react";
+import { TextButton } from "../../elements/Button";
+
+import { wp_url } from "../../utils";
+import getToken from "../../utils/getToken";
 
 export default function MyAccountButton() {
   const [isLoading, setIsLoading] = React.useState(false);

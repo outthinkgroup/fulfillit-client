@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 
-import CampaignDetails from "../CampaignDetails/CampaignDetails";
+import CampaignFormFields from "./CampaignFormFields";
 import getUrlParam from "../../../utils/getUrlParams";
 import useForm from "../../../hooks/useForm";
 import { LocalContext } from "../../../hooks/LocalContext";
@@ -115,7 +115,7 @@ const EditCampaign = ({ className }) => {
         updateCampaign();
       }}
     >
-      <CampaignDetails form={form} updateForm={updateForm} />
+      <CampaignFormFields form={form} updateForm={updateForm} />
 
       <div className="bottom-bar">
         <div>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useTransition, animated } from "react-spring";
+import { useTransition } from "react-spring";
 
-import NavigationProgress from "./../NavigationProgress/NavigationProgress";
+import NavigationProgress from "./NavigationProgress";
 import { allFieldsHaveData } from "../../../utils/formValidation";
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import FormCards from "./../WizardCards/WizardCards";
+import FormCards from "./WizardCards";
 
 export const FORM_DEFAULT_STATE = {
   general: {

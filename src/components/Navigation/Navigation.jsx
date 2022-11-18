@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { TextButton } from "../../elements/Button";
-import { wp_url } from "../../utils";
-import getToken from "../../utils/getToken";
+import MyAccountButton from "./MyAccountButton";
 
 const Navigation = ({ userData = false }) => {
   const isLoggedIn = userData;
@@ -31,7 +30,7 @@ const Navigation = ({ userData = false }) => {
           >
             Dashboard
           </Link>
-
+          <MyAccountButton />
           <TextButton onClick={signOut} type="button">
             Sign Out
           </TextButton>

@@ -2,7 +2,7 @@ import React from "react";
 import { Label, Loader } from "../../../elements";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
-export default function CampaignDetails({ form, updateForm }) {
+export default function CampaignSettings({ form, updateForm }) {
   if (Object.keys(form).length === 0) return <Loader />;
   return (
     <div className="relative max-w-screen-md">

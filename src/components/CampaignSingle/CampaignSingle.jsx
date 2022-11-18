@@ -10,7 +10,7 @@ import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
 import Logs from "./CampaignAnalytics/Logs";
 
-import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign";
+import EditCampaign from "../CampaignForms/EditCampaign/EditCampaignForm";
 import Tabs from "../Tabs/Tabs";
 import { Loader } from "../../elements";
 
