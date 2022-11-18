@@ -1,23 +1,25 @@
 import * as React from "react";
 import "./style.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/dashboard";
-import SignIn from "./pages/sign-in";
-import NewCampaign from "./pages/new-campaign";
-import CampaignSingle from "./pages/campaign";
+import {
+  DashboardPage,
+  SignInPage,
+  CampaignSingle,
+  NewCampaignPage,
+} from "./pages";
 
 // DOCS: https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 export default function App() {
   return (
     <Router basename="/">
       <Routes>
-        <Route path="/" index element={<Dashboard />} />
+        <Route path="/" index element={<DashboardPage />} />
 
         <Route path="/campaign" element={<CampaignSingle />} />
 
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignInPage />} />
 
-        <Route path="/new-campaign" element={<NewCampaign />} />
+        <Route path="/new-campaign" element={<NewCampaignPage />} />
       </Routes>
     </Router>
   );

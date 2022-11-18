@@ -1,17 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
-import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
-import { Loader } from "../../elements";
-import { USER_DATA } from "../Header/Header";
-import { CampaignDetailsHeading } from "./CampaignDetailsHeading/CampaignDetailsHeading";
-import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
-import getUrlParam from "../../utils/getUrlParams";
-import Tabs from "../Tabs/Tabs";
-import Logs from "../CampaignDetails/CampaignAnalytics/Logs";
-import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign";
 
-const CampaignDetails = ({ query, className }) => {
+import { USER_DATA } from "../Header/Header";
+import getUrlParam from "../../utils/getUrlParams";
+
+import { CampaignDetailsHeading } from "./PageHeader/PageHeader";
+import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
+import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
+import Logs from "./CampaignAnalytics/Logs";
+
+import EditCampaign from "../CampaignForms/EditCampaign/EditCampaign";
+import Tabs from "../Tabs/Tabs";
+import { Loader } from "../../elements";
+
+const CampaignSingle = () => {
   const { data, loading, error } = useQuery(USER_DATA);
   const {
     data: campaignData,
@@ -66,7 +69,7 @@ const CampaignDetails = ({ query, className }) => {
   );
 };
 
-export default CampaignDetails;
+export default CampaignSingle;
 
 export const SINGLE_CAMPAIGN_TITLE = gql`
   query SINGLE_CAMPAIGN_TITLE($id: ID!) {

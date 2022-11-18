@@ -1,14 +1,13 @@
 import React from "react";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-import CampaignDetails from "../components/CampaignDetails/CampaignDetails";
+import Campaign from "../components/CampaignSingle/CampaignSingle";
 import getUrlParams from "../utils/getUrlParams";
 
-const CampaignSingle = () => {
+export const CampaignSingle = () => {
   return (
     <DashboardLayout>
-      <CampaignDetails query={getUrlParams("campaign_id", null)} />
+      <Campaign query={getUrlParams("campaign_id", null)} />
     </DashboardLayout>
   );
 };
-export default CampaignSingle;
