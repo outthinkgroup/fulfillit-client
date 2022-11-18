@@ -13,7 +13,7 @@ import getToken from "./utils/getToken";
 import LocalState from "./utils/LocalContext";
 
 const link = createHttpLink({
-  uri: import.meta.env.VITE_GQL_URI,
+  uri: `${import.meta.env.VITE_GQL_URI}/graphql`,
 });
 const authLink = setContext(async (_, { headers }) => {
   // const token = localStorage.getItem("token");

@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { TextButton } from "../../elements/Button";
+import { wp_url } from "../../utils";
+import getToken from "../../utils/getToken";
 
 const Navigation = ({ userData = false }) => {
   const isLoggedIn = userData;
@@ -9,6 +11,7 @@ const Navigation = ({ userData = false }) => {
     localStorage.setItem("token", "");
     window.location.href = "/sign-in";
   }
+
   return (
     <nav className="flex items-center justify-end gap-2">
       {!isLoggedIn ? (
@@ -28,9 +31,7 @@ const Navigation = ({ userData = false }) => {
           >
             Dashboard
           </Link>
-          <TextButton onClick={goToMyAccount} type="button">
-            My Account
-          </TextButton>
+
           <TextButton onClick={signOut} type="button">
             Sign Out
           </TextButton>
@@ -39,14 +40,5 @@ const Navigation = ({ userData = false }) => {
     </nav>
   );
 };
-
-function goToMyAccount() {
-  const token = localStorage.getItem("token");
-  const url =
-    import.meta.env.VITE_GQL_URI.replace("/graphql", "/my-account") +
-    "?__token=" +
-    token;
-  window.open(url);
-}
 
 export default Navigation;
