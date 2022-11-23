@@ -13,7 +13,7 @@ export const SINGLE_CAMPAIGN = gql`
     campaign(id: $id, idType: ID) {
       id
       status
-      email: title(format: RAW)
+      email: title(format: RENDERED)
       date
       databaseId
       meta {
@@ -57,7 +57,7 @@ export const UPDATE_CAMPAIGN = gql`
       campaign {
         id
         databaseId
-        email: title
+        email: title(format: RENDERED)
         date
         meta {
           id

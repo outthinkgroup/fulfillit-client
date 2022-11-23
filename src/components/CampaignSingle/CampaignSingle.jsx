@@ -36,6 +36,8 @@ const CampaignSingle = () => {
     return <Loader />;
   }
 
+  console.log(campaignData);
+
   return (
     <div className="">
       <header className="mb-10">
@@ -83,7 +85,7 @@ export const SINGLE_CAMPAIGN_TITLE = gql`
       id
       databaseId
       status
-      email: title(format: RAW)
+      email: title(format: RENDERED)
       meta {
         id
         name
