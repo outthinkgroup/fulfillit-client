@@ -13,7 +13,7 @@ export default async function getToken() {
   }
 
   const expires = new Date(parseInt(localStorage.getItem("tokenExpires")));
-  if (expires.getTime() < Date.now()) {
+  if (expires.getTime() < Date.now() || !localStorage.getItem("token")) {
     const refreshToken = localStorage.getItem("refreshToken");
     const res = await fetch(`${wp_url}/graphql`, {
       method: "POST",

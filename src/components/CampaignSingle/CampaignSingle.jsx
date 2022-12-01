@@ -9,6 +9,7 @@ import { CampaignDetailsHeading } from "./PageHeader/PageHeader";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
 import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
 import { DeleteCampaign } from "./DeleteCampaign/DeleteCampaign";
+import { CampaignInbox } from "./CampaignInbox/CampaignInbox";
 import Logs from "./CampaignAnalytics/Logs";
 
 import EditCampaign from "../CampaignForms/EditCampaign/EditCampaignForm";
@@ -36,8 +37,6 @@ const CampaignSingle = () => {
     return <Loader />;
   }
 
-  console.log(campaignData);
-
   return (
     <div className="">
       <header className="mb-10">
@@ -55,6 +54,11 @@ const CampaignSingle = () => {
               id={campaignData.campaign.databaseId}
               campaignSlug={campaignData.campaign.email}
             />
+          ),
+          ["Inbox"]: () => (
+            <>
+              <CampaignInbox />
+            </>
           ),
           ["Settings"]: () => (
             <>

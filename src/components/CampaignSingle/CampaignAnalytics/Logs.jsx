@@ -68,10 +68,11 @@ export default function Logs({ campaign }) {
                   >
                     <details>
                       <summary>
-                        <span class="inline-block bg-pink-50 py-1 px-2 text-pink-400">
+                        <span className="inline-block bg-pink-50 py-1 px-2 text-pink-400">
                           {new Date(date).toLocaleDateString()}
                         </span>{" "}
-                        : <span class="font-bold text-blue-500">{title}</span>
+                        :{" "}
+                        <span className="font-bold text-blue-500">{title}</span>
                       </summary>
                       <p dangerouslySetInnerHTML={{ __html: content }} />
                     </details>
@@ -79,7 +80,7 @@ export default function Logs({ campaign }) {
                 );
               })
           ) : (
-            <p>No logs to display</p>
+            <p className="p-4 font-bold">No logs to display</p>
           )}
         </ul>
       </div>

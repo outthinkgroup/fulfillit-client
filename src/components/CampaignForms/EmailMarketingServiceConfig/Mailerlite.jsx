@@ -5,6 +5,7 @@ import { Loader, Label } from "../../../elements";
 export default function MailerliteSetupForm({ cardname, updateForm, form }) {
   const { data, loading, error } = useMailerliteData(form.serviceApiKey);
 
+  console.log(data);
   return (
     <div className="mailservice-info">
       <h3 className="mb-3 text-lg font-bold">Mailerlite Options</h3>

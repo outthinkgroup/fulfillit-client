@@ -75,7 +75,7 @@ export const CAMPAIGN_ANALYTICS = gql`
         }
       ) {
         nodes {
-          databaseId
+          id: databaseId
           authorDatabaseId
           forCampaigns {
             nodes {
