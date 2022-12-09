@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, Loader } from "../../../elements";
+import { Label, Loader, SendmagnetEmailInput } from "../../../elements";
 import { EmailMarketingServiceConfig } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
 export default function CampaignSettings({ form, updateForm }) {
@@ -26,19 +26,12 @@ export default function CampaignSettings({ form, updateForm }) {
           </label>
           <label htmlFor="email" className="mb-8 ">
             <Label>Campaign Email</Label>
-            <span className="emailFieldWithSuffix flex items-center gap-1">
-              <input
-                type="text"
-                onChange={updateForm}
-                name="email"
-                id="email"
-                className=""
-                style={{ textAlign: "right" }}
-                value={form.email || ""}
-                autoComplete="0"
-              />
-              <span className="suffix pt-2">@sendmagnet.com</span>
-            </span>
+            <SendmagnetEmailInput
+              value={form.email}
+              name="email"
+              onChange={updateForm}
+              id="name"
+            />
           </label>
         </div>
         <label htmlFor="service" className="mb-8">

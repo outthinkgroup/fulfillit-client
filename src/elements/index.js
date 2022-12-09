@@ -6,3 +6,4 @@ export * from "./Logo";
 export * from "./Button";
 export * from "./HiddenInput";
 export * from "./UpgradeButton";
+export * from "./CustomInputs";

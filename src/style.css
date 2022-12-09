@@ -54,17 +54,34 @@ button :where(:active, :focus){
     outline:none !important;
   
 }
-  input:not([type="checkbox"]),
-  select, 
-  textarea {
+input:not([type="checkbox"],.remove-default),
+  select:not(.remove-default), 
+  textarea:not(.remove-default) {
   width: 100%;
   outline: none;
   border: 1px solid black;
   padding: 10px;
   font-size: 16px;
-  /* background: ${({ theme }) => theme.colors.lightGrey};; */
-  /* box-shadow: ${({ theme }) => theme.depth.low}; */
   }
+
+input:not([type="checkbox"],.remove-default):focus,
+  select:not(.remove-default):focus, 
+  textarea:not(.remove-default):focus {
+    @apply border-blue-600;
+  }
+
+/*
+ * hides the browsers x button on search inputs
+ * For our sendmagnet email fields we need them to input type of search 
+ * so that the 1password icon will not ever show up
+ */
+.emailFieldWithSuffix input[type="search"]::-webkit-search-decoration,
+.emailFieldWithSuffix input[type="search"]::-webkit-search-cancel-button,
+.emailFieldWithSuffix input[type="search"]::-webkit-search-results-button,
+.emailFieldWithSuffix input[type="search"]::-webkit-search-results-decoration {
+display: none;
+}
+
   input[type="submit"],
   button,
   input[type="button"],

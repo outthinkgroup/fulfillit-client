@@ -1,6 +1,6 @@
 import React from "react";
 import { animated } from "react-spring";
-import { Label } from "../../../elements";
+import { Label, SendmagnetEmailInput } from "../../../elements";
 import { allFieldsHaveData } from "../../../utils/formValidation";
 import { EmailMarketingServiceConfigWizard } from "../EmailMarketingServiceConfig/EmailMarketingServiceConfig";
 
@@ -27,13 +27,13 @@ const FormCards = [
           <Label>
             The Email Your Users Will forward or send their message to
           </Label>
-          <input
+          <SendmagnetEmailInput
             onChange={updateFormData}
             type="text"
             name="email"
             id="email"
             value={formData.general.email}
-            data-cardname={cards[item]}
+            cardname={cards[item]}
           />
         </label>
         <label htmlFor="description">
