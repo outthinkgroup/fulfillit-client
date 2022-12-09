@@ -24,9 +24,7 @@ const FormCards = [
           />
         </label>
         <label htmlFor="email">
-          <Label>
-            The Email Your Users Will forward or send their message to
-          </Label>
+          <Label>Campaign Handle</Label>
           <SendmagnetEmailInput
             onChange={updateFormData}
             type="text"
@@ -35,6 +33,9 @@ const FormCards = [
             value={formData.general.email}
             cardname={cards[item]}
           />
+          <p className="text-xs">
+            This will be the email that users will email to get on your list
+          </p>
         </label>
         <label htmlFor="description">
           <Label>Short Description of what your campaign does.</Label>
@@ -78,9 +79,7 @@ const FormCards = [
           >
             <option value="">choose a email marketing service</option>
             <option value="mailchimp">mailchimp</option>
-            <option value="mailgun">mailgun</option>
             <option value="mailerlite">mailerlite</option>
-            <option value="converkit">converkit</option>
           </select>
         </label>
       </div>

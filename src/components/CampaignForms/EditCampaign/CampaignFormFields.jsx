@@ -25,7 +25,7 @@ export default function CampaignSettings({ form, updateForm }) {
             />
           </label>
           <label htmlFor="email" className="mb-8 ">
-            <Label>Campaign Email</Label>
+            <Label>Campaign Handle</Label>
             <SendmagnetEmailInput
               value={form.email}
               name="email"
