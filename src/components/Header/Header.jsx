@@ -8,7 +8,8 @@ export const USER_DATA = gql`
     viewer {
       id
       name
-      email
+			email
+			accountStatus
     }
   }
 `;
