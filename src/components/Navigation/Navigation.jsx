@@ -31,7 +31,7 @@ const Navigation = ({ userData = false }) => {
             Dashboard
           </Link>
           {/* <MyAccountButton accountStatus={userData?.accountStatus} /> */}
-				<MyAccountButton accountStatus={false} />
+					<MyAccountButton accountStatus={userData.accountStatus} />
           <TextButton onClick={signOut} type="button">
             Sign Out
           </TextButton>
