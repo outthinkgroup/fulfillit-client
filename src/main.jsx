@@ -22,7 +22,6 @@ Sentry.init({
   tracesSampleRate: 0.2,
 });
 
-
 const link = createHttpLink({
   uri: `${import.meta.env.VITE_GQL_URI}/graphql`,
 });

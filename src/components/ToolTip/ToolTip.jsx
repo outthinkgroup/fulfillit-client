@@ -19,9 +19,9 @@ export function ToolTip({ text, children, type = "notification" }) {
   };
 
   return (
-    <span class="relative">
+    <span className="relative">
       <button
-        class={`flex aspect-square w-5 items-center justify-center rounded-full  p-0 text-center text-xs font-bold ${typeStyle[type]}`}
+        className={`flex aspect-square w-5 items-center justify-center rounded-full  p-0 text-center text-xs font-bold ${typeStyle[type]}`}
         onClick={()=>setIsToolTipOpen(s=>!s)}
       >
         {text}
@@ -29,7 +29,7 @@ export function ToolTip({ text, children, type = "notification" }) {
       {isToolTipOpen ? (
         <div
           ref={el}
-          class={ `absolute z-50 shadow rounded-md min-w-[170px] top-[130%] left-[50%] translate-x-[-50%] bg-blue-200 p-3 text-center text-sm ${typeStyle[type]}` }
+          className={ `absolute z-50 shadow rounded-md min-w-[170px] top-[130%] left-[50%] translate-x-[-50%] bg-blue-200 p-3 text-center text-sm ${typeStyle[type]}` }
         >
 				{children}
         </div>
