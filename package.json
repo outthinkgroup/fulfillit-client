@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@sentry/react": "^7.31.1",
+    "@sentry/tracing": "^7.31.1",
     "@vitejs/plugin-react": "^2.0.1",
     "chart.js": "^3.9.1",
     "graphql": "^16.6.0",
