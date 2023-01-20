@@ -1,8 +1,11 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
+import { useOutletContext, useParams } from "react-router-dom";
 
-export default function CampaignAnalytics({ id, campaignSlug }) {
+export default function CampaignAnalytics() {
+  const {campaignId:id} = useParams();
+  const {slug:campaignSlug} = useOutletContext();
   console.log({ id, campaignSlug });
   const {
     data: dataAnalytics,

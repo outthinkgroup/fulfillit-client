@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import useModal from "../../../hooks/useModal";
-// import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // import useForm from "../../../hooks/useForm";
 import getUrlParam from "../../../utils/getUrlParams";
@@ -29,13 +29,14 @@ const CAMPAIGN_INBOX_QUERY = gql`
 `;
 
 export function CampaignInbox() {
+  const {campaignId:id} = useParams()
   const {
     data: inboxData,
     loading: inboxLoading,
     error: inboxError,
   } = useQuery(CAMPAIGN_INBOX_QUERY, {
     variables: {
-      id: getUrlParam("campaign_id"),
+      id, 
     },
   });
 

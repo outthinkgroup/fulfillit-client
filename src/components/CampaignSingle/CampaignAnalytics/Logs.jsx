@@ -3,7 +3,10 @@ import { useQuery } from "@apollo/client";
 
 import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
 import { Label } from "../../../elements";
-export default function Logs({ campaign }) {
+import { useOutletContext } from "react-router-dom";
+export default function Logs() {
+  console.log("ran")
+  const {slug:campaign} = useOutletContext();
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,

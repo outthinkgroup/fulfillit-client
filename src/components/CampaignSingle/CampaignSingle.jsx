@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet, Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
 import { USER_DATA } from "../Header/Header";
@@ -7,16 +7,10 @@ import getUrlParam from "../../utils/getUrlParams";
 
 import { CampaignDetailsHeading } from "./PageHeader/PageHeader";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
-import CampaignAnalytics from "./CampaignAnalytics/CampaignAnalytics";
-import { DeleteCampaign } from "./DeleteCampaign/DeleteCampaign";
-import { CampaignInbox } from "./CampaignInbox/CampaignInbox";
-import Logs from "./CampaignAnalytics/Logs";
-
-import EditCampaign from "../CampaignForms/EditCampaign/EditCampaignForm";
 import Tabs from "../Tabs/Tabs";
 import { Loader } from "../../elements";
 
-const CampaignSingle = () => {
+const CampaignSingle = ({query}) => {
   const { data, loading, error } = useQuery(USER_DATA);
   const {
     data: campaignData,
@@ -24,7 +18,7 @@ const CampaignSingle = () => {
     error: campaignDataError,
   } = useQuery(SINGLE_CAMPAIGN_TITLE, {
     variables: {
-      id: getUrlParam("campaign_id"),
+      id: query
     },
   });
   const navigate = useNavigate();
@@ -32,6 +26,9 @@ const CampaignSingle = () => {
   if (error) {
     navigate("/sign-in");
     return null;
+  }
+  if(campaignDataError){
+    console.log(campaignDataError);
   }
   if (loading || campaignDataLoading) {
     return <Loader />;
@@ -44,39 +41,14 @@ const CampaignSingle = () => {
         <div>
           <CampaignDetailsHeading campaign={campaignData.campaign} />
         </div>
-        <CampaignTransactions campaignId={campaignData.campaign.id} />
+        <CampaignTransactions campaignId={campaignData.campaign?.id} />
       </header>
-
-      <Tabs
-        tabs={{
-          ["Overview"]: () => (
-            <CampaignAnalytics
-              id={campaignData.campaign.databaseId}
-              campaignSlug={campaignData.campaign.email}
-            />
-          ),
-          ["Inbox"]: () => (
-            <>
-              <CampaignInbox />
-            </>
-          ),
-          ["Settings"]: () => (
-            <>
-              <EditCampaign />
-            </>
-          ),
-          ["Logs"]: () => (
-            <>
-              <Logs campaign={campaignData.campaign.email} />
-            </>
-          ),
-          ["DELETE"]: () => (
-            <>
-              <DeleteCampaign />
-            </>
-          ),
-        }}
-      />
+    <Tabs tabs={{Overview:"", Inbox:"inbox", settings:"Settings", Logs:"logs",Delete:"delete"}} >
+        <Outlet context={{
+          id: campaignData.campaign?.id,
+          slug: campaignData.campaign?.email,
+        }}/>
+      </Tabs>
     </div>
   );
 };

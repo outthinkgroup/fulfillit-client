@@ -1,9 +1,8 @@
 import React from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import useForm from "../../../hooks/useForm";
-import getUrlParam from "../../../utils/getUrlParams";
 import { SINGLE_CAMPAIGN } from "../../CampaignForms/EditCampaign/EditCampaignForm";
 import { Loader } from "../../../elements/Loader";
 import { Label } from "../../../elements/SingleForm";
@@ -20,10 +19,9 @@ export const DELETE_CAMPAIGN = gql`
 
 export function DeleteCampaign() {
   const navigate = useNavigate();
-
+  const {campaignId:id} = useParams();
   const [errors, setErrors] = React.useState(null);
 
-  const id = getUrlParam("campaign_id");
   const { data, loading, error } = useQuery(SINGLE_CAMPAIGN, {
     variables: {
       id,

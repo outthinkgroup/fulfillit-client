@@ -7,6 +7,7 @@ import { LocalContext } from "../../../hooks/LocalContext";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Loader } from "../../../elements";
+import { useParams } from "react-router-dom";
 
 export const SINGLE_CAMPAIGN = gql`
   query SINGLE_CAMPAIGN($id: ID!) {
@@ -75,9 +76,10 @@ export const UPDATE_CAMPAIGN = gql`
 
 const EditCampaign = ({ className }) => {
   const { localState, setLocalState } = useContext(LocalContext);
+  const {campaignId:id} = useParams();
   const { data, loading, error } = useQuery(SINGLE_CAMPAIGN, {
     variables: {
-      id: getUrlParam("campaign_id"),
+      id,
     },
   });
   const [form, updateForm, setForm] = useForm({});

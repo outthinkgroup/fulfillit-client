@@ -1,23 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 import Campaign from "../components/CampaignSingle/CampaignSingle";
-import getUrlParam from "../utils/getUrlParams";
+import { Outlet, useParams } from "react-router-dom";
 
-export const CampaignSingle = () => {
-  const campaignId = getUrlParam("campaign_id");
-
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    if (!campaignId) {
-      navigate("/404");
-    }
-  }, [campaignId]);
+export const CampaignSingle = ({}) => {
+  
+  const {campaignId} = useParams()
 
   return (
     <DashboardLayout>
       <Campaign query={campaignId} />
+
     </DashboardLayout>
   );
 };
