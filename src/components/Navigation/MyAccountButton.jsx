@@ -11,7 +11,7 @@ export default function MyAccountButton({ accountStatus }) {
     setIsLoading(true);
     const token = await getToken();
     setIsLoading(false);
-    const url = wp_url + "?__token=" + token;
+    const url = wp_url + "/my-account/?__token=" + token;
     window.open(url);
   }
 
