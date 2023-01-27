@@ -13,7 +13,7 @@ const CampaignCard = ({ id, status, date, email, transactionCount, meta }) => {
       depth="low"
       className="max-w-full overflow-hidden border-l-4 border-blue-900 bg-white p-0 text-black shadow shadow-blue-300 hover:shadow-lg"
     >
-      <Link to={`/campaign/?campaign_id=${id}`}>
+      <Link to={`/campaign/${id}`}>
         <div className="z-10 flex justify-between py-3 px-6">
           <div className="w-full overflow-x-scroll">
             <p className="m-0 inline-block rounded bg-blue-100 p-1 text-xs uppercase tracking-wide text-blue-600">
