@@ -6,7 +6,7 @@ import { useOutletContext, useParams } from "react-router-dom";
 export default function CampaignAnalytics() {
   const {campaignId:id} = useParams();
   const {slug:campaignSlug} = useOutletContext();
-  console.log({ id, campaignSlug });
+
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
@@ -16,26 +16,14 @@ export default function CampaignAnalytics() {
       campaign: [campaignSlug],
     },
   });
-  const {
-    data: dataTransactionCount,
-    loading: loadingTransactionCount,
-    error: errorTransactionCount,
-  } = useQuery(CAMPAIGN_TRANSACTION_COUNT, {
-    variables: { id },
-  });
 
   const [view, setView] = React.useState("month");
 
-  if (loadingAnalytics || loadingTransactionCount) {
+  if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
   }
   if (errorAnalytics) {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
-  }
-  if (errorTransactionCount) {
-    return (
-      <div style={{ textAlign: "center" }}>{errorTransactionCount.message}</div>
-    );
   }
 
   console.log(view);
@@ -89,6 +77,12 @@ export const CAMPAIGN_ANALYTICS = gql`
           date
           content(format: RENDERED)
           title
+          meta {
+            subject
+            attachments
+            recipient
+            sender
+          }
         }
       }
     }
