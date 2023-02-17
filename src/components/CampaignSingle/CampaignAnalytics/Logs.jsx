@@ -5,8 +5,7 @@ import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
 import { Label } from "../../../elements";
 import { useOutletContext } from "react-router-dom";
 export default function Logs() {
-  console.log("ran")
-  const {slug:campaign} = useOutletContext();
+  const { slug: campaign } = useOutletContext();
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
@@ -63,7 +62,7 @@ export default function Logs() {
           {dataAnalytics?.viewer?.logs?.nodes.length ? (
             dataAnalytics?.viewer?.logs.nodes
               .filter(logFilter)
-              .map(({ date, content, title, id }) => {
+              .map(({ date, content, title, id, meta, forCampaigns }) => {
                 return (
                   <li
                     key={id}
@@ -77,7 +76,19 @@ export default function Logs() {
                         :{" "}
                         <span className="font-bold text-blue-500">{title}</span>
                       </summary>
-                      <p dangerouslySetInnerHTML={{ __html: content }} />
+                      <div class="mt-3 flex flex-col overflow-hidden rounded">
+                        <LogAttribute
+                          label="campaign"
+                          value={forCampaigns.nodes[0].name}
+                        />
+                        <LogAttribute label="sender" value={meta.sender} />
+                        <LogAttribute label="subject" value={meta.subject} />
+                        <LogAttribute label="Email Body" asHtml={true} value={content} />
+                        <LogAttribute
+                          label="Attachments"
+                          value={meta.attachments}
+                        />
+                      </div>
                     </details>
                   </li>
                 );
@@ -87,6 +98,21 @@ export default function Logs() {
           )}
         </ul>
       </div>
+    </div>
+  );
+}
+
+function LogAttribute({ label, value, asHtml = false }) {
+  return (
+    <div class="flex items-start gap-3 bg-gray-100 p-1 even:bg-gray-50">
+      <div class="w-28 font-semibold  capitalize text-gray-800">{label}</div>
+      {asHtml ? (
+        <div class="flex-1" >
+          <div dangerouslySetInnerHTML={{__html:value}}></div>
+        </div>
+      ) : (
+        <div class="flex-1  ">{value}</div>
+      )}
     </div>
   );
 }
