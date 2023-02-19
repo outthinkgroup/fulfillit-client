@@ -83,7 +83,11 @@ export default function Logs() {
                         />
                         <LogAttribute label="sender" value={meta.sender} />
                         <LogAttribute label="subject" value={meta.subject} />
-                        <LogAttribute label="Email Body" asHtml={true} value={content} />
+                        <LogAttribute
+                          label="Email Body"
+                          asHtml={true}
+                          value={content}
+                        />
                         <LogAttribute
                           label="Attachments"
                           value={meta.attachments}
@@ -107,8 +111,8 @@ function LogAttribute({ label, value, asHtml = false }) {
     <div class="flex items-start gap-3 bg-gray-100 p-1 even:bg-gray-50">
       <div class="w-28 font-semibold  capitalize text-gray-800">{label}</div>
       {asHtml ? (
-        <div class="flex-1" >
-          <div dangerouslySetInnerHTML={{__html:value}}></div>
+        <div class="flex-1">
+          <div dangerouslySetInnerHTML={{ __html: value }}></div>
         </div>
       ) : (
         <div class="flex-1  ">{value}</div>

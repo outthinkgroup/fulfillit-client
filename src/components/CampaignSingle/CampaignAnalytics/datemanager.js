@@ -1,7 +1,19 @@
+export const HOUR = 1000 * 60 * 60;
+export const DAY = HOUR * 24;
+const MONTH = DAY * 30;
+
+export const inMili = {
+  hour: HOUR,
+  day: DAY,
+  month: MONTH,
+};
+
+export const sortDates = (a, b) => a.getTime() - b.getTime();
+
 /**
  * @param  {Date} startDate
  * @param  { Date } endDate
- * @param  { number } increment - in miliseconds
+ * @param  { string } increment - key that gets the time increment amount in miliseconds from object inMili
  * @returns { Date[] }  an array of Dates
  */
 export function datesBetween(startDate, endDate, increment) {
@@ -16,15 +28,51 @@ export function datesBetween(startDate, endDate, increment) {
   return dates;
 }
 
-export const HOUR = 1000 * 60 * 60;
-export const DAY = HOUR * 24;
-const MONTH = DAY * 30;
+export function genDateKey(date, view) {
+  if (view == "day") {
+    return date.toLocaleDateString();
+  }
+  if (view == "month") {
+    return date.toLocaleString("en-US", { month: "short" });
+  }
+  if (view == "hour") {
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+    });
+  }
+}
 
-export const inMili = {
-  hour: HOUR,
-  day: DAY,
-  month: MONTH,
+export const byOccurrences = {
+  day: dayOccurences,
+  month: monthOccurences,
+  hour: hourOccurences,
 };
+
+export function dayOccurences(dates) {
+  const res = countOccurrenceBy(dates, byDay);
+  return res;
+}
+
+export function hourOccurences(dates) {
+  const res = countOccurrenceBy(dates, byHour);
+  return res;
+}
+
+export function monthOccurences(dates) {
+  const res = countOccurrenceBy(dates, byMonth);
+  return res;
+}
+
+function countOccurrenceBy(dates, getGroupId) {
+  return dates.reduce((acc, item) => {
+    const groupId = getGroupId(item);
+    const groupCount = acc[groupId] ?? 0;
+    return { ...acc, [groupId]: groupCount + 1 };
+  }, {});
+}
 
 function byDay(date) {
   const dayReset = new Date(date);
@@ -48,51 +96,4 @@ function byMonth(date) {
   return monthReset.toLocaleString("en-US", {
     month: "short",
   });
-}
-
-function countOccurrenceBy(dates, getGroupId) {
-  return dates.reduce((acc, item) => {
-    const groupId = getGroupId(item);
-    const groupCount = acc[groupId] ?? 0;
-    return { ...acc, [groupId]: groupCount + 1 };
-  }, {});
-}
-
-export function dayOccurences(dates) {
-  const res = countOccurrenceBy(dates, byDay);
-  return res;
-}
-
-export function hourOccurences(dates) {
-  const res = countOccurrenceBy(dates, byHour);
-  return res;
-}
-export function monthOccurences(dates) {
-  const res = countOccurrenceBy(dates, byMonth);
-  return res;
-}
-
-export const byOccurrences = {
-  day: dayOccurences,
-  month: monthOccurences,
-  hour: hourOccurences,
-};
-
-export const sortDates = (a, b) => a.getTime() - b.getTime();
-
-export function genDateKey(date, view) {
-  if (view == "day") {
-    return date.toLocaleDateString();
-  }
-  if (view == "month") {
-    return date.toLocaleString("en-US", { month: "short" });
-  }
-  if (view == "hour") {
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-    });
-  }
 }
