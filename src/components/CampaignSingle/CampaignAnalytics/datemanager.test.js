@@ -45,22 +45,34 @@ describe("gets correct date before today",()=>{
   // need to mock `new Date()`
   beforeEach(()=>{vi.useFakeTimers()})
   afterEach(()=>{vi.useRealTimers()})
+  it("gets 1 year before",()=>{
+    vi.setSystemTime('2/19/2023') //date as of writing this test 💩
+    const expected = 2022
+    const actual = getDateBeforeToday('year').getFullYear()
+    expect(actual).toEqual(expected)
+  })
   it("gets 1 month before",()=>{
     vi.setSystemTime('2/19/2023') //date as of writing this test 😜
     const expected = 0
     const actual = getDateBeforeToday('month').getMonth()
     expect(actual).toEqual(expected)
   })
+  it("gets 2 weeks before",()=>{
+    vi.setSystemTime("2/19/2023")
+    const expected = 5
+    const actual = getDateBeforeToday('biWeek').getDate()
+    expect(actual).toEqual(expected)
+  })
+  it("gets 1 week before",()=>{
+    vi.setSystemTime("2/19/2023")
+    const expected = 12
+    const actual = getDateBeforeToday('week').getDate()
+    expect(actual).toEqual(expected)
+  })
   it("gets 1 day before",()=>{
     vi.setSystemTime('2/19/2023') //date as of writing this test 😜
     const expected = 18
     const actual = getDateBeforeToday('day').getDate()
-    expect(actual).toEqual(expected)
-  })
-  it("gets 1 year before",()=>{
-    vi.setSystemTime('2/19/2023') //date as of writing this test 💩
-    const expected = 2022
-    const actual = getDateBeforeToday('year').getFullYear()
     expect(actual).toEqual(expected)
   })
 })
