@@ -1,12 +1,11 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 import { getStartDateForView } from "./datemanager";
 
 export default function CampaignAnalytics() {
-  const { campaignId: id } = useParams();
   const { slug: campaignSlug } = useOutletContext();
 
   const [view, setView] = React.useState("day");
@@ -14,7 +13,6 @@ export default function CampaignAnalytics() {
   //this will be used to get all
   //logs after the date below
   const afterDate = getStartDateForView(view);
-  console.log(afterDate);
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
@@ -35,7 +33,6 @@ export default function CampaignAnalytics() {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
   }
 
-  console.log(view);
   return (
     <div>
       <div>
