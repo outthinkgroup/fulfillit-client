@@ -16,7 +16,7 @@ import EditCampaignForm from "./components/CampaignForms/EditCampaign/EditCampai
 import Logs from "./components/CampaignSingle/CampaignAnalytics/Logs";
 import { DeleteCampaign } from "./components/CampaignSingle/DeleteCampaign/DeleteCampaign";
 
-const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
+const SentryRoutes = import.meta.env.DEV ? Routes : Sentry.withSentryReactRouterV6Routing(Routes);
 
 // DOCS: https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md
 export default function App() {

@@ -3,15 +3,18 @@ import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
 import { useOutletContext, useParams } from "react-router-dom";
 
-import {} from "./datemanager"
+import { getStartDateForView } from "./datemanager";
 
 export default function CampaignAnalytics() {
-  const {campaignId:id} = useParams();
-  const {slug:campaignSlug} = useOutletContext();
+  const { campaignId: id } = useParams();
+  const { slug: campaignSlug } = useOutletContext();
 
-  const [view, setView] = React.useState("month");
+  const [view, setView] = React.useState("day");
 
-
+  //this will be used to get all
+  //logs after the date below
+  const afterDate = getStartDateForView(view);
+  console.log(afterDate);
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
@@ -19,12 +22,11 @@ export default function CampaignAnalytics() {
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
       campaign: [campaignSlug],
-      day:
-      month:
-      year:
+      day: afterDate.day,
+      month: afterDate.month,
+      year: afterDate.year,
     },
   });
-
 
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
@@ -39,13 +41,14 @@ export default function CampaignAnalytics() {
       <div>
         <label htmlFor="viewSelect">view by</label>
         <select onChange={(e) => setView(e.target.value)} value={view}>
-          <option value="month">Month by Month</option>
-          <option value="day">Day by Day</option>
-          <option value="hour">Hour by Hour</option>
+          <option value="week">Last Quarter</option>
+          <option value="day">Last Month</option>
+          <option value="hour">Last 24 Hours</option>
         </select>
         <CampaignGraph
           name={campaignSlug}
           view={view}
+          startDate={afterDate.date}
           logs={dataAnalytics?.viewer?.logs?.nodes}
         />
       </div>
@@ -61,28 +64,28 @@ export const CAMPAIGN_TRANSACTION_COUNT = gql`
   }
 `;
 export const CAMPAIGN_ANALYTICS = gql`
-query CAMPAIGN_ANALYTICS($day:Number, $month:Number, $year:Number) {
-  viewer {
-    logs(
-      where: {orderby: {field: DATE, order: ASC}, dateQuery: {after: {day: 17, month: 1, year: 2023}}}
-    ) {
-      edges {
-        node {
-          meta {
-            messageId
-            recipient
-            sender
-            subject
-            to
+  query CAMPAIGN_ANALYTICS(
+    $campaign: [String]
+    $day: Int
+    $month: Int
+    $year: Int
+  ) {
+    viewer {
+      logs(
+        where: {
+          orderby: { field: DATE, order: ASC }
+          dateQuery: { after: { day: $day, month: $month, year: $year } }
+          taxQuery: {
+            taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
           }
+        }
+      ) {
+        nodes {
+          id
           date
         }
       }
-      nodes {
-        id
-      }
+      name
     }
-    name
   }
-}
 `;

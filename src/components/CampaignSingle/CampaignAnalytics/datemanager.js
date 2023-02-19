@@ -2,7 +2,7 @@ export const HOUR = 1000 * 60 * 60;
 export const DAY = HOUR * 24;
 export const WEEK = DAY * 7;
 export const BIWEEK = WEEK * 2;
-export const MONTH = getRealMonthInMili();
+export const MONTH = DAY * 30;
 export const YEAR = MONTH * 12;
 
 export const inMili = {
@@ -11,6 +11,7 @@ export const inMili = {
   week: WEEK,
   biWeek:BIWEEK,
   month: MONTH,
+  quarter: MONTH * 3,
   year: YEAR,
 };
 
@@ -39,6 +40,9 @@ export function genDateKey(date, view) {
   if (view == "day") {
     return date.toLocaleDateString();
   }
+  if (view == "week"){
+    return date.toLocaleDateString();
+  }
   if (view == "month") {
     return date.toLocaleString("en-US", { month: "short" });
   }
@@ -53,9 +57,10 @@ export function genDateKey(date, view) {
 }
 
 export const byOccurrences = {
+  hour: hourOccurences,
   day: dayOccurences,
   month: monthOccurences,
-  hour: hourOccurences,
+  week: weekOccurences,
 };
 
 export function dayOccurences(dates) {
@@ -70,6 +75,10 @@ export function hourOccurences(dates) {
 
 export function monthOccurences(dates) {
   const res = countOccurrenceBy(dates, byMonth);
+  return res;
+}
+export function weekOccurences(dates){
+  const res = countOccurrenceBy(dates, byDay);
   return res;
 }
 
@@ -105,8 +114,10 @@ function byMonth(date) {
     month: "short",
   });
 }
-
-function getRealMonthInMili() {
+//Months have different amount of days
+//This function is accurately getting the milliseconds
+//1 month before
+function getMonthBeforeInMili() {
   const date = new Date();
   const now = date.getTime();
   date.setMonth(date.getMonth() - 1);
@@ -125,4 +136,20 @@ export function getDateBeforeToday(timeKey) {
   const milliFromNow = inMili[timeKey];
   today.setTime(today.getTime() - milliFromNow);
   return today;
+}
+
+const timeRangeForView = {
+  hour:'day',
+  day:'month',
+  week: 'quarter',
+}
+export function getStartDateForView(view){
+  const timeRange = timeRangeForView[ view ];
+  const before = getDateBeforeToday(timeRange) 
+  return {
+    date: before,
+    day:before.getDate(),
+    month:before.getMonth() + 1,// gives 0 based number
+    year:before.getFullYear(),
+  }
 }

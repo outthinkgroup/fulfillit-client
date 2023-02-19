@@ -18,7 +18,7 @@ import {
   byOccurrences,
 } from "./datemanager";
 
-export default function CampaignGraph({ name, logs, view }) {
+export default function CampaignGraph({ name, logs, view, startDate }) {
   const options = {
     responsive: true,
     plugins: {
@@ -33,15 +33,16 @@ export default function CampaignGraph({ name, logs, view }) {
   };
   const data = React.useMemo(
     function transformLogsToGraphData() {
-      const sortedDates = logs.map((l) => new Date(l.date)).sort(sortDates);
+      // we shouldnt need to sort them they should come presorted
+      const sortedDates = logs.map((l) => new Date(l.date)) 
       if (sortedDates.length <= 0) {
         return null;
       }
       // generate all dates between start and end of our log data for more accurate representation
       // with the same shape as what is created by byOccurrences
       const fillerDates = datesBetween(
-        sortedDates[0],
-        sortedDates.at(-1),
+        startDate,
+        new Date(),
         view
       ).reduce((acc, date) => {
         acc[genDateKey(date, view)] = 0;
