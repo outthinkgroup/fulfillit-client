@@ -1,16 +1,16 @@
 import * as React from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 
-import { CAMPAIGN_ANALYTICS } from "./CampaignAnalytics";
 import { Label } from "../../../elements";
 import { useOutletContext } from "react-router-dom";
 export default function Logs() {
   const { slug: campaign } = useOutletContext();
+
   const {
-    data: dataAnalytics,
-    loading: loadingAnalytics,
-    error: errorAnalytics,
-  } = useQuery(CAMPAIGN_ANALYTICS, {
+    data: dataLogs,
+    loading: loadingLogs,
+    error: errorLogs,
+  } = useQuery(CAMPAIGN_LOGS, {
     variables: {
       campaign: [campaign],
     },
@@ -25,8 +25,8 @@ export default function Logs() {
       return true;
     }
     if (
-      log.title.toLowerCase().includes(search.toLowerCase()) ||
-      log.content.toLowerCase().includes(search.toLowerCase())
+      log?.title?.toLowerCase().includes(search.toLowerCase()) ||
+      log?.content?.toLowerCase().includes(search.toLowerCase())
     ) {
       return true;
     }
@@ -34,11 +34,11 @@ export default function Logs() {
     return false;
   }
 
-  if (loadingAnalytics) {
+  if (loadingLogs) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
   }
-  if (errorAnalytics) {
-    return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
+  if (errorLogs) {
+    return <div style={{ textAlign: "center" }}>{errorLogs.message}</div>;
   }
 
   return (
@@ -59,8 +59,8 @@ export default function Logs() {
           />
         </form>
         <ul className="list-none">
-          {dataAnalytics?.viewer?.logs?.nodes.length ? (
-            dataAnalytics?.viewer?.logs.nodes
+          {dataLogs?.viewer?.logs?.nodes.length ? (
+            dataLogs?.viewer?.logs.nodes
               .filter(logFilter)
               .map(({ date, content, title, id, meta, forCampaigns }) => {
                 return (
@@ -120,3 +120,39 @@ function LogAttribute({ label, value, asHtml = false }) {
     </div>
   );
 }
+export const CAMPAIGN_LOGS = gql`
+query CAMPAIGN_LOGS($campaign: [String]) {
+    viewer {
+      id
+      logs(
+        last: 100
+        where: {
+          taxQuery: {
+            taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
+          }
+        }
+      ) {
+        nodes {
+          id: databaseId
+          authorDatabaseId
+          forCampaigns {
+            nodes {
+              name
+            }
+          }
+          dateGmt
+          date
+          content(format: RENDERED)
+          title
+          meta {
+            subject
+            attachments
+            recipient
+            sender
+          }
+        }
+      }
+    }
+  }
+`;
+

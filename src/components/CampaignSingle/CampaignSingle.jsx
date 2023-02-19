@@ -3,7 +3,6 @@ import { useNavigate, Outlet, Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
 import { USER_DATA } from "../Header/Header";
-import getUrlParam from "../../utils/getUrlParams";
 
 import { CampaignDetailsHeading } from "./PageHeader/PageHeader";
 import CampaignTransactions from "./CampaignAnalytics/CampaignTransactions";
@@ -11,7 +10,7 @@ import Tabs from "../Tabs/Tabs";
 import { Loader } from "../../elements";
 
 const CampaignSingle = ({query}) => {
-  const { data, loading, error } = useQuery(USER_DATA);
+  const { loading, error } = useQuery(USER_DATA);
   const {
     data: campaignData,
     loading: campaignDataLoading,
