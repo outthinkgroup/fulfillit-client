@@ -13,7 +13,8 @@ export const sortDates = (a, b) => a.getTime() - b.getTime();
 /**
  * @param  {Date} startDate
  * @param  { Date } endDate
- * @param  { string } increment - key that gets the time increment amount in miliseconds from object inMili
+ * @param  { string } increment - key that gets the time increment amount in miliseconds from object inMili (hour, day,
+   * month)
  * @returns { Date[] }  an array of Dates
  */
 export function datesBetween(startDate, endDate, increment) {
@@ -90,6 +91,7 @@ function byHour(date) {
     hour: "2-digit",
   });
 }
+
 function byMonth(date) {
   const monthReset = new Date(date);
   monthReset.setDate(1);
@@ -97,3 +99,34 @@ function byMonth(date) {
     month: "short",
   });
 }
+
+
+// I need to have a date and find the day, month, and year of  some time relative to the orignal date
+//
+// Get date that is one month earlier
+// date = new Date()
+// date.setMonth(date.getMonth()-1)
+const timeKeyToSetDateFn = {
+  day: 'setDate',
+  month:'setMonth',
+  year:'setFullYear',
+}
+const timeKeyToGetDateFn = {
+  day:'getDate',
+  month:'getMonth',
+  year:'getFullYear',
+}
+
+export function getDateBeforeToday(timeKey){
+  let today = new Date();
+  const getterFn = timeKeyToGetDateFn[timeKey]
+  const setterFn = timeKeyToSetDateFn[timeKey]
+  today[setterFn](today[getterFn]() - 1)
+  return today
+}
+
+
+
+
+
+

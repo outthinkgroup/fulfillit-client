@@ -3,9 +3,14 @@ import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
 import { useOutletContext, useParams } from "react-router-dom";
 
+import {} from "./datemanager"
+
 export default function CampaignAnalytics() {
   const {campaignId:id} = useParams();
   const {slug:campaignSlug} = useOutletContext();
+
+  const [view, setView] = React.useState("month");
+
 
   const {
     data: dataAnalytics,
@@ -14,10 +19,12 @@ export default function CampaignAnalytics() {
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
       campaign: [campaignSlug],
+      day:
+      month:
+      year:
     },
   });
 
-  const [view, setView] = React.useState("month");
 
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
@@ -54,37 +61,28 @@ export const CAMPAIGN_TRANSACTION_COUNT = gql`
   }
 `;
 export const CAMPAIGN_ANALYTICS = gql`
-  query CAMPAIGN_ANALYTICS($campaign: [String]) {
-    viewer {
-      id
-      logs(
-        last: 100
-        where: {
-          taxQuery: {
-            taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
-          }
-        }
-      ) {
-        nodes {
-          id: databaseId
-          authorDatabaseId
-          forCampaigns {
-            nodes {
-              name
-            }
-          }
-          dateGmt
-          date
-          content(format: RENDERED)
-          title
+query CAMPAIGN_ANALYTICS($day:Number, $month:Number, $year:Number) {
+  viewer {
+    logs(
+      where: {orderby: {field: DATE, order: ASC}, dateQuery: {after: {day: 17, month: 1, year: 2023}}}
+    ) {
+      edges {
+        node {
           meta {
-            subject
-            attachments
+            messageId
             recipient
             sender
+            subject
+            to
           }
+          date
         }
       }
+      nodes {
+        id
+      }
     }
+    name
   }
+}
 `;
