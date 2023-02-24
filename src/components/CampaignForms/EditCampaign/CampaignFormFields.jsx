@@ -43,10 +43,9 @@ export default function CampaignSettings({ form, updateForm }) {
             value={form.emailMarketingService}
           >
             <option value="">choose a email marketing service</option>
-            <option value="mailchimp">mailchimp</option>
-            <option value="mailgun">mailgun</option>
-            <option value="mailerlite">mailerlite</option>
-            <option value="converkit">converkit</option>
+            <option value="mailchimp">Mailchimp</option>
+            <option value="mailerlite">Mailerlite</option>
+            <option value="convertkit">Convertkit</option>
           </select>
         </label>
       </div>

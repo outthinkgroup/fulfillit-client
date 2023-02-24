@@ -2,12 +2,14 @@ import * as React from "react";
 
 import MailchimpSetupForm from "./Mailchimp";
 import MailerliteSetupForm from "./Mailerlite";
+import ConvertkitSetupForm from "./Convertkit";
 
 import { WizardFormButton } from "../NewCampaignWizard/WizardCards";
 
 const Services = {
   mailchimp: (props) => <MailchimpSetupForm {...props} />,
   mailerlite: (props) => <MailerliteSetupForm {...props} />,
+  convertkit: (props) => <ConvertkitSetupForm {...props} />,
 };
 
 const emptyNull = () => null;

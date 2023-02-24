@@ -22,6 +22,7 @@ export const SINGLE_CAMPAIGN = gql`
         description
         emailMarketingService
         name
+        servicePublicKey
         serviceApiKey
         serviceGroupId
         serviceListId
@@ -36,6 +37,7 @@ export const UPDATE_CAMPAIGN = gql`
     $emailMarketingService: String
     $name: String
     $serviceApiKey: String
+    $servicePublicKey:String
     $serviceGroupId: String
     $serviceListId: String
     $description: String
@@ -50,6 +52,7 @@ export const UPDATE_CAMPAIGN = gql`
         emailMarketingService: $emailMarketingService
         name: $name
         serviceApiKey: $serviceApiKey
+        servicePublicKey:$servicePublicKey
         serviceGroupId: $serviceGroupId
         serviceListId: $serviceListId
         status: $status
@@ -66,6 +69,7 @@ export const UPDATE_CAMPAIGN = gql`
           emailMarketingService
           name
           serviceApiKey
+          servicePublicKey
           serviceGroupId
           serviceListId
         }

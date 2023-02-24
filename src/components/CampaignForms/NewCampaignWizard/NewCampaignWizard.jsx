@@ -18,6 +18,7 @@ export const FORM_DEFAULT_STATE = {
   },
   mailserviceInfo: {
     serviceApiKey: "",
+    servicePublicKey:"",
     serviceListId: "",
     serviceGroupId: "",
   },
@@ -32,6 +33,7 @@ const NEW_CAMPAIGN = gql`
     $emailMarketingService: String
     $name: String
     $serviceApiKey: String
+    $servicePublicKey: String
     $serviceGroupId: String
     $serviceListId: String
     $description: String
@@ -44,6 +46,7 @@ const NEW_CAMPAIGN = gql`
         emailMarketingService: $emailMarketingService
         name: $name
         serviceApiKey: $serviceApiKey
+        servicePublicKey: $servicePublicKey
         serviceGroupId: $serviceGroupId
         serviceListId: $serviceListId
         description: $description
@@ -61,6 +64,7 @@ const NEW_CAMPAIGN = gql`
           emailMarketingService
           name
           serviceApiKey
+          servicePublicKey
           serviceGroupId
           serviceListId
         }
@@ -97,6 +101,7 @@ const NewCampaignWizard = ({}) => {
         description: general.description,
         emailMarketingService: mailservice.emailMarketingService,
         serviceApiKey: mailserviceInfo.serviceApiKey,
+        servicePublicKey: mailserviceInfo.servicePublicKey,
         serviceGroupId: mailserviceInfo.serviceGroupId,
         serviceListId: mailserviceInfo.serviceListId,
         status: finish.status,

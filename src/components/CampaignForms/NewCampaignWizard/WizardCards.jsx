@@ -78,8 +78,9 @@ const FormCards = [
             data-cardname={cards[item]}
           >
             <option value="">choose a email marketing service</option>
-            <option value="mailchimp">mailchimp</option>
-            <option value="mailerlite">mailerlite</option>
+            <option value="mailchimp">Mailchimp</option>
+            <option value="mailerlite">Mailerlite</option>
+            <option value="convertkit">ConvertKit</option>
           </select>
         </label>
       </div>

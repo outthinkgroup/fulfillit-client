@@ -1,97 +1,126 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Sendmagnet Client
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+## How to add a new Email Service to the client
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+1. create a new File in `src/components/CampaignForms/EmailMarketingServiceConfigInfo/<email-service-name>.jsx`
 
-## 🚀 Quick start
+   1. create a gql query:
+      - try and follow naming convention of `<EmailServiceInitials>_<Resource>_QUERY` all caps as well.
+      - add the required variables
+      - query for all data that is needed to set up a campaign
 
-1.  **Create a Gatsby site.**
+   ```javascript
+   const CK_FORM_QUERY = gql`
+     query CK_FORM_QUERY($apiKey: String, $publicKey: String) {
+       #adding variables
+       convertkitData(apiKey: $apiKey, publicKey: $publicKey) {
+         #querying for the required data to set up campaign
+         forms {
+           name
+           id
+         }
+       }
+     }
+   `;
+   ```
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+   2. create `use<EmailService>Data()` hook that is a wrapper around `useQuery`
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
+   ```javascript
+   export function useConverkitData(apiKey, publicKey) {
+     return useQuery(CK_FORM_QUERY, { variables: { apiKey, publicKey } });
+   }
+   ```
+
+   3. Copy a working component to use as a reference to how the new one should work. Replace where makes sense.
+      - Mailerlite is a good one to copy as its the simplest
+      - if you have fields that depend on each other look at the Mailchimp component
+      1. Replace all of old component code that is specific to that service you copied with the name and resources of
+         the one you are adding
+      2. make sure you are setting the name for each input as the name of the field you want to update in the form
+         - example:
+         ```javascript
+           <select
+             name="serviceListId" // this matches
+             id="list-id"
+             value={form.serviceListId} // this key
+             onChange={updateForm}
+             data-cardname={cardname}
+           >
+         ```
+   4. Add your component to the list of emailservice in
+      `src/components/CampaignForms/EmailMarketingServiceConfigInfo/EmailMarketingServiceConfigInfo.jsx`
+
+      ```javascript
+      const Services = {
+        mailchimp: (props) => <MailchimpSetupForm {...props} />,
+        mailerlite: (props) => <MailerliteSetupForm {...props} />,
+        convertkit: (props) => <ConvertkitSetupForm {...props} />,
+        // add yours here just like this 👇
+        //service_slug: (props)=><YourComponentForService {...props}/>
+      };
+      ```
+
+      - This will make it available to be used
+
+   5. if your component has additional required fields that are not on this list:
+
+      - "serviceApiKey",
+      - "emailMarketingService",
+      - "name",
+      - "email",
+      - "status",
+
+      Then you will need to add it to the `EmailServiceRequiredFields` object in file `src/utils/formValidation.js`
+
+      ```javascript
+      const EmailServiceRequiredFields = {
+        convertkit: ["servicePublicKey"],
+        youremailserviceslug: ["formFieldName"],
+      };
+      ```
+
+      you will also need to add that option if its not already there to the `FORM_DEFAULT_STATE` variable in
+      `src/components/CampaignForms/NewCampaignWizard/NewCampaignWizard.jsx`
+
+      ```javascript
+      export const FORM_DEFAULT_STATE = {
+        general: {
+          name: "",
+          email: "",
+          description: "",
+        },
+        mailservice: {
+          emailMarketingService: "",
+        },
+        mailserviceInfo: {
+          serviceApiKey: "",
+          serviceListId: "",
+          serviceGroupId: "",
+          //here
+          serviceExampleField: "", // <- like this
+        },
+        finish: {
+          status: "",
+        },
+      };
+      ```
+    6. Add it to the list of options in `src/components/CampaignForms/EditCampaign/CampaignFormFields.jsx` and
+    `src/components/CampaignForms/NewCampaignWizard/WizardCards.jsx`
+    ```javascript
+          <select
+            name="emailMarketingService"
+            onChange={updateForm}
+            id="service"
+            value={form.emailMarketingService}
+          >
+            <option value="">choose a email marketing service</option>
+            <option value="mailchimp">Mailchimp</option>
+            <option value="mailerlite">Mailerlite</option>
+            <option value="convertkit">ConvertKit</option>
+            <option value="yourservice">Your Service</option>//<- like this
+          </select>
     ```
 
-1.  **Start developing.**
+`
 
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
-
-1.  **Open the source code and start editing!**
-
-    Your site is now running at `http://localhost:8000`!
-
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
-
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
-
-## 🧐 What's inside?
-
-A quick look at the top-level files and directories you'll see in a Gatsby project.
-
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
-
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
