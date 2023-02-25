@@ -23,13 +23,13 @@ function allFieldsHaveData(currentCardName, formData) {
 function getFormValues(card, formData) {
   const emailService = formData?.mailservice?.emailMarketingService 
   return Object.keys(formData[card])
-    .filter(field => requiredFields.includes(field))
+    .filter(field => requiredFields.includes(field) || checkEmailServiceRequiredFields(emailService, field))
     .map(dataKey => formData[card][dataKey])
 }
 
 function checkEmailServiceRequiredFields(service, field){
-  if(!service) return true;
-  if(!EmailServiceRequiredFields.hasOwnProperty(service)) return true
+  if(!service) return false;
+  if(!EmailServiceRequiredFields.hasOwnProperty(service)) return false
 
   return EmailServiceRequiredFields[service].includes(field)
 }
