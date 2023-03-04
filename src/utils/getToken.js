@@ -12,7 +12,9 @@ export default async function getToken() {
     return token;
   }
 
+  //need to check if we even have the key in localStorage
   const expires = new Date(parseInt(localStorage.getItem("tokenExpires")));
+
   if (expires.getTime() < Date.now() || !localStorage.getItem("token")) {
     const refreshToken = localStorage.getItem("refreshToken");
     const res = await fetch(`${wp_url}/graphql`, {

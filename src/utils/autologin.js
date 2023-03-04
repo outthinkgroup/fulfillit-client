@@ -1,5 +1,5 @@
 export class AutoLogin {
-  token = "";
+  token = null
   constructor() {
     this.params = new URLSearchParams(window.location.search);
     if (this.params.has("auto_login")) {
@@ -18,7 +18,7 @@ export class AutoLogin {
   }
 
   hasToken() {
-    return this.token != "";
+    return this.token != null;
   }
 
   getToken() {

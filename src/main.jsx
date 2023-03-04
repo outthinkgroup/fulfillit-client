@@ -39,8 +39,8 @@ Sentry.init({
 const link = createHttpLink({
   uri: `${import.meta.env.VITE_GQL_URI}/graphql`,
 });
+
 const authLink = setContext(async (_, { headers }) => {
-  // const token = localStorage.getItem("token");
   const token = await getToken();
   // return the headers to the context so httpLink can read them
   return {
