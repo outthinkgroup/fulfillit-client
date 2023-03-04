@@ -24,8 +24,8 @@ export const SINGLE_CAMPAIGN = gql`
         name
         servicePublicKey
         serviceApiKey
-        serviceGroupId
-        serviceListId
+        segmentationLevel1
+        segmentationLevel2
       }
     }
   }
@@ -38,8 +38,8 @@ export const UPDATE_CAMPAIGN = gql`
     $name: String
     $serviceApiKey: String
     $servicePublicKey:String
-    $serviceGroupId: String
-    $serviceListId: String
+    $segmentationLevel2: String
+    $segmentationLevel1: String
     $description: String
     $status: String
   ) {
@@ -53,8 +53,8 @@ export const UPDATE_CAMPAIGN = gql`
         name: $name
         serviceApiKey: $serviceApiKey
         servicePublicKey:$servicePublicKey
-        serviceGroupId: $serviceGroupId
-        serviceListId: $serviceListId
+        segmentationLevel2: $segmentationLevel2
+        segmentationLevel1: $segmentationLevel1
         status: $status
       }
     ) {
@@ -70,8 +70,8 @@ export const UPDATE_CAMPAIGN = gql`
           name
           serviceApiKey
           servicePublicKey
-          serviceGroupId
-          serviceListId
+          segmentationLevel1
+          segmentationLevel2
         }
       }
     }

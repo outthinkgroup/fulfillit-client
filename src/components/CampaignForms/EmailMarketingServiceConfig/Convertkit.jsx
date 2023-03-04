@@ -57,9 +57,9 @@ export default function ConvertkitSetupForm({ cardname, updateForm, form }) {
               {/*we set forms as the list id because */}
               {/*this is the top level of segementation */}
               <select
-                name="serviceListId"
+                name="segmentationLevel1"
                 id="list-id"
-                value={form.serviceListId}
+                value={form.segmentationLevel1}
                 onChange={updateForm}
                 data-cardname={cardname}
               >
@@ -87,7 +87,7 @@ export function useConverkitData(apiKey, publicKey) {
 }
 const CK_FORM_QUERY = gql`
   query CK_FORM_QUERY($apiKey: String, $publicKey:String) {
-    convertKitData(apiKey: $apiKey, publicKey: $publicKey) {
+    convertKitData(serviceApiKey: $apiKey, servicePublicKey: $publicKey) {
       forms {
         name
         id

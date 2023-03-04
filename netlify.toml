@@ -10,6 +10,10 @@ targetPort = "2011"
 	environment = {VITE_GQL_URI="http://sendmagnet.local"}
 	targetPort = "2011"
 
+[context.test]
+	environment = {VITE_GQL_URI="http://sendmagnet.local"}
+	targetPort = "2011"
+
 [[redirects]]
 	from="/*"
 	to="/index.html"

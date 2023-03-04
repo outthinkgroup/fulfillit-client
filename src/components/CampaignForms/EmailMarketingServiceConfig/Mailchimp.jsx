@@ -11,7 +11,7 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
 
   const list = React.useMemo(
     () =>
-      mc?.mailchimpData?.lists?.find((list) => list.id === form.serviceListId),
+      mc?.mailchimpData?.lists?.find((list) => list.id === form.segmentationLevel1),
     [mc, form]
   );
   const groupsByParent = list?.groups.reduce((acc, group) => {
@@ -53,9 +53,9 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
             <label htmlFor="list-id">
               <Label>Mailchimp List</Label>
               <select
-                name="serviceListId"
+                name="segmentationLevel1" // List ID
                 id="list-id"
-                value={form.serviceListId}
+                value={form.segmentationLevel1}
                 onChange={updateForm}
                 data-cardname={cardname}
               >
@@ -74,9 +74,9 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
             <label className="mb-8" htmlFor="group-id">
               <Label>Mailchimp Group</Label>
               <select
-                name="serviceGroupId"
+                name="segmentationLevel2"
                 id="group-id"
-                value={form.serviceGroupId}
+                value={form.segmentationLevel2}
                 onChange={updateForm}
                 data-cardname={cardname}
               >

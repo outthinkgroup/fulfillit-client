@@ -19,8 +19,8 @@ export const FORM_DEFAULT_STATE = {
   mailserviceInfo: {
     serviceApiKey: "",
     servicePublicKey:"",
-    serviceListId: "",
-    serviceGroupId: "",
+    segmentationLevel2: "",
+    segmentationLevel1: "",
   },
   finish: {
     status: "",
@@ -34,8 +34,8 @@ const NEW_CAMPAIGN = gql`
     $name: String
     $serviceApiKey: String
     $servicePublicKey: String
-    $serviceGroupId: String
-    $serviceListId: String
+    $segmentationLevel2: String
+    $segmentationLevel1: String
     $description: String
     $status: String
   ) {
@@ -47,8 +47,8 @@ const NEW_CAMPAIGN = gql`
         name: $name
         serviceApiKey: $serviceApiKey
         servicePublicKey: $servicePublicKey
-        serviceGroupId: $serviceGroupId
-        serviceListId: $serviceListId
+        segmentationLevel2: $segmentationLevel2
+        segmentationLevel1: $segmentationLevel1
         description: $description
         status: $status
       }
@@ -65,8 +65,8 @@ const NEW_CAMPAIGN = gql`
           name
           serviceApiKey
           servicePublicKey
-          serviceGroupId
-          serviceListId
+          segmentationLevel1
+          segmentationLevel2
         }
       }
     }
@@ -102,8 +102,8 @@ const NewCampaignWizard = ({}) => {
         emailMarketingService: mailservice.emailMarketingService,
         serviceApiKey: mailserviceInfo.serviceApiKey,
         servicePublicKey: mailserviceInfo.servicePublicKey,
-        serviceGroupId: mailserviceInfo.serviceGroupId,
-        serviceListId: mailserviceInfo.serviceListId,
+        segmentationLevel2: mailserviceInfo.segmentationLevel2,
+        segmentationLevel1: mailserviceInfo.segmentationLevel1,
         status: finish.status,
       },
       refetchQueries: ["CAMPAIGNS"],

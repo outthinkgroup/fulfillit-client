@@ -95,8 +95,8 @@
         },
         mailserviceInfo: {
           serviceApiKey: "",
-          serviceListId: "",
-          serviceGroupId: "",
+          segmentationLevel1: "",
+          segmentationLevel2: "",
           //here
           serviceExampleField: "", // <- like this
         },

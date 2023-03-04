@@ -33,9 +33,9 @@ export default function MailerliteSetupForm({ cardname, updateForm, form }) {
         <label htmlFor="list-id">
           <Label>Group</Label>
           <select
-            name="serviceGroupId"
+            name="segmentationLevel1"
             id="list-id"
-            value={form.serviceGroupId}
+            value={form.segmentationLevel1}
             onChange={updateForm}
             data-cardname={cardname}
           >
