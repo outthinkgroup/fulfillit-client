@@ -69,12 +69,14 @@ export const CAMPAIGN_ANALYTICS = gql`
   ) {
     viewer {
       logs(
+        last:1000000
         where: {
           orderby: { field: DATE, order: ASC }
           dateQuery: { after: { day: $day, month: $month, year: $year } }
           taxQuery: {
             taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
           }
+          
         }
       ) {
         nodes {
