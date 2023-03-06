@@ -1,4 +1,3 @@
-import { wp_url } from ".";
 import { AutoLogin } from "./autologin";
 import {fetchRefreshToken, fetchAuthToken} from "./tokenQuery";
 
