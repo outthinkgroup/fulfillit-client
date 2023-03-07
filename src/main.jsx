@@ -43,9 +43,11 @@ const link = createHttpLink({
 const authLink = setContext(async (_, { headers }) => {
   const token = await getToken().catch(e=>{
     //This can fail if there is no refreshToken when it goes to get a fresh Auth Token
-    console.log(e.getMessage())
+    // console.log(e.getMessage())
     localStorage.clear()
-    window.location.href = window.location.origin + '/sign-in'
+    if(!window.location.href.includes('sign-in')){
+      window.location.href = window.location.origin + '/sign-in'
+    }
   });
   // return the headers to the context so httpLink can read them
   return {
