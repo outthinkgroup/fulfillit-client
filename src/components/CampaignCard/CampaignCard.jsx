@@ -15,7 +15,7 @@ const CampaignCard = ({ id, status, date, email, transactionCount, meta }) => {
     >
       <Link to={`/campaign/${id}`}>
         <div className="z-10 flex justify-between py-3 px-6">
-          <div className="w-full overflow-x-scroll">
+          <div className="w-full overflow-x-auto">
             <p className="m-0 inline-block rounded bg-blue-100 p-1 text-xs uppercase tracking-wide text-blue-600">
               {status}
             </p>
