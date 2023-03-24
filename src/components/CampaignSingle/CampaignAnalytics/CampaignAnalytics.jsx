@@ -28,6 +28,7 @@ export default function CampaignAnalytics() {
 
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
+
   }
   if (errorAnalytics) {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;

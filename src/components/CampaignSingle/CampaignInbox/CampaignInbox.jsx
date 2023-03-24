@@ -126,7 +126,8 @@ const Tr = ({ entry, children }) => {
         {entry.status != 200 ? (
           <footer className="mt-10 border-t border-blue-50 p-2">
             <div className="flex items-center justify-between">
-              <p className="text-md">Mark resolved?</p> <button>Resolve</button>
+              <p className="text-md">Mark resolved?</p>
+              <button>Resolve</button>
             </div>
           </footer>
         ) : null}
