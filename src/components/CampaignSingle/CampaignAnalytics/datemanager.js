@@ -92,7 +92,8 @@ function countOccurrenceBy(dates, getGroupId) {
 
 function byDay(date) {
   const dayReset = new Date(date);
-  dayReset.setHours(24, 0, 0);
+  dayReset.setHours(0, 0, 0);
+	console.log(dayReset, date)
   return dayReset.toLocaleDateString();
 }
 

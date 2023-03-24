@@ -30,9 +30,9 @@ describe("generates dates between dates", () => {
 describe("counts date occurences", () => {
   it("groups by day", () => {
     const input = [
-      new Date("2022-01-01"),
-      new Date("2022-01-02"),
-      new Date("2022-01-02"),
+      new Date("1/01/2022"),
+      new Date("1/02/2022"),
+      new Date("1/02/2022"),
     ];
     const actual = dayOccurences(input);
 		console.log(actual)
