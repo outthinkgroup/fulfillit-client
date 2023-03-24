@@ -35,6 +35,7 @@ describe("counts date occurences", () => {
       new Date("2022-01-02"),
     ];
     const actual = dayOccurences(input);
+		console.log(actual)
     expect(Object.keys(actual)[0]).eq("1/1/2022");
     expect(Object.keys(actual)[1]).eq("1/2/2022");
     expect(Object.values(actual)[1]).eq(2);
