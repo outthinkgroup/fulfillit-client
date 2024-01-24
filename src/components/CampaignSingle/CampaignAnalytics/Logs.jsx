@@ -121,7 +121,7 @@ function LogAttribute({ label, value, asHtml = false }) {
   );
 }
 export const CAMPAIGN_LOGS = gql`
-query CAMPAIGN_LOGS($campaign: [String]) {
+  query CAMPAIGN_LOGS($campaign: [String]) {
     viewer {
       id
       logs(
@@ -130,6 +130,7 @@ query CAMPAIGN_LOGS($campaign: [String]) {
           taxQuery: {
             taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
           }
+          orderby: { field: DATE, order: DESC }
         }
       ) {
         nodes {
@@ -155,4 +156,3 @@ query CAMPAIGN_LOGS($campaign: [String]) {
     }
   }
 `;
-
