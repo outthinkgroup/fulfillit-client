@@ -125,7 +125,7 @@ export const CAMPAIGN_LOGS = gql`
     viewer {
       id
       logs(
-        last: 100
+        first: 100
         where: {
           taxQuery: {
             taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
