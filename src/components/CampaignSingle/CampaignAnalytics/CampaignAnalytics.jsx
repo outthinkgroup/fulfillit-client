@@ -1,34 +1,32 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { useQuery, gql } from "@apollo/client";
 import CampaignGraph from "./CampaignGraph.jsx";
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { getStartDateForView } from "./datemanager";
-
+import { getStartDateForView, getTimeRangeForView } from "./datemanager";
+const start = (Date.now() / 1000).toString()
 export default function CampaignAnalytics() {
-  const { slug: campaignSlug } = useOutletContext();
+  const { campaignId } = useParams();
 
   const [view, setView] = React.useState("day");
 
   //this will be used to get all
   //logs after the date below
-  const afterDate = getStartDateForView(view);
+  const afterDate = useMemo(()=>getStartDateForView(view), [view]);
   const {
     data: dataAnalytics,
     loading: loadingAnalytics,
     error: errorAnalytics,
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
-      campaign: [campaignSlug],
-      day: afterDate.day,
-      month: afterDate.month,
-      year: afterDate.year,
+      campaign: "cG9zdDozMzg0NA==",
+      duration: getTimeRangeForView(view),
+      start: (Math.floor(afterDate.date.getTime() / 1000) ).toString(),
     },
   });
 
   if (loadingAnalytics) {
     return <div style={{ textAlign: "center" }}>Loading Campaign Logs...</div>;
-
   }
   if (errorAnalytics) {
     return <div style={{ textAlign: "center" }}>{errorAnalytics.message}</div>;
@@ -39,15 +37,14 @@ export default function CampaignAnalytics() {
       <div>
         <label htmlFor="viewSelect">view by</label>
         <select onChange={(e) => setView(e.target.value)} value={view}>
-          <option value="week">Last Quarter</option>
-          <option value="day">Last Month</option>
-          <option value="hour">Last 24 Hours</option>
+          <option value="month">Year</option>
+          <option value="day">Month</option>
         </select>
         <CampaignGraph
-          name={campaignSlug}
+          name={dataAnalytics?.campaign?.meta?.name}
           view={view}
           startDate={afterDate.date}
-          logs={dataAnalytics?.viewer?.logs?.nodes}
+          dates={dataAnalytics?.campaign?.graphAnalytics}
         />
       </div>
     </div>
@@ -63,29 +60,20 @@ export const CAMPAIGN_TRANSACTION_COUNT = gql`
 `;
 export const CAMPAIGN_ANALYTICS = gql`
   query CAMPAIGN_ANALYTICS(
-    $campaign: [String]
-    $day: Int
-    $month: Int
-    $year: Int
+    $campaign: ID!
+    $duration: String
+    $start: String
   ) {
-    viewer {
-      logs(
-        last:1000000
-        where: {
-          orderby: { field: DATE, order: ASC }
-          dateQuery: { after: { day: $day, month: $month, year: $year } }
-          taxQuery: {
-            taxArray: { taxonomy: FOR_CAMPAIGN, terms: $campaign, field: SLUG }
-          }
-          
-        }
-      ) {
-        nodes {
-          id
-          date
-        }
+    campaign(id: $campaign, idType: ID) {
+			meta{
+				name
+			}
+      graphAnalytics(duration: $duration, start: $start) {
+        count
+        day
+        month
+        year
       }
-      name
     }
-  }
+	}
 `;

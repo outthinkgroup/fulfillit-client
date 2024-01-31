@@ -142,7 +142,10 @@ export function getDateBeforeToday(timeKey) {
 const timeRangeForView = {
   hour:'day',
   day:'month',
-  week: 'quarter',
+  month: 'year',
+}
+export function getTimeRangeForView(view){
+	return timeRangeForView[view];
 }
 export function getStartDateForView(view){
   const timeRange = timeRangeForView[ view ];

@@ -18,7 +18,7 @@ import {
   byOccurrences,
 } from "./datemanager";
 
-export default function CampaignGraph({ name, logs, view, startDate }) {
+export default function CampaignGraph({ name, dates, view, startDate }) {
   const options = {
     responsive: true,
     plugins: {
@@ -33,23 +33,28 @@ export default function CampaignGraph({ name, logs, view, startDate }) {
   };
   const data = React.useMemo(
     function transformLogsToGraphData() {
-      // we shouldnt need to sort them they should come presorted
-      const sortedDates = logs.map((l) => new Date(l.date)) 
-      if (sortedDates.length <= 0) {
-        return null;
-      }
-      // generate all dates between start and end of our log data for more accurate representation
-      // with the same shape as what is created by byOccurrences
-      const fillerDates = datesBetween(
-        startDate,
-        new Date(),
-        view
-      ).reduce((acc, date) => {
-        acc[genDateKey(date, view)] = 0;
+			console.log(dates)
+      const formattedDates = dates?.reduce((acc, l) => {
+        let date = new Date(`${l.month}/${l.day}/${l.year}`);
+        acc[genDateKey(date, view)] = l.count;
         return acc;
       }, {});
+
+      if (dates?.length <= 0) {
+        return null;
+      }
+			console.log(formattedDates)
+      // generate all dates between start and end of our log data for more accurate representation
+      // with the same shape as what is created by byOccurrences
+      const fillerDates = datesBetween(startDate, new Date(), view).reduce(
+        (acc, date) => {
+          acc[genDateKey(date, view)] = 0;
+          return acc;
+        },
+        {},
+      );
       // the filler dates will be overwritten if we have logs for that date
-      const groups = { ...fillerDates, ...byOccurrences[view](sortedDates) };
+      const groups = { ...fillerDates, ...formattedDates };
       const data = Object.values(groups);
 
       const datasets = [
@@ -67,10 +72,11 @@ export default function CampaignGraph({ name, logs, view, startDate }) {
         datasets,
       };
     },
-    [logs, view]
+    [dates, view],
   );
 
   if (!data) return <p>Not enough data to display</p>;
+	console.log(data)
 
   return (
     <div>
@@ -86,7 +92,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 function LChart({ options, data }) {
