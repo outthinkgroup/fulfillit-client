@@ -19,7 +19,7 @@ export default function CampaignAnalytics() {
     error: errorAnalytics,
   } = useQuery(CAMPAIGN_ANALYTICS, {
     variables: {
-      campaign: "cG9zdDozMzg0NA==",
+      campaign: campaignId,
       duration: getTimeRangeForView(view),
       start: (Math.floor(afterDate.date.getTime() / 1000) ).toString(),
     },
