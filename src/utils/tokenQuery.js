@@ -1,8 +1,9 @@
+import { wp_url } from "./index";
 
 export async function fetchRefreshToken(token) {
   if(!token) throw new Error("No token was given");
 
-  const res = await fetch(`${import.meta.env.VITE_GQL_URI}/graphql`, {
+  const res = await fetch(`${wp_url}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +26,7 @@ export async function fetchRefreshToken(token) {
 export async function fetchAuthToken(refreshToken){
   if(!refreshToken) throw new Error("No refreshToken was given");
 
-    const res = await fetch(`${import.meta.env.VITE_GQL_URI}/graphql`, {
+    const res = await fetch(`${wp_url}/graphql`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

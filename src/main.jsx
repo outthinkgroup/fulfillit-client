@@ -18,6 +18,7 @@ import {
 } from "react-router-dom";
 import getToken from "./utils/getToken";
 import LocalState from "./hooks/LocalContext";
+import { wp_url } from "./utils";
 
 Sentry.init({
   dsn: "https://ada74006b8bd4e02968daa38e88dbe4e@o1188866.ingest.sentry.io/4504537308856322",
@@ -37,7 +38,7 @@ Sentry.init({
 });
 
 const link = createHttpLink({
-  uri: `${import.meta.env.VITE_GQL_URI}/graphql`,
+  uri: `${wp_url}/graphql`,
 });
 
 const authLink = setContext(async (_, { headers }) => {

@@ -13,6 +13,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      # Vite inlines VITE_* at build time. This job builds in GitHub Actions,
+      # so netlify.toml [context.*] env vars are never applied. Missing this
+      # compiles VITE_GQL_URI to undefined and login hits /undefined/graphql (404).
+      VITE_GQL_URI: ${{ vars.VITE_GQL_URI || 'https://sendmagnet.com' }}
 
     strategy:
       matrix:
