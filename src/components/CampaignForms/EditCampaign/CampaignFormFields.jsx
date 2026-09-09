@@ -46,6 +46,7 @@ export default function CampaignSettings({ form, updateForm }) {
             <option value="mailchimp">Mailchimp</option>
             <option value="mailerlite">Mailerlite</option>
             <option value="convertkit">Convertkit</option>
+            <option value="convertkit_v4">ConvertKit v4</option>
           </select>
         </label>
       </div>

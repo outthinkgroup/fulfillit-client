@@ -81,6 +81,7 @@ const FormCards = [
             <option value="mailchimp">Mailchimp</option>
             <option value="mailerlite">Mailerlite</option>
             <option value="convertkit">ConvertKit</option>
+            <option value="convertkit_v4">ConvertKit v4</option>
           </select>
         </label>
       </div>
