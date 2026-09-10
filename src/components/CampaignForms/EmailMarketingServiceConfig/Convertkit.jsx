@@ -14,10 +14,10 @@ export default function ConvertkitSetupForm({ cardname, updateForm, form }) {
     <>
       <div className="mailservice-info">
         <h3 className="mb-8 text-lg font-bold tracking-tight">
-          Convertkit options
+          ConvertKit Options
         </h3>
         <label className="mb-8" htmlFor="api-key">
-          <Label className="label-text">Convertkit Public Key</Label>
+          <Label className="label-text">ConvertKit Public Key</Label>
           <input
             type="text"
             name="servicePublicKey"
@@ -31,7 +31,7 @@ export default function ConvertkitSetupForm({ cardname, updateForm, form }) {
           {form.servicePublicKey && listsError?.message}
         </label>
         <label className="mb-8" htmlFor="api-key">
-          <Label className="label-text">Convertkit Secret Key</Label>
+          <Label className="label-text">ConvertKit Secret Key</Label>
           <input
             type="text"
             name="serviceApiKey"
@@ -47,13 +47,13 @@ export default function ConvertkitSetupForm({ cardname, updateForm, form }) {
         {listLoading && (
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Loader />
-            <span>Loading Convert Data</span>
+            <span>Loading ConvertKit Data...</span>
           </div>
         )}
         <div className="settings-group">
           {ck?.convertKitData?.forms?.length > 0 && (
             <label htmlFor="list-id">
-              <Label>Convertkit Form</Label>
+              <Label>ConvertKit Form</Label>
               {/*we set forms as the list id because */}
               {/*this is the top level of segementation */}
               <select

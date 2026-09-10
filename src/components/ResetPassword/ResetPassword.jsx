@@ -38,7 +38,7 @@ export default function ResetPassword() {
       <SigninFormWrapper>
         <div className="w-10 bg-blue-900 md:block md:w-2/6" />
         <div className="grid w-full flex-1 place-content-center py-8 px-6">
-          <h2 className="mb-3 text-xl font-bold">Request a password reset</h2>
+          <h2 className="mb-3 text-xl font-bold">Request a Password Reset</h2>
           {email ? (
             <>
               <p className="text-md mb-2 text-gray-600">
@@ -50,7 +50,7 @@ export default function ResetPassword() {
                 className="mb-6 text-blue-800 underline hover:no-underline"
                 to="/sign-in"
               >
-                Ready to sign in?
+                Ready to Sign In?
               </Link>
             </>
           ) : null}
@@ -63,7 +63,7 @@ export default function ResetPassword() {
             }}
           >
             <label htmlFor="username" className="block w-full min-w-full">
-              <Label>Username or email</Label>
+              <Label>Username or Email</Label>
               <input
                 className="block w-full"
                 type="text"
@@ -77,7 +77,7 @@ export default function ResetPassword() {
               type="submit"
               className="inline-block rounded-md bg-blue-600 text-sm"
             >
-              {loading ? "loading..." : "Request"}
+              {loading ? "Loading..." : "Request"}
             </button>
           </form>
           <p className="flex flex-col items-start gap-1">
@@ -91,7 +91,7 @@ export default function ResetPassword() {
               className="text-blue-800 underline hover:no-underline"
               href={`${wp_url}/create-account`}
             >
-              Don't have an account?
+              Don't Have an Account?
             </a>
           </p>
         </div>

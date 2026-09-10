@@ -18,8 +18,8 @@ export default function MyAccountButton({ accountStatus }) {
   return (
     <span className="flex  items-center ml-4 ">
       {!accountStatus ? (
-        <ToolTip text={"!"} type="error" message={"Not An Active Account"}>
-					Not an active account click "My Account" above to learn more
+        <ToolTip text={"!"} type="error" message={"Not an Active Account"}>
+					Not an Active Account. Click "My Account" above to learn more.
 				</ToolTip>
       ) : (
         ""

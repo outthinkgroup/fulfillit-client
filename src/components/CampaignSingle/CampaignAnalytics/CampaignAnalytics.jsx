@@ -35,7 +35,7 @@ export default function CampaignAnalytics() {
   return (
     <div>
       <div>
-        <label htmlFor="viewSelect">view by</label>
+        <label htmlFor="viewSelect">View By</label>
         <select onChange={(e) => setView(e.target.value)} value={view}>
           <option value="month">Year</option>
           <option value="day">Month</option>

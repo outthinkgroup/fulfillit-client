@@ -7,7 +7,7 @@ export function HiddenInput(props){
     <FlexRow>
       <input type={type} {...props} />
       <button type="button" onClick={()=>setType(s=>s=="password"?"text":"password")}>
-        {type=="password" ? "show" : "hide" }
+        {type=="password" ? "Show" : "Hide" }
       </button>
     </FlexRow>
   );

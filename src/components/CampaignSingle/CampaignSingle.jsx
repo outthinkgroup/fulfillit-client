@@ -42,7 +42,7 @@ const CampaignSingle = ({query}) => {
         </div>
         <CampaignTransactions campaignId={campaignData.campaign?.id} />
       </header>
-    <Tabs tabs={{Overview:"", Inbox:"inbox", settings:"Settings", Logs:"logs",Delete:"delete"}} >
+    <Tabs tabs={{Overview:"", Inbox:"inbox", Settings:"settings", Logs:"logs",Delete:"delete"}} >
         <Outlet context={{
           id: campaignData.campaign?.id,
           slug: campaignData.campaign?.email,

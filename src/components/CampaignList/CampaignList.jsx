@@ -55,7 +55,7 @@ const CampaignList = ({ className }) => {
     return (
       <div className={className}>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <Loader /> <span>loading...</span>
+          <Loader /> <span>Loading...</span>
         </div>
       </div>
     );

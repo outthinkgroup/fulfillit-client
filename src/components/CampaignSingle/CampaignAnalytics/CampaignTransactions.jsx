@@ -18,7 +18,7 @@ export default function CampaignTransactions({ campaignId }) {
   return (
     <div>
       <div className="flex gap-2">
-        <p className="font-medium capitalize ">Total transactions:</p>
+        <p className="font-medium capitalize ">Total Transactions:</p>
         <p className="font-bold text-blue-700">{data.campaign.transactions}</p>
       </div>
     </div>

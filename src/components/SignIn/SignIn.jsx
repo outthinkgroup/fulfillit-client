@@ -74,7 +74,7 @@ const SignIn = ({}) => {
             }}
           >
             <label htmlFor="username" className="block w-full min-w-full">
-              <Label>username</Label>
+              <Label>Username</Label>
               <input
                 className="block w-full"
                 type="text"
@@ -85,7 +85,7 @@ const SignIn = ({}) => {
               />
             </label>
             <label htmlFor="password" className="block w-full">
-              <Label>password</Label>
+              <Label>Password</Label>
               <input
                 className="w-full"
                 type="password"
@@ -99,7 +99,7 @@ const SignIn = ({}) => {
               type="submit"
               className="inline-block rounded-md bg-blue-600 text-sm"
             >
-              {loading ? "loading..." : "Sign in"}
+              {loading ? "Loading..." : "Sign In"}
             </button>
           </form>
           <p className="flex flex-col items-start gap-1">
@@ -113,7 +113,7 @@ const SignIn = ({}) => {
               className="text-blue-800 underline hover:no-underline"
               href={`${wp_url}/create-account`}
             >
-              Don't have an account?
+              Don't Have an Account?
             </a>
           </p>
         </div>

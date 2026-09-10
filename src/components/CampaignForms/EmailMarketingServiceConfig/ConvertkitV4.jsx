@@ -25,7 +25,7 @@ export default function ConvertkitV4SetupForm({ cardname, updateForm, form }) {
       {loading && (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Loader />
-          <span>Loading ConvertKit v4 Data</span>
+          <span>Loading ConvertKit v4 Data...</span>
         </div>
       )}
       {data?.convertKitV4Data?.forms?.length > 0 && (

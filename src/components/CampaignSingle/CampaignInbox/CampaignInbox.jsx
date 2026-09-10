@@ -106,7 +106,7 @@ const Tr = ({ entry, children }) => {
             target="_blank"
             className="rounded bg-blue-100 py-2 px-4 text-sm font-medium capitalize text-blue-600 hover:bg-blue-200"
           >
-            message
+            Message
           </a>
         </header>
         <div className="flex flex-col gap-4">
@@ -126,7 +126,7 @@ const Tr = ({ entry, children }) => {
         {entry.status != 200 ? (
           <footer className="mt-10 border-t border-blue-50 p-2">
             <div className="flex items-center justify-between">
-              <p className="text-md">Mark resolved?</p>
+              <p className="text-md">Mark Resolved?</p>
               <button>Resolve</button>
             </div>
           </footer>

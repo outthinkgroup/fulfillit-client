@@ -38,7 +38,7 @@ const FormCards = [
           </p>
         </label>
         <label htmlFor="description">
-          <Label>Short Description of what your campaign does.</Label>
+          <Label>Short Description of What Your Campaign Does</Label>
           <textarea
             name="description"
             id="description"
@@ -67,8 +67,8 @@ const FormCards = [
         <h3 className="mb-8 text-lg font-bold">Email Service</h3>
         <label htmlFor="mailservice">
           <Label>
-            Select which Email Marketing Service You want to subscibe your users
-            to
+            Select Which Email Marketing Service You Want to Subscribe Your
+            Users To
           </Label>
           <select
             id="mailservice"
@@ -77,9 +77,9 @@ const FormCards = [
             onChange={updateFormData}
             data-cardname={cards[item]}
           >
-            <option value="">choose a email marketing service</option>
+            <option value="">Choose an Email Marketing Service</option>
             <option value="mailchimp">Mailchimp</option>
-            <option value="mailerlite">Mailerlite</option>
+            <option value="mailerlite">MailerLite</option>
             <option value="convertkit">ConvertKit</option>
             <option value="convertkit_v4">ConvertKit v4</option>
           </select>
@@ -121,7 +121,7 @@ const FormCards = [
       <div className="finish">
         <h3 className="mb-8 text-lg font-bold">Publish</h3>
         <label htmlFor="publish">
-          <Label>Publish campaign</Label>
+          <Label>Publish Campaign</Label>
           <select
             value={formData.finish.status}
             onChange={updateFormData}
@@ -129,9 +129,9 @@ const FormCards = [
             id="publish"
             data-cardname={cards[item]}
           >
-            <option value="">Choose How To Publish</option>
+            <option value="">Choose How to Publish</option>
             <option value="publish">Publish</option>
-            <option value="draft">pause</option>
+            <option value="draft">Pause</option>
           </select>
         </label>
 
@@ -139,14 +139,14 @@ const FormCards = [
           card={cards[item]}
           formData={formData}
           fn={createNewCampaign}
-          txt={updating ? "creating...." : "Create Campaign"}
+          txt={updating ? "Creating..." : "Create Campaign"}
         />
       </div>
     </animated.div>
   ),
 ];
 
-const WizardFormButton = ({ card, formData, fn, txt = "next" }) => {
+const WizardFormButton = ({ card, formData, fn, txt = "Next" }) => {
   return allFieldsHaveData(card, formData) ? (
     <button
       className="rounded bg-blue-600 text-sm text-white"

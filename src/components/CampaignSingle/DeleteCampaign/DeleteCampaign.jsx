@@ -71,7 +71,7 @@ export function DeleteCampaign() {
           <span className="normal-case text-red-600">
             {data?.campaign?.email}
           </span>{" "}
-          to confirm
+          to Confirm
         </Label>
         <div className="flex gap-1">
           <input

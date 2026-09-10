@@ -8,9 +8,9 @@ export default function MailerliteSetupForm({ cardname, updateForm, form }) {
   console.log(data);
   return (
     <div className="mailservice-info">
-      <h3 className="mb-3 text-lg font-bold">Mailerlite Options</h3>
+      <h3 className="mb-3 text-lg font-bold">MailerLite Options</h3>
       <label htmlFor="api-key">
-        <Label>Mailerlite Api Key</Label>
+        <Label>MailerLite API Key</Label>
         <input
           type="text"
           name="serviceApiKey"
@@ -26,7 +26,7 @@ export default function MailerliteSetupForm({ cardname, updateForm, form }) {
       {loading && (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Loader />
-          <span>Loading Mailerlite Data</span>
+          <span>Loading MailerLite Data...</span>
         </div>
       )}
       {data?.mailerliteData?.groups?.length > 0 && (

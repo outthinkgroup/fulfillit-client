@@ -47,7 +47,7 @@ export default function Logs() {
       <div className="wrapper">
         <form onSubmit={(e) => e.preventDefault()} className="p-4">
           <label className="mb-0" htmlFor="search">
-            <Label>Filter logs by title or content</Label>
+            <Label>Filter Logs by Title or Content</Label>
           </label>
           <input
             type="text"
@@ -78,11 +78,11 @@ export default function Logs() {
                       </summary>
                       <div class="mt-3 flex flex-col overflow-hidden rounded">
                         <LogAttribute
-                          label="campaign"
+                          label="Campaign"
                           value={forCampaigns.nodes[0].name}
                         />
-                        <LogAttribute label="sender" value={meta.sender} />
-                        <LogAttribute label="subject" value={meta.subject} />
+                        <LogAttribute label="Sender" value={meta.sender} />
+                        <LogAttribute label="Subject" value={meta.subject} />
                         <LogAttribute
                           label="Email Body"
                           asHtml={true}
@@ -98,7 +98,7 @@ export default function Logs() {
                 );
               })
           ) : (
-            <p className="p-4 font-bold">No logs to display</p>
+            <p className="p-4 font-bold">No Logs to Display</p>
           )}
         </ul>
       </div>

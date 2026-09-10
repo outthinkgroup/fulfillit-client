@@ -26,10 +26,10 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
     <>
       <div className="mailservice-info">
         <h3 className="mb-8 text-lg font-bold tracking-tight">
-          Mailchimp options
+          Mailchimp Options
         </h3>
         <label className="mb-8" htmlFor="api-key">
-          <Label className="label-text">Mailchimp Api Key</Label>
+          <Label className="label-text">Mailchimp API Key</Label>
           <input
             type="text"
             name="serviceApiKey"
@@ -45,7 +45,7 @@ export default function MailchimpSetupForm({ cardname, updateForm, form }) {
         {listLoading && (
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Loader />
-            <span>Loading Mailchimp Data</span>
+            <span>Loading Mailchimp Data...</span>
           </div>
         )}
         <div className="settings-group">

@@ -19,6 +19,7 @@ import {
 } from "./datemanager";
 
 export default function CampaignGraph({ name, dates, view, startDate }) {
+  const viewLabel = view.charAt(0).toUpperCase() + view.slice(1);
   const options = {
     responsive: true,
     plugins: {
@@ -27,7 +28,7 @@ export default function CampaignGraph({ name, dates, view, startDate }) {
       },
       title: {
         display: true,
-        text: `Transactions by ${view} for ${name}`,
+        text: `Transactions by ${viewLabel} for ${name}`,
       },
     },
   };
@@ -59,7 +60,7 @@ export default function CampaignGraph({ name, dates, view, startDate }) {
 
       const datasets = [
         {
-          label: `By ${view}`,
+          label: `By ${viewLabel}`,
           data,
           pointRadius: Object.values(groups).map((v) => (v > 0 ? 3 : 0)),
           borderColor: "rgb(255, 99, 132)",
@@ -75,7 +76,7 @@ export default function CampaignGraph({ name, dates, view, startDate }) {
     [dates, view],
   );
 
-  if (!data) return <p>Not enough data to display</p>;
+  if (!data) return <p>Not Enough Data to Display</p>;
 	console.log(data)
 
   return (

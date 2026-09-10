@@ -19,7 +19,7 @@ const Navigation = ({ userData = false }) => {
             className="text-base font-normal capitalize tracking-normal text-white"
             to="/sign-in"
           >
-            sign in
+            Sign In
           </Link>
         </>
       ) : (
