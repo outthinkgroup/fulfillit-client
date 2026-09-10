@@ -1,0 +1,17 @@
+{
+  "name": "Fulfillit Client (SendMagnet)",
+  "install": "yarn install --frozen-lockfile",
+  "terminals": [
+    {
+      "name": "vite-dev",
+      "command": "VITE_GQL_URI=https://sendmagnet.com yarn dev --host",
+      "description": "Vite dev server for the React SPA, served on port 2011."
+    }
+  ],
+  "ports": [
+    {
+      "name": "vite",
+      "port": 2011
+    }
+  ]
+}
